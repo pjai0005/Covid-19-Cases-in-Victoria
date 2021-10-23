@@ -93,7 +93,7 @@ lga <- as_tibble(lga_boundaries)%>% select(-geometry)
 ```
 
 
-```{r}
+```{r,eval=FALSE}
   ggplot(data=postcode_boundaries) +
   geom_sf(mapping = aes(geometry= geometry)) +
   geom_sf_text(aes(geometry= geometry,label=POSTCODE, colour="white"), 
@@ -208,6 +208,56 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + geom_col
 Thus in all, I would say that the vaccination rate causes the infection rate to slow down. However, the neglected attitude of people and the hesitancy to take the vaccine has caused this pandemic to disturb normal life for longer times. The restrictions and other regulations have most definitely allowed us this time to face this pandemic in a stringer manner to avoid more deaths. Therefore, please get vaccinated and stay safe.
 
 
+# 1
+
+# 2
+
+# 3
+
+```{r}
+library(ggraph)
+library(tidygraph)
+
+clean_selected <- covid_cases %>% 
+  group_by(acquired,Localgovernmentarea) %>% 
+  summarise(n_cases = n()) %>% 
+  ungroup() %>% 
+  mutate(acquired = as.factor(acquired),
+         Localgovernmentarea = as.factor(Localgovernmentarea),
+         aclg = paste0(Localgovernmentarea,acquired)) 
+
+graph_dt <- clean_selected %>% 
+  group_by(aclg) %>% 
+  summarise(total_cases = sum(n_cases)) %>% 
+  left_join(clean_selected, by = "aclg") %>% 
+  rename(from = Localgovernmentarea, to = acquired) %>% 
+  as_tbl_graph()
+
+acquired1 <- covid_cases %>% select(acquired) %>% unique()  
+acquired <- acquired1$acquired 
+
+lga1 <- covid_cases %>% select(Localgovernmentarea) %>% unique()  
+lga <- lga1$Localgovernmentarea 
+
+structure <- c(acquired,lga)
+
+```
 
 
+
+```{r}
+set.seed(1234)
+ggraph(graph_dt, "lgl") +
+  geom_edge_link2(color = "grey90") +
+  geom_node_point(data = ~.x %>% filter(name %in% structure)) + 
+  geom_node_label(data = ~.x %>% filter(name %in% structure),
+                  aes(label = name), repel = TRUE, 
+                  label.size = NA,  fill = "orange") +
+  geom_node_label(data = ~.x %>% filter(!name %in% structure),
+                  aes(label = name), size = 2, 
+                  label.size = 0.1,  fill = "lightblue2") +
+  scale_edge_color_brewer(palette = "Dark2") + 
+  theme_void()
+
+```
 
