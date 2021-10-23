@@ -75,3 +75,17 @@ covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>%
 
 ```
 
+```{r}
+
+date_case <-covid_cases %>% group_by(diagnosis_date) %>% count()
+
+age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% count()
+
+acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% count()
+
+pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% count()
+
+pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% count()
+
+```
+
