@@ -245,4 +245,35 @@ sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing COVID Cas
 
 sankey
 ```
+---
+class: center, middle
+```{r}
+acq<- covid_cases %>% 
+  mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
+         day = day(diagnosis_date),
+         month = month(diagnosis_date, label = TRUE), 
+         year = year(diagnosis_date),
+         month = as.factor(month)) %>%
+  select(diagnosis_date, month, day, acquired) %>%
+  group_by(diagnosis_date, month, day, acquired) %>%
+  summarise(value = n()) %>%
+  pivot_wider(names_from = acquired,
+              values_from = value) %>%
+  rename("Unknown"="Acquired in Australia, unknown source",
+         "Contact"="Contact with a confirmed case",
+         "Travel"="Travel overseas") %>%
+  pivot_longer(cols = -c(diagnosis_date, day, month),
+               names_to = "target",
+               values_to = "value")
 
+ggplot(acq, aes(x= day, y= value, color = target))+
+  geom_line(size = 1.2)+
+  theme_light()+
+  facet_grid(~ month, scales='free_x')+
+  scale_y_continuous(breaks = seq(0, 600, by = 100))+
+  scale_color_brewer(name = "", palette = "Dark2")+
+  labs(x= "Days",
+       y= " Cases",
+       title = "Cause of Increase in COVID-19 Infections",
+       subtitle = "from May'20 to September'20 in Victoria, Melbourne")
+```
