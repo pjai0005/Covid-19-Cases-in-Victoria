@@ -208,6 +208,10 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + geom_col
 Thus in all, I would say that the vaccination rate causes the infection rate to slow down. However, the neglected attitude of people and the hesitancy to take the vaccine has caused this pandemic to disturb normal life for longer times. The restrictions and other regulations have most definitely allowed us this time to face this pandemic in a stringer manner to avoid more deaths. Therefore, please get vaccinated and stay safe.
 
 
+# 1
 
+# 2
+
+# 3
 
 
