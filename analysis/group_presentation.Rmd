@@ -52,7 +52,26 @@ library(GGally)
 library(naniar)
 library(tidyr)
 library(RefManageR)
+library(dygraphs)
+library(xts)
 ```
 
+```{r}
 
+# lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
+# 
+# postcode_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz Postcode data - postcode.csv"))
+# 
+# cases_source <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Source_20211023.csv"))
+# 
+# lga_cases <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_20211023.csv"))
+
+covid_cases0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
+covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
+
+covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
+  filter(diagnosis_date>="2020-05-01") %>% 
+  filter(diagnosis_date<="2020-09-30")
+
+```
 

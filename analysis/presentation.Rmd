@@ -55,7 +55,7 @@ library(GGally)
 library(naniar)
 library(tidyr)
 library(RefManageR)
-
+library(xts)
 
 options(htmltools.dir.version = FALSE)
 
@@ -75,3 +75,6 @@ BibOptions(
   dashed = FALSE)
 myBib = ReadBib(here::here("reference.bib"))
 ```
+
+
+
