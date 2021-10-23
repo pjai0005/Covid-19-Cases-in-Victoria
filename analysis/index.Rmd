@@ -159,7 +159,7 @@ top_lga <- top_lga1$Localgovernmentarea
 ```
 
 .pull-left[
-```{r p4, fig.width=8, fig.height=6,out.width="100%"}
+```{r p4, fig.width=10, fig.height=6,out.width="100%"}
 graphlga0 <- karandata %>%
   separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>%
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
@@ -200,14 +200,16 @@ pg
 
 ****Key Insights****:
 
-*  Only **Siddeley Street** recorded data for all the months and windspeed was increasing till September, then a drop is observed
-*  **Flinders Street, Little Collins Street, Lonsdale Street, Spring Street, William Street** recorded only for 2 months, with only Spring Street showcasing an increase in Avg. windspeed
-
+*  Every LGA spiked in the no of covid cases after June,2020
+*  The spike was almost 20%
+*  Similar kind of pattern across the some LGA
 ]
 ]
+.scrollable[
 .panel[.panel-name[R]
 ```{r ref.label="p4", echo=TRUE, eval=FALSE}
 ```
+]
 ]
 ]
 
@@ -242,6 +244,10 @@ pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea,
 
 ---
 
+### Network graph showcasing the source of covid in each LGA
+
+.panelset[
+.panel[.panel-name[plot]
 ```{r graph-clean,include=FALSE}
 library(ggraph)
 library(tidygraph)
@@ -272,8 +278,6 @@ acquired <- acquired1$acquired
 structure <- c(acquired,top_lga)
 
 ```
-
-
 ```{r graph4,echo=FALSE}
 set.seed(1234)
 ggraph(graph_dt, "lgl") +
@@ -289,8 +293,17 @@ ggraph(graph_dt, "lgl") +
   theme_void()
 
 ```
+]
+.panel[.panel-name[Learn]
 
+**keyInsights**:
 
+]
+.panel[.panel-name[R]
+```{r ref.label="graph", echo=TRUE, eval=FALSE}
+```
+]
+]
 
 
 ---
