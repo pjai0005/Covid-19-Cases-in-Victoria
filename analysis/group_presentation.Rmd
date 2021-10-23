@@ -39,7 +39,12 @@ xaringanExtra::use_panelset()
 knitr::opts_chunk$set(echo = FALSE, 
                       messages = FALSE, 
                       cache = TRUE,
-                     warning = FALSE, fig.path = "figures", fig.align ="center")
+                     warning = FALSE, 
+                     fig.path = "figures", 
+                     fig.align ="center",
+                     dev.args = list(bg = 'transparent'),
+                    fig.retina = 3
+  )
 
 library(tidyverse) 
 library(lubridate)
@@ -78,6 +83,7 @@ library(unglue)
 library(xts)
 library(gghighlight)
 library(networkD3)
+library(ggplot2)
 ```
 
 ```{css, echo = FALSE}
@@ -87,6 +93,11 @@ library(networkD3)
 }
 .bg-gray80 {
   background-color: #DCDCDC!important;
+}
+
+.scrollable {
+  height: 80%;
+  overflow-y: auto;
 }
 ```
 
@@ -495,9 +506,9 @@ vicpopulation %>%
 ```
 
 ---
-
 # 3
-
+.panelset[
+.panel[.panel-name[plot]
 ```{r,include=FALSE}
 top_lga1 <- covid_cases %>% 
   group_by(Localgovernmentarea) %>% 
@@ -509,9 +520,8 @@ top_lga1 <- covid_cases %>%
   select(Localgovernmentarea)
 top_lga <- top_lga1$Localgovernmentarea
 ```
-
-```{r,include=FALSE}
-top_10_grf <- covid_cases %>% 
+```{r linelga,warning=FALSE,message=FALSE,echo=FALSE,fig.width=6, fig.height=2,out.width="100%"}
+graphlga <- covid_cases %>% 
   separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
          Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
@@ -529,25 +539,41 @@ top_10_grf <- covid_cases %>%
   ggplot(aes(Month,
              n_cases,
              color = Localgovernmentarea)) +
-  geom_point() +
   geom_line() +
   geom_point(aes(text = tooltip)) +
   scale_x_continuous() +
   labs(x = "Month",
        y = "No. of Cases",
        title = "Trend of Top 10 LGA with maximum Covid Cases",
-       color = "") +
+       color = NULL) +
   theme_bw()
+ggplotly(graphlga,
+         tooltip = "text") 
 
   
 ```
+]
+.panel[.panel-name[learn]
 
-```{r,echo=FALSE}
-ggplotly(top_10_grf,
-         tooltip = "text") %>% 
-    config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
+<br> <br>
+****Key Insights****:
+
+*  Lot of missing data
+*  Confirmation to the previous plot of following Least recorded areas with similar kind of pattern
+   *  Flinders Street
+   *  Little Collins Street
+   *  Lonsdale Street
+   *  Spring Street
+   *  William Street
+
+*  After the Wednesday afternoon of 2nd week of june in Siddeley Street, a sudden spike in wind speed is observed.
+
+]
+.panel[.panel-name[R]
+```{r ref.label="linelga", echo=TRUE, eval=FALSE}
 ```
-
+]
+]
 
 ---
 
