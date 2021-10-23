@@ -92,6 +92,7 @@ library(xts)
 library(gghighlight)
 library(networkD3)
 library(emo)
+options(htmltools.dir.version = FALSE)
 ```
 
 
@@ -464,7 +465,6 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) +
 ]
 ---
 class: center, middle
-
 ```{r, warning=FALSE, message=FALSE, fig.align='center', out.height="50%", out.width="80%"}
 sank <- covid_cases %>% 
   mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
@@ -501,10 +501,11 @@ sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing COVID Cas
 #sankey <- htmlwidgets::appendContent(sankey, htmltools::tags$p("Comparing Death Toll"))
 ```
 
-
-```{r ,warning=FALSE, message=FALSE, out.height="10%", out.width="20%"}
+.scrollable[
+```{r ,warning=FALSE, message=FALSE, out.height="100%", out.width="100%"}
 sankey
 ```
+]
 
 
 ---
