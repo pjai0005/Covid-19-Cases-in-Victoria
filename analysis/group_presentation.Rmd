@@ -19,6 +19,7 @@ biblio-style: authoryear-comp
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
                       messages = FALSE, 
+                      cache = TRUE,
                      warning = FALSE, fig.path = "figures", fig.align ="center")
 
 library(tidyverse) 
@@ -94,14 +95,7 @@ lga <- as_tibble(lga_boundaries)%>% select(-geometry)
 ```
 
 
-```{r,eval=FALSE}
-  ggplot(data=postcode_boundaries) +
-  geom_sf(mapping = aes(geometry= geometry)) +
-  geom_sf_text(aes(geometry= geometry,label=POSTCODE, colour="white"), 
-               check_overlap=TRUE)+
-  theme_void() 
 
-```
 ```{r}
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
 
@@ -308,17 +302,26 @@ lga1 <- covid_cases %>% select(Localgovernmentarea1) %>%
   left_join(lga_boundaries)
 ```
 
-
-
-
-# 3
-
 ```{r}
-covid_cases %>% 
+top10 <- covid_cases %>% 
   group_by(Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
   slice_max(n_cases,n = 10)
 ```
+
+
+```{r,eval=FALSE}
+  ggplot(data=postcodes1) +
+  geom_sf(mapping = aes(geometry= geometry)) +
+  geom_sf_text(aes(geometry= geometry,label=POSTCODE, colour="white"), 
+               check_overlap=TRUE)+
+  theme_void() 
+
+```
+
+# 3
+
+
 
 
 ```{r}
