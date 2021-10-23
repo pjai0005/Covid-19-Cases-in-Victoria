@@ -19,6 +19,7 @@ biblio-style: authoryear-comp
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
                       messages = FALSE, 
+                      cache = TRUE,
                      warning = FALSE, fig.path = "figures", fig.align ="center")
 
 library(tidyverse) 
@@ -85,7 +86,8 @@ data_path <- here::here("data/shape/boundaries/esrishape/whole_of_dataset/victor
 
 postcode_boundaries <- read_sf(here::here(glue(data_path, "POSTCODE_POLYGON.shp"))) 
 
-lga_boundaries <- read_sf(here::here(glue(data_path, "AD_LGA_AREA_POLYGON.shp")))%>% filter(STATE=="VIC")
+lga_boundaries <- read_sf(here::here(glue(data_path, "AD_LGA_AREA_POLYGON.shp")))%>% filter(STATE=="VIC") %>% 
+  distinct(NAME,.keep_all = TRUE)
 ```
 
 ```{r}
@@ -94,14 +96,7 @@ lga <- as_tibble(lga_boundaries)%>% select(-geometry)
 ```
 
 
-```{r,eval=FALSE}
-  ggplot(data=postcode_boundaries) +
-  geom_sf(mapping = aes(geometry= geometry)) +
-  geom_sf_text(aes(geometry= geometry,label=POSTCODE, colour="white"), 
-               check_overlap=TRUE)+
-  theme_void() 
 
-```
 ```{r}
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
 
@@ -308,12 +303,101 @@ lga1 <- covid_cases %>% select(Localgovernmentarea1) %>%
   left_join(lga_boundaries)
 ```
 
-
-
-
-# 3
-
 ```{r}
+top10_lga <- covid_cases %>% 
+  group_by(Localgovernmentarea1) %>% 
+  summarise(n_cases = n()) %>% 
+  slice_max(n_cases,n = 10) %>% 
+  pull(Localgovernmentarea1)
+
+top10_postcode <- covid_cases %>% 
+  group_by(Postcode) %>% 
+  summarise(n_cases = n()) %>% 
+  slice_max(n_cases,n = 10) %>% 
+  pull(Postcode)
+```
+
+
+```{r,eval=FALSE}
+  ggplot(data=postcodes1 %>% filter(POSTCODE %in% top10_postcode)) +
+  geom_sf(mapping = aes(geometry= geometry)) +
+  geom_sf_text(aes(geometry= geometry,label=POSTCODE), 
+               check_overlap=TRUE)+
+  theme_void() 
+
+ggplot(data=lga1 %>% filter(NAME1 %in% top10_lga)) +
+  geom_sf(mapping = aes(geometry= geometry)) +
+  geom_sf_text(aes(geometry= geometry,label=NAME1), 
+               check_overlap=TRUE)+
+  theme_void() 
+```
+
+
+```{r }
+data_path <- here::here("data/australian_census_data_2016/")
+```
+
+
+```{r datapath}
+census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
+                         number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
+```
+```{r geopath}
+data_path <- here::here("data/australian_census_data_2016/")
+geopath <- glue::glue(data_path, "/2016_SA4_shape/SA4_2016_AUST.shp")
+sa4_codes<- read_csv(census_paths[2]) %>% 
+                mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+                select(SA4_CODE_2016)
+sa4_geomap <- read_sf(geopath) %>%
+  right_join(sa4_codes, by=c("SA4_CODE16" = "SA4_CODE_2016"))
+```
+
+
+
+```{r g51read}
+g51 <- map_dfr(census_paths[6:8], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}_{industry=(Ag_For_Fshg|Mining|Manufact|El_Gas_Wt_Waste|Constru|WhlesaleTde|RetTde|Accom_food|Trans_post_wrehsg|Info_media_teleco|Fin_Insur|RtnHir_REst|Pro_scien_tec|Admin_supp|Public_admin_sfty|Educ_trng|HlthCare_SocAs|Art_recn|Oth_scs|ID_NS)}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{industry=(Ag_For_Fshg|Mining|Manufact|El_Gas_Wt_Waste|Constru|WhlesaleTde|RetTde|Accom_food|Trans_post_wrehsg|Info_media_teleco|Fin_Insur|RtnHir_REst|Pro_scien_tec|Admin_supp|Public_admin_sfty|Educ_trng|HlthCare_SocAs|Art_recn|Oth_scs|ID_NS)}_{age_min=\\d+}ov"
+                     ),
+                remove = FALSE)
+})
+```
+```{r g51rename}
+g51 <- g51 %>% 
+  mutate(industry =case_when(
+                            str_detect(industry, "Ag_For_Fshg") ~ "Agriculture_forestry_and_fishing",
+                            str_detect(industry, "Manufact") ~ "Manufacturing",
+                            str_detect(industry, "El_Gas_Wt_Waste") ~ "Electricity_gas_water_and_waste_service",
+                            str_detect(industry, "Constru") ~ "Construction",
+                            str_detect(industry, "Ag_Envir_Rltd_Sts") ~ "Agriculture_Environment",
+                            str_detect(industry, "WhlesaleTde") ~ "Wholesale_trade",
+                            str_detect(industry, "RetTde") ~ "Retail_trade",
+                            str_detect(industry, "Accom_food") ~ "Accommodation_and_food_services",
+                            str_detect(industry, "Trans_post_wrehsg") ~ "Transport_postal_and_warehousing",
+                            str_detect(industry, "Info_media_teleco") ~ "Information_media_and_telecommunications",
+                            str_detect(industry, "Fin_Insur") ~ "Financial_and_insurance_services",
+                            str_detect(industry, "RtnHir_REst") ~ "Rental_hiring_and_real_estate_services",
+                            str_detect(industry, "Pro_scien_tec") ~ "Professional_scientific_and_technical_services",
+                            str_detect(industry, "Admin_supp") ~ "Administrative_and_support_services",
+                            str_detect(industry, "Public_admin_sfty") ~ "Public_administration_and_safety",
+                            str_detect(industry, "Educ_trng") ~ "Education_and_training",
+                            str_detect(industry, "HlthCare_SocAs") ~ "Health_care_and_social_assistance",
+                            str_detect(industry, "Art_recn") ~ "Arts_and_recreation_services",
+                            str_detect(industry, "Oth_scs") ~ "Other_services",
+                            str_detect(industry, "ID_NS") ~ "Not Stated",
+                            TRUE ~ industry))  %>%
+  select(-category) %>%
+  rename(count_industry = count)
+```
+```{r}
+<<<<<<< HEAD
 top_lga1 <- covid_cases %>% 
   group_by(Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
@@ -321,6 +405,37 @@ top_lga1 <- covid_cases %>%
   select(Localgovernmentarea) %>% 
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
          Localgovernmentarea = trimws(Localgovernmentarea))
+=======
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup()
+population <- vicpopulation %>%
+  summarise(population=sum(population))
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016, sex) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup(sex) %>%
+  pivot_wider(names_from = sex,
+              values_from = population) %>%
+  rename(malepopulation = M,
+         femalepopulation = `F`) %>%
+  full_join(vicpopulation)
+```
+```{r}
+vicpopulation %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=population)) +
+  geom_sf_text(aes(geometry= geometry,label=SA4_CODE_2016, colour="white"), 
+               check_overlap=TRUE)+
+  theme_void() 
+```
+# 3
+
+
+>>>>>>> e646de1f6cc80e0aee2721cbcd26ba2bb763bb05
 
 top_lga <- top_lga1$Localgovernmentarea
 ```
