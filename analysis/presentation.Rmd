@@ -1,0 +1,20 @@
+---
+title: "ETC5521 Group Presentation"
+subtitle: "How are the COVID-19 cases spreading in the Victorian community during 1st May to 30th September 2020?"
+author: "Karan Garg, Mohammed Faizan, Prachi Jaiswal"
+institute: "Master of Business Analytics, Monash University"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css, style.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false 
+        touch: true
+        click: false
+        ratio: 16:9
+---

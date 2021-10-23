@@ -1,0 +1,139 @@
+
+.Large { font-size: 144% }
+.large { font-size: 120% }
+.small { font-size: 90% }
+.footnotesize { font-size: 80% }
+.scriptsize { font-size: 70% }
+.tiny { font-size: 60% }
+
+.black { color: black; }
+.red { color: #CC3300; }
+.blue { color: #003366; }
+.green { color: #728302; }
+.yellow { color: #FFD960; }
+.orange { color: #F09905; }
+.purple { color: #993399; }
+.gray { color: #666666; }
+.grey { color: #B5B5B5; }
+
+.bold { font-weight: bold; }
+.bolder { font-weight: bolder; }
+
+
+/******************
+ * 
+ * Coloured content boxes
+ *
+ ****************/
+
+
+.content-box { 
+    box-sizing: content-box;
+    	background-color: #e2e2e2;
+  /* Total width: 160px + (2 * 20px) + (2 * 8px) = 216px
+     Total height: 80px + (2 * 20px) + (2 * 8px) = 136px
+     Content box width: 160px
+     Content box height: 80px */
+}
+
+
+.content-box-blue,
+.content-box-gray,
+.content-box-grey,
+.content-box-neutral,
+.content-box-duke-green,
+.content-box-green,
+.content-box-purple,
+.content-box-red,
+.content-box-clear,
+.content-box-yellow {
+    border-radius: 15px;
+    margin: 0 0 25px;
+    overflow: hidden;
+    padding: 20px;
+    width: 100%;
+}
+
+.content-box-clear {
+    border-radius: 15px;
+    margin: 0 0 25px;
+    overflow: hidden;
+    padding: 20px;
+    width: 100%;
+    background-color: rgba(51,153,153,0);
+
+}
+
+.content-box-blue {
+    /* set opacity in last decimal value of rgba */
+    background-color: rgb(51,153,153);
+    background-color: rgba(51,153,153,.85);
+
+}
+
+.content-box-gray {
+    /* set opacity in last decimal value of rgba */
+    background-color: rgb(102, 102, 102);
+    background-color: rgba(102, 102, 102,.85);
+}
+
+.content-box-grey {
+  /* set opacity: uncomment rgba line */ 
+  /* alter opacity with last decimal value of rgba */
+	background-color: rgb(181, 181, 181);
+  /* background-color: rgba(181, 181, 181,.85); */
+}
+
+.content-box-neutral {
+  background-color: #E1EAB6;
+}
+
+.content-box-soft {
+  background-color: #F7EFD2;
+}
+
+.content-box-duke-green {
+  /* set opacity in last decimal value of rgba */
+	background-color: rgb(114, 131, 2);
+  background-color: rgba(114, 131, 2,.85);
+}
+
+.content-box-green {
+  /* set opacity in last decimal value of rgba */
+	background-color: rgb(161, 183, 13);
+  background-color: rgba(161, 183, 13,.85);
+}
+
+.content-box-purple {
+  /* set opacity in last decimal value of rgba */
+	background-color: rgb(153, 51, 153);
+  background-color: rgba(153, 51, 153, .85)
+}
+
+.content-box-red {
+  /* set opacity in last decimal value of rgba */
+	background-color: rgb(204, 51, 0);
+  background-color: rgba(204, 51, 0,.85)
+}
+
+.content-box-yellow {
+  /* set opacity in last decimal value of rgba */
+	background-color: rgb(93, 93, 89);
+  background-color: rgba(93, 93, 89, .40)
+}
+
+
+.full-width {
+    display: flex;
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+
+.scrollable {
+  height: 80%;
+  overflow-y: auto;
+} 
+
+
+

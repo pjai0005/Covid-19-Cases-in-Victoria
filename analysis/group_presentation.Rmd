@@ -1,0 +1,17 @@
+---
+title: "ETC5521 Group Presentation"
+subtitle: "How are the COVID-19 cases spreading in the Victorian community during 1st May to 30th September 2020?"
+team: Beta
+author:
+  - Mohammed Faizan 
+  - Prachi Jaiswal
+  - Karan Garg
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    includes:
+      before_body: header.html
+bibliography: 
+- packages.bib
+biblio-style: authoryear-comp
+---
