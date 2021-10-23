@@ -1,8 +1,7 @@
 ---
 title: "ETC5521 Group Presentation"
-subtitle: "How are the COVID-19 cases spreading in the Victorian community during 1st May to 30th September 2020?"
-author: "Karan Garg, Mohammed Faizan, Prachi Jaiswal"
-institute: "Master of Business Analytics, Monash University"
+author: "Karan Garg <br>  Mohammed Faiza <br> Prachi Jaiswal"
+institute: "Master of Business Analytics, <br> Monash University"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -18,6 +17,19 @@ output:
         click: false
         ratio: 16:9
 ---
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(showtext)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "150", "150i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
@@ -56,25 +68,33 @@ library(naniar)
 library(tidyr)
 library(RefManageR)
 library(xts)
+library(gghighlight)
+library(networkD3)
+library(xaringanthemer)
+library(emo)
 
 options(htmltools.dir.version = FALSE)
 
 ```
 
-```{r writing_packages_bibliographies}
-knitr::write_bib(c(.packages()), "packages.bib")
+
+class: center, middle
+
+# Introduction
+
+```{r, echo=FALSE}
+#knitr::include_graphics("hi.gif")
 ```
+.footnote[
+ Data Source: [Giphy](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgiphy.com%2Fexplore%2Fhiiiii&psig=AOvVaw2Lm0h_EsjtoDP_NIV8X5pI&ust=1634298879350000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNjAyNjsyfMCFQAAAAAdAAAAABAE)]
+ 
+ 
+---
+class: center, middle, inverse
 
-```{r}
-BibOptions(
-  check.entries = FALSE, 
-  bib.style = "authoryear", 
-  cite.style = "authoryear", 
-  style = "markdown",
-  hyperlink = FALSE, 
-  dashed = FALSE)
-myBib = ReadBib(here::here("reference.bib"))
-```
+## How are the COVID-19 cases spreading in the Victorian community? 
 
+--
 
+### from 1st May to 30th September of 2020
 

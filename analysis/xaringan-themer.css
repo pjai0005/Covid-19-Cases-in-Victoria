@@ -18,7 +18,7 @@
  *  Version: 0.4.0
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:300,300i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:150,150i&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Mono&display=swap);
 
@@ -44,20 +44,20 @@
 
   /* Colors */
   --text-color: #272822;
-  --header-color: #2797BD;
+  --header-color: #1c5253;
   --background-color: #FFFFFF;
-  --link-color: #2797BD;
-  --text-bold-color: #2797BD;
+  --link-color: #1c5253;
+  --text-bold-color: #1c5253;
   --code-highlight-color: rgba(255,255,0,0.5);
   --inverse-text-color: #FFFFFF;
-  --inverse-background-color: #2797BD;
+  --inverse-background-color: #1c5253;
   --inverse-header-color: #FFFFFF;
-  --inverse-link-color: #2797BD;
-  --title-slide-background-color: #2797BD;
+  --inverse-link-color: #1c5253;
+  --title-slide-background-color: #1c5253;
   --title-slide-text-color: #FFFFFF;
-  --header-background-color: #2797BD;
+  --header-background-color: #1c5253;
   --header-background-text-color: #FFFFFF;
-  --base: #2797BD;
+  --base: #1c5253;
   --white: #FFFFFF;
   --black: #272822;
 }
@@ -68,7 +68,7 @@ html {
 
 body {
   font-family: var(--text-font-family), var(--text-font-family-fallback), var(--text-font-base);
-  font-weight: 300;
+  font-weight: 150;
   color: var(--text-color);
 }
 h1, h2, h3 {
@@ -100,10 +100,10 @@ h1, h2, h3 {
 }
 .remark-inline-code {
   font-size: var(--code-inline-font-size);
-  color: #2797BD;
+  color: #1c5253;
 }
 .remark-slide-number {
-  color: #2797BD;
+  color: #1c5253;
   opacity: 1;
   font-size: 0.9rem;
 }
@@ -151,10 +151,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #2797BD99;
+  color: #1c525399;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #2797BD;
+  color: #1c5253;
 }
 .right-column {
   width: 75%;
@@ -176,7 +176,7 @@ img, video, iframe {
   max-width: 100%;
 }
 blockquote {
-  border-left: solid 5px #2797BD80;
+  border-left: solid 5px #1c525380;
   padding-left: 1em;
 }
 .remark-slide table {
@@ -191,7 +191,7 @@ th, td {
   padding: 5px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
-  background: #D3EAF1;
+  background: #D1DCDC;
 }
 table.dataTable tbody {
   background-color: var(--background-color);
@@ -201,7 +201,7 @@ table.dataTable.display tbody tr.odd {
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  background-color: #D3EAF1;
+  background-color: #D1DCDC;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
