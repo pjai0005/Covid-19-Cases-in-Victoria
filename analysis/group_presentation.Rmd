@@ -210,7 +210,105 @@ Thus in all, I would say that the vaccination rate causes the infection rate to 
 
 # 1
 
+```{r}
+sank <- covid_cases %>% 
+  mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
+         day = day(diagnosis_date),
+         month = month(diagnosis_date, label = TRUE), 
+         year = year(diagnosis_date),
+         month = as.factor(month)) %>%
+  select(month, acquired) %>%
+  group_by(month, acquired) %>%
+  summarise(value = n()) %>%
+  pivot_wider(names_from = acquired,
+              values_from = value) %>%
+  rename("Unknown"="Acquired in Australia, unknown source",
+         "Contact"="Contact with a confirmed case",
+         "Travel"="Travel overseas") %>%
+  pivot_longer(cols = -month,
+               names_to = "target",
+               values_to = "value")
+
+node <- data.frame(name=c(as.character(sank$month), 
+        as.character(sank$target)) %>% unique())
+
+my_color <- 'd3.scaleOrdinal() .domain(["Sep", "Oct", "Nov", "Covid", "War"]) .range([ "#5f0f40", "#fb8b24","#0f4c5c", "#9a031e", "#e36414"])'
+
+sank$IDmonth <- match(sank$month, node$name)-1 
+sank$IDtarget <- match(sank$target, node$name)-1
+ 
+p <- sankeyNetwork(Links = sank, Nodes = node, Source = "IDmonth", 
+               Target = "IDtarget", Value = "value", NodeID = "name", fontSize = 14, 
+               nodeWidth = 20, nodePadding = 15, sinksRight = FALSE)
+
+sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing Causes of Deaths in each Month"))
+
+#sankey <- htmlwidgets::appendContent(sankey, htmltools::tags$p("Comparing Death Toll"))
+
+sankey
+```
+
+
 # 2
+
+```{r }
+date_case %>% 
+  as_tibble() %>% 
+  mutate(month=month(diagnosis_date,abbr = TRUE,label = TRUE)) %>% 
+  group_by(month) %>%
+  summarise("Total Cases" = round(sum(n_cases, na.rm = TRUE)),
+            "Cases in a month" = spk_chr(n_cases, type ="line")) %>%
+   arrange(month) %>% 
+  rename(Month = month)%>%  
+  datatable(rownames =TRUE, escape = FALSE, 
+            caption = htmltools::tags$caption( style = 'caption-side: top; 
+                                                text-align: center;  color:black; font-size:120% ;','COVID-19 Cases'),
+            options=list(pageLength = 5)) %>%
+  spk_add_deps() %>%
+ formatStyle(
+  "Total Cases",
+  target = 'row',
+  backgroundColor = styleInterval(c(0,1000000,Inf), c('black','white','green','red'))
+) %>% 
+  formatRound("Total Cases", digits = 0)
+```
+
+```{r}
+#only for filtered data
+postcodes1 <- covid_cases %>% select(Postcode) %>% 
+  mutate(Postcode=as.character(Postcode)) %>% distinct() %>% 
+  left_join(postcodes,
+            by=c("Postcode"="POSTCODE")) %>% 
+  rename("POSTCODE"="Postcode") %>% 
+  left_join(postcode_boundaries)
+```
+
+```{r}
+
+covid_cases <- covid_cases %>% 
+  mutate(
+    Localgovernmentarea1=str_to_lower(
+      str_trim(
+        str_remove_all(Localgovernmentarea,"\\(.+\\)"))))
+
+lga <- lga %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+
+lga_boundaries <- lga_boundaries %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+
+lga1 <- covid_cases %>% select(Localgovernmentarea1) %>% 
+  distinct()  %>% 
+  left_join(lga,
+            by=c("Localgovernmentarea1"="NAME1")) %>% 
+  rename("NAME1"="Localgovernmentarea1") %>% 
+  left_join(lga_boundaries)
+```
+
+
+
 
 # 3
 
