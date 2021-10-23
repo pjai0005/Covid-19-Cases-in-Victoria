@@ -18,3 +18,60 @@ output:
         click: false
         ratio: 16:9
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      messages = FALSE, 
+                     warning = FALSE, fig.path = "figures", fig.align ="center")
+
+library(tidyverse) 
+library(lubridate)
+library(plotly)
+library(bookdown)
+library(knitr)
+library(ggthemes)
+library(patchwork)
+library(readr)
+library(kableExtra)
+library(tidytext)
+library(dygraphs)
+library(quantmod)
+library(ggrepel)
+library(tidyverse)
+library(citation)
+library(scales)
+library(ggbeeswarm)
+library(gt)
+library(ggthemes)
+library(leaflet)
+library(DT)
+library(sparkline)
+library(formattable)
+library(RColorBrewer)
+library(sugarbag)
+library(tsibble)
+library(sugrrants)
+library(GGally)
+library(naniar)
+library(tidyr)
+library(RefManageR)
+
+
+options(htmltools.dir.version = FALSE)
+
+```
+
+```{r writing_packages_bibliographies}
+knitr::write_bib(c(.packages()), "packages.bib")
+```
+
+```{r}
+BibOptions(
+  check.entries = FALSE, 
+  bib.style = "authoryear", 
+  cite.style = "authoryear", 
+  style = "markdown",
+  hyperlink = FALSE, 
+  dashed = FALSE)
+myBib = ReadBib(here::here("reference.bib"))
+```
