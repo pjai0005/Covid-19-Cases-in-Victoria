@@ -21,7 +21,6 @@ knitr::opts_chunk$set(echo = FALSE,
                       messages = FALSE, 
                       cache = TRUE,
                      warning = FALSE, fig.path = "figures", fig.align ="center")
-
 library(tidyverse) 
 library(lubridate)
 library(plotly)
@@ -62,7 +61,6 @@ library(networkD3)
 ```
 
 ```{r}
-
 # lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
 # 
 # postcode_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz Postcode data - postcode.csv"))
@@ -70,22 +68,17 @@ library(networkD3)
 # cases_source <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Source_20211023.csv"))
 # 
 # lga_cases <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_20211023.csv"))
-
 covid_cases0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
 covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
-
 covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
   filter(diagnosis_date>="2020-05-01") %>% 
   filter(diagnosis_date<="2020-09-30")
-
 ```
 
 
 ```{r}
 data_path <- here::here("data/shape/boundaries/esrishape/whole_of_dataset/victoria/VMADMIN/")
-
 postcode_boundaries <- read_sf(here::here(glue(data_path, "POSTCODE_POLYGON.shp"))) 
-
 lga_boundaries <- read_sf(here::here(glue(data_path, "AD_LGA_AREA_POLYGON.shp")))%>% filter(STATE=="VIC") %>% 
   distinct(NAME,.keep_all = TRUE)
 ```
@@ -99,15 +92,10 @@ lga <- as_tibble(lga_boundaries)%>% select(-geometry)
 
 ```{r}
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
-
 age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
-
 acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())%>% ungroup()
-
 pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())%>% ungroup()
-
 pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
-
 ```
 ```{r}
 date_case %>% 
@@ -123,12 +111,10 @@ date_case %>%
 
 ```{r}
 age %>% group_by(agegroup) %>% summarise(total=sum(n_cases)) %>% arrange(desc(total))
-
 age <- age %>%  mutate(high=case_when(agegroup %in% c("20-29","30-39") ~ "high",
                              TRUE ~ "low"),
               low=case_when(agegroup %in% c("80-99","90+") ~ "low",
                              TRUE ~ "na"))
-
 age %>% 
   ggplot(aes(x=diagnosis_date,y=n_cases)) +
   geom_line(color="red") +
@@ -136,8 +122,6 @@ age %>%
               use_direct_label = FALSE,
               calculate_per_facet = TRUE,
               keep_scales = TRUE) 
-
-
 ```
 
 
@@ -158,10 +142,8 @@ variant_country <- variant_country %>% mutate(
   mutate(year=year(date),
          month=month(date),
          day=day(date)) 
-
 variant_summary <- variant_country %>% group_by(variant) %>% 
   summarise(variant_sum=sum(num_sequences))
-
 variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) + geom_col() +
   coord_flip() +
   theme_bw() +
@@ -189,7 +171,6 @@ variant_country_delta <- variant_country %>% filter(variant=="Delta") %>%
                names_to = "sequence",
                values_to = "number") %>% 
   mutate(sequence=ifelse(sequence=="num_sequences","delta","total"))
-
 variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + geom_col(position="dodge")+
         theme_classic()+
         labs(y = "Number of Cases",
@@ -224,23 +205,17 @@ sank <- covid_cases %>%
   pivot_longer(cols = -month,
                names_to = "target",
                values_to = "value")
-
 node <- data.frame(name=c(as.character(sank$month), 
         as.character(sank$target)) %>% unique())
-
 my_color <- 'd3.scaleOrdinal() .domain(["Sep", "Oct", "Nov", "Covid", "War"]) .range([ "#5f0f40", "#fb8b24","#0f4c5c", "#9a031e", "#e36414"])'
-
 sank$IDmonth <- match(sank$month, node$name)-1 
 sank$IDtarget <- match(sank$target, node$name)-1
  
 p <- sankeyNetwork(Links = sank, Nodes = node, Source = "IDmonth", 
                Target = "IDtarget", Value = "value", NodeID = "name", fontSize = 14, 
                nodeWidth = 20, nodePadding = 15, sinksRight = FALSE)
-
 sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing Causes of Deaths in each Month"))
-
 #sankey <- htmlwidgets::appendContent(sankey, htmltools::tags$p("Comparing Death Toll"))
-
 sankey
 ```
 ```{r}
@@ -310,21 +285,17 @@ postcodes1 <- covid_cases %>% select(Postcode) %>%
 ```
 
 ```{r}
-
 covid_cases <- covid_cases %>% 
   mutate(
     Localgovernmentarea1=str_to_lower(
       str_trim(
         str_remove_all(Localgovernmentarea,"\\(.+\\)"))))
-
 lga <- lga %>% 
   mutate(NAME1=str_to_lower(NAME)) %>% 
   distinct(NAME1,.keep_all = TRUE)
-
 lga_boundaries <- lga_boundaries %>% 
   mutate(NAME1=str_to_lower(NAME)) %>% 
   distinct(NAME1,.keep_all = TRUE)
-
 lga1 <- covid_cases %>% select(Localgovernmentarea1) %>% 
   distinct()  %>% 
   left_join(lga,
@@ -339,7 +310,6 @@ top10_lga <- covid_cases %>%
   summarise(n_cases = n()) %>% 
   slice_max(n_cases,n = 10) %>% 
   pull(Localgovernmentarea1)
-
 top10_postcode <- covid_cases %>% 
   group_by(Postcode) %>% 
   summarise(n_cases = n()) %>% 
@@ -354,7 +324,6 @@ top10_postcode <- covid_cases %>%
   geom_sf_text(aes(geometry= geometry,label=POSTCODE), 
                check_overlap=TRUE)+
   theme_void() 
-
 ggplot(data=lga1 %>% filter(NAME1 %in% top10_lga)) +
   geom_sf(mapping = aes(geometry= geometry)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1), 
@@ -427,15 +396,6 @@ g51 <- g51 %>%
   rename(count_industry = count)
 ```
 ```{r}
-<<<<<<< HEAD
-top_lga1 <- covid_cases %>% 
-  group_by(Localgovernmentarea) %>% 
-  summarise(n_cases = n()) %>% 
-  slice_max(n_cases,n = 10) %>% 
-  select(Localgovernmentarea) %>% 
-  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
-         Localgovernmentarea = trimws(Localgovernmentarea))
-=======
 vicpopulation <- g51 %>%
   group_by(SA4_CODE_2016) %>%
   summarise(population = sum(count_industry)) %>%
@@ -465,54 +425,13 @@ vicpopulation %>%
 # 3
 
 
->>>>>>> e646de1f6cc80e0aee2721cbcd26ba2bb763bb05
 
-top_lga <- top_lga1$Localgovernmentarea
-```
 
 ```{r}
-top_10_grf <- covid_cases %>% 
-  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
-  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
-         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
-  filter(Localgovernmentarea %in% top_lga) %>% 
-  group_by(Month,Localgovernmentarea) %>% 
-  summarise(n_cases = n()) %>% 
-  ungroup() %>% 
-  mutate(Month = as.numeric(Month)) %>% 
-  mutate(tooltip = glue::glue(
-           "Month: {Month}
-            Covid Cases: {n_cases}
-            LGA: {Localgovernmentarea}
-           "
-         )) %>% 
-  ggplot(aes(Month,
-             n_cases,
-             color = Localgovernmentarea)) +
-  geom_point() +
-  geom_line() +
-  geom_point(aes(text = tooltip)) +
-  scale_x_continuous() +
-  labs(x = "Month",
-       y = "No. of Cases",
-       title = "Trend of Top 10 LGA with maximum Covid Cases",
-       color = "") +
-  theme_bw()
-ggplotly(top_10_grf,
-         tooltip = "text") %>% 
-    config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
-  
-```
-
-```{r graph-clean,include=FALSE}
 library(ggraph)
 library(tidygraph)
-
 clean_selected <- covid_cases %>% 
   separate(diagnosis_date,into = c("Year","Month","Date"),sep = "-") %>% 
-  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
-         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
-  filter(Localgovernmentarea %in% top_lga) %>% 
   group_by(Month,acquired,Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
   ungroup() %>%
@@ -520,24 +439,22 @@ clean_selected <- covid_cases %>%
   mutate(acquired = as.factor(acquired),
          Localgovernmentarea = as.factor(Localgovernmentarea),
          aclg = paste0(acquired,Localgovernmentarea)) 
-
 graph_dt <- clean_selected %>% 
   group_by(aclg) %>% 
   summarise(total_cases = sum(n_cases)) %>% 
   left_join(clean_selected, by = "aclg") %>% 
   rename(from = acquired, to = Localgovernmentarea) %>% 
   as_tbl_graph()
-
-acquired1 <- clean_selected %>% select(acquired) %>% unique()  
+acquired1 <- covid_cases %>% select(acquired) %>% unique()  
 acquired <- acquired1$acquired 
-
-structure <- c(acquired,top_lga)
-
+lga1 <- covid_cases %>% select(Localgovernmentarea) %>% unique()  
+lga <- lga1$Localgovernmentarea 
+structure <- c(acquired,lga)
 ```
 
 
 
-```{r graph4,echo=FALSE}
+```{r}
 set.seed(1234)
 ggraph(graph_dt, "lgl") +
   geom_edge_link2(color = "grey90") +
@@ -550,6 +467,4 @@ ggraph(graph_dt, "lgl") +
                   label.size = 0.1,  fill = "lightblue2") +
   scale_edge_color_brewer(palette = "Dark2") + 
   theme_void()
-
 ```
-

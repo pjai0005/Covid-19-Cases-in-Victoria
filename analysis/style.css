@@ -136,4 +136,7 @@
 } 
 
 
-
+.scrollable-sankey {
+  height: 60%;
+  overflow-y: auto;
+} 

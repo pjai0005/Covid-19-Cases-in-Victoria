@@ -3,11 +3,11 @@
   <head>
     <title>ETC5521 Group Presentation</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Karan Garg   Mohammed Faiza   Prachi Jaiswal" />
-    <meta name="date" content="2021-10-23" />
+    <meta name="author" content="Karan Garg   Mohammed Faizan   Prachi Jaiswal  " />
+    <meta name="date" content="2021-10-24" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <script src="libs/jquery/jquery.min.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
     <link href="libs/dygraphs/dygraph.css" rel="stylesheet" />
     <script src="libs/dygraphs/dygraph-combined.js"></script>
     <script src="libs/dygraphs/shapes.js"></script>
@@ -18,17 +18,28 @@
     <script src="libs/d3/d3.min.js"></script>
     <script src="libs/sankey/sankey.js"></script>
     <script src="libs/sankeyNetwork-binding/sankeyNetwork.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/jquery-sparkline/jquery.sparkline.css" rel="stylesheet" />
+    <script src="libs/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="libs/sparkline-binding/sparkline.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="MonashBS.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
 # ETC5521 Group Presentation
-### Karan Garg <br> Mohammed Faiza <br> Prachi Jaiswal
-### Master of Business Analytics, <br> Monash University
-### 2021-10-23
+### Karan Garg <br> Mohammed Faizan <br> Prachi Jaiswal<br><br>
+### Master of Business Analytics, <br> Monash University<br><br>
+### 2021-10-24
 
 ---
 
@@ -46,6 +57,7 @@ class: center, middle
 
 # Introduction
 
+![](https://media1.giphy.com/media/3bc9YL28QWi3pYzi1p/200w.webp?cid=ecf05e47k2unazdm58ss4pkeleyouynn7mrqksnp9bcw2m2k&amp;rid=200w.webp&amp;ct=g)
 
 .footnote[
  Data Source: [Giphy](https://www.google.com/url?sa=i&amp;url=https%3A%2F%2Fgiphy.com%2Fexplore%2Fhiiiii&amp;psig=AOvVaw2Lm0h_EsjtoDP_NIV8X5pI&amp;ust=1634298879350000&amp;source=images&amp;cd=vfe&amp;ved=0CAsQjRxqFwoTCNjAyNjsyfMCFQAAAAAdAAAAABAE)]
@@ -61,12 +73,26 @@ class: center, middle, inverse
 ### from 1st May to 30th September of 2020
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img src="figures/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+---
 class: center, middle
 
 ### Overview of covid cases in Victoria
 
-<div id="htmlwidget-8797286f2e574b9302f7" style="width:100%;height:504px;" class="dygraphs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8797286f2e574b9302f7">{"x":{"attrs":{"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"title":"Covid Cases across Months","labels":["day","n_cases","diagnosis_date"],"retainDateWindow":false,"legend":"always","labelsDivWidth":250,"labelsShowZeroValues":true,"labelsSeparateLines":false,"hideOverlayOnMouseOut":false,"ylabel":"Temperature in Degree Celcius","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":1.5,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":false,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false,"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2020-05-01T00:00:00.000Z","2020-05-02T00:00:00.000Z","2020-05-03T00:00:00.000Z","2020-05-04T00:00:00.000Z","2020-05-05T00:00:00.000Z","2020-05-06T00:00:00.000Z","2020-05-07T00:00:00.000Z","2020-05-08T00:00:00.000Z","2020-05-09T00:00:00.000Z","2020-05-10T00:00:00.000Z","2020-05-11T00:00:00.000Z","2020-05-12T00:00:00.000Z","2020-05-13T00:00:00.000Z","2020-05-14T00:00:00.000Z","2020-05-15T00:00:00.000Z","2020-05-16T00:00:00.000Z","2020-05-17T00:00:00.000Z","2020-05-18T00:00:00.000Z","2020-05-19T00:00:00.000Z","2020-05-20T00:00:00.000Z","2020-05-21T00:00:00.000Z","2020-05-22T00:00:00.000Z","2020-05-23T00:00:00.000Z","2020-05-24T00:00:00.000Z","2020-05-25T00:00:00.000Z","2020-05-26T00:00:00.000Z","2020-05-27T00:00:00.000Z","2020-05-28T00:00:00.000Z","2020-05-29T00:00:00.000Z","2020-05-30T00:00:00.000Z","2020-05-31T00:00:00.000Z","2020-06-01T00:00:00.000Z","2020-06-02T00:00:00.000Z","2020-06-03T00:00:00.000Z","2020-06-04T00:00:00.000Z","2020-06-05T00:00:00.000Z","2020-06-06T00:00:00.000Z","2020-06-07T00:00:00.000Z","2020-06-09T00:00:00.000Z","2020-06-10T00:00:00.000Z","2020-06-11T00:00:00.000Z","2020-06-12T00:00:00.000Z","2020-06-13T00:00:00.000Z","2020-06-14T00:00:00.000Z","2020-06-15T00:00:00.000Z","2020-06-16T00:00:00.000Z","2020-06-17T00:00:00.000Z","2020-06-18T00:00:00.000Z","2020-06-19T00:00:00.000Z","2020-06-20T00:00:00.000Z","2020-06-21T00:00:00.000Z","2020-06-22T00:00:00.000Z","2020-06-23T00:00:00.000Z","2020-06-24T00:00:00.000Z","2020-06-25T00:00:00.000Z","2020-06-26T00:00:00.000Z","2020-06-27T00:00:00.000Z","2020-06-28T00:00:00.000Z","2020-06-29T00:00:00.000Z","2020-06-30T00:00:00.000Z","2020-07-01T00:00:00.000Z","2020-07-02T00:00:00.000Z","2020-07-03T00:00:00.000Z","2020-07-04T00:00:00.000Z","2020-07-05T00:00:00.000Z","2020-07-06T00:00:00.000Z","2020-07-07T00:00:00.000Z","2020-07-08T00:00:00.000Z","2020-07-09T00:00:00.000Z","2020-07-10T00:00:00.000Z","2020-07-11T00:00:00.000Z","2020-07-12T00:00:00.000Z","2020-07-13T00:00:00.000Z","2020-07-14T00:00:00.000Z","2020-07-15T00:00:00.000Z","2020-07-16T00:00:00.000Z","2020-07-17T00:00:00.000Z","2020-07-18T00:00:00.000Z","2020-07-19T00:00:00.000Z","2020-07-20T00:00:00.000Z","2020-07-21T00:00:00.000Z","2020-07-22T00:00:00.000Z","2020-07-23T00:00:00.000Z","2020-07-24T00:00:00.000Z","2020-07-25T00:00:00.000Z","2020-07-26T00:00:00.000Z","2020-07-27T00:00:00.000Z","2020-07-28T00:00:00.000Z","2020-07-29T00:00:00.000Z","2020-07-30T00:00:00.000Z","2020-07-31T00:00:00.000Z","2020-08-01T00:00:00.000Z","2020-08-02T00:00:00.000Z","2020-08-03T00:00:00.000Z","2020-08-04T00:00:00.000Z","2020-08-05T00:00:00.000Z","2020-08-06T00:00:00.000Z","2020-08-07T00:00:00.000Z","2020-08-08T00:00:00.000Z","2020-08-09T00:00:00.000Z","2020-08-10T00:00:00.000Z","2020-08-11T00:00:00.000Z","2020-08-12T00:00:00.000Z","2020-08-13T00:00:00.000Z","2020-08-14T00:00:00.000Z","2020-08-15T00:00:00.000Z","2020-08-16T00:00:00.000Z","2020-08-17T00:00:00.000Z","2020-08-18T00:00:00.000Z","2020-08-19T00:00:00.000Z","2020-08-20T00:00:00.000Z","2020-08-21T00:00:00.000Z","2020-08-22T00:00:00.000Z","2020-08-23T00:00:00.000Z","2020-08-24T00:00:00.000Z","2020-08-25T00:00:00.000Z","2020-08-26T00:00:00.000Z","2020-08-27T00:00:00.000Z","2020-08-28T00:00:00.000Z","2020-08-29T00:00:00.000Z","2020-08-30T00:00:00.000Z","2020-08-31T00:00:00.000Z","2020-09-01T00:00:00.000Z","2020-09-02T00:00:00.000Z","2020-09-03T00:00:00.000Z","2020-09-04T00:00:00.000Z","2020-09-05T00:00:00.000Z","2020-09-06T00:00:00.000Z","2020-09-07T00:00:00.000Z","2020-09-08T00:00:00.000Z","2020-09-09T00:00:00.000Z","2020-09-10T00:00:00.000Z","2020-09-11T00:00:00.000Z","2020-09-12T00:00:00.000Z","2020-09-13T00:00:00.000Z","2020-09-14T00:00:00.000Z","2020-09-15T00:00:00.000Z","2020-09-16T00:00:00.000Z","2020-09-17T00:00:00.000Z","2020-09-18T00:00:00.000Z","2020-09-19T00:00:00.000Z","2020-09-20T00:00:00.000Z","2020-09-21T00:00:00.000Z","2020-09-22T00:00:00.000Z","2020-09-23T00:00:00.000Z","2020-09-24T00:00:00.000Z","2020-09-25T00:00:00.000Z","2020-09-26T00:00:00.000Z","2020-09-27T00:00:00.000Z","2020-09-28T00:00:00.000Z","2020-09-29T00:00:00.000Z","2020-09-30T00:00:00.000Z"],[" 10"," 11"," 21"," 14"," 16"," 15"," 13"," 12","  8","  5"," 16","  7","  9"," 19"," 13","  5","  6","  7","  5","  5"," 10","  9","  2","  2","  5","  8"," 10","  6","  8","  8","  4","  9","  7","  8","  3","  1","  4","  2","  4","  7","  5","  8"," 10"," 12","  9"," 20"," 18"," 12"," 25"," 17"," 13"," 17"," 18"," 33"," 28"," 40"," 47"," 69"," 61"," 76"," 73"," 62","100"," 68"," 98","168","122","149","143","290","256","167","248","218","295","380","211","337","262","341","436","374","289","333","406","492","359","276","623","548","369","598","354","403","686","444","421","455","374","310","321","400","256","360","301","267","266","217","208","231","170","173","202","109","146","142","110","111"," 90","108"," 71"," 63"," 87","110"," 75"," 71"," 62"," 38"," 48"," 70"," 47"," 40"," 35"," 41"," 30"," 39"," 41"," 25"," 45"," 20"," 13"," 11"," 28"," 14"," 11"," 13"," 12"," 16","  5","  9"," 10"," 14"],["2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27","2020-07-28","2020-07-29","2020-07-30","2020-07-31","2020-08-01","2020-08-02","2020-08-03","2020-08-04","2020-08-05","2020-08-06","2020-08-07","2020-08-08","2020-08-09","2020-08-10","2020-08-11","2020-08-12","2020-08-13","2020-08-14","2020-08-15","2020-08-16","2020-08-17","2020-08-18","2020-08-19","2020-08-20","2020-08-21","2020-08-22","2020-08-23","2020-08-24","2020-08-25","2020-08-26","2020-08-27","2020-08-28","2020-08-29","2020-08-30","2020-08-31","2020-09-01","2020-09-02","2020-09-03","2020-09-04","2020-09-05","2020-09-06","2020-09-07","2020-09-08","2020-09-09","2020-09-10","2020-09-11","2020-09-12","2020-09-13","2020-09-14","2020-09-15","2020-09-16","2020-09-17","2020-09-18","2020-09-19","2020-09-20","2020-09-21","2020-09-22","2020-09-23","2020-09-24","2020-09-25","2020-09-26","2020-09-27","2020-09-28","2020-09-29","2020-09-30"]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<div id="htmlwidget-0d80974126989c98dd86" style="width:100%;height:504px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0d80974126989c98dd86">{"x":{"attrs":{"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"title":"Covid Cases across Months","labels":["day","n_cases","diagnosis_date"],"retainDateWindow":false,"legend":"always","labelsDivWidth":250,"labelsShowZeroValues":true,"labelsSeparateLines":false,"hideOverlayOnMouseOut":false,"ylabel":"Temperature in Degree Celcius","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":1.5,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":false,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false,"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2020-05-01T00:00:00.000Z","2020-05-02T00:00:00.000Z","2020-05-03T00:00:00.000Z","2020-05-04T00:00:00.000Z","2020-05-05T00:00:00.000Z","2020-05-06T00:00:00.000Z","2020-05-07T00:00:00.000Z","2020-05-08T00:00:00.000Z","2020-05-09T00:00:00.000Z","2020-05-10T00:00:00.000Z","2020-05-11T00:00:00.000Z","2020-05-12T00:00:00.000Z","2020-05-13T00:00:00.000Z","2020-05-14T00:00:00.000Z","2020-05-15T00:00:00.000Z","2020-05-16T00:00:00.000Z","2020-05-17T00:00:00.000Z","2020-05-18T00:00:00.000Z","2020-05-19T00:00:00.000Z","2020-05-20T00:00:00.000Z","2020-05-21T00:00:00.000Z","2020-05-22T00:00:00.000Z","2020-05-23T00:00:00.000Z","2020-05-24T00:00:00.000Z","2020-05-25T00:00:00.000Z","2020-05-26T00:00:00.000Z","2020-05-27T00:00:00.000Z","2020-05-28T00:00:00.000Z","2020-05-29T00:00:00.000Z","2020-05-30T00:00:00.000Z","2020-05-31T00:00:00.000Z","2020-06-01T00:00:00.000Z","2020-06-02T00:00:00.000Z","2020-06-03T00:00:00.000Z","2020-06-04T00:00:00.000Z","2020-06-05T00:00:00.000Z","2020-06-06T00:00:00.000Z","2020-06-07T00:00:00.000Z","2020-06-09T00:00:00.000Z","2020-06-10T00:00:00.000Z","2020-06-11T00:00:00.000Z","2020-06-12T00:00:00.000Z","2020-06-13T00:00:00.000Z","2020-06-14T00:00:00.000Z","2020-06-15T00:00:00.000Z","2020-06-16T00:00:00.000Z","2020-06-17T00:00:00.000Z","2020-06-18T00:00:00.000Z","2020-06-19T00:00:00.000Z","2020-06-20T00:00:00.000Z","2020-06-21T00:00:00.000Z","2020-06-22T00:00:00.000Z","2020-06-23T00:00:00.000Z","2020-06-24T00:00:00.000Z","2020-06-25T00:00:00.000Z","2020-06-26T00:00:00.000Z","2020-06-27T00:00:00.000Z","2020-06-28T00:00:00.000Z","2020-06-29T00:00:00.000Z","2020-06-30T00:00:00.000Z","2020-07-01T00:00:00.000Z","2020-07-02T00:00:00.000Z","2020-07-03T00:00:00.000Z","2020-07-04T00:00:00.000Z","2020-07-05T00:00:00.000Z","2020-07-06T00:00:00.000Z","2020-07-07T00:00:00.000Z","2020-07-08T00:00:00.000Z","2020-07-09T00:00:00.000Z","2020-07-10T00:00:00.000Z","2020-07-11T00:00:00.000Z","2020-07-12T00:00:00.000Z","2020-07-13T00:00:00.000Z","2020-07-14T00:00:00.000Z","2020-07-15T00:00:00.000Z","2020-07-16T00:00:00.000Z","2020-07-17T00:00:00.000Z","2020-07-18T00:00:00.000Z","2020-07-19T00:00:00.000Z","2020-07-20T00:00:00.000Z","2020-07-21T00:00:00.000Z","2020-07-22T00:00:00.000Z","2020-07-23T00:00:00.000Z","2020-07-24T00:00:00.000Z","2020-07-25T00:00:00.000Z","2020-07-26T00:00:00.000Z","2020-07-27T00:00:00.000Z","2020-07-28T00:00:00.000Z","2020-07-29T00:00:00.000Z","2020-07-30T00:00:00.000Z","2020-07-31T00:00:00.000Z","2020-08-01T00:00:00.000Z","2020-08-02T00:00:00.000Z","2020-08-03T00:00:00.000Z","2020-08-04T00:00:00.000Z","2020-08-05T00:00:00.000Z","2020-08-06T00:00:00.000Z","2020-08-07T00:00:00.000Z","2020-08-08T00:00:00.000Z","2020-08-09T00:00:00.000Z","2020-08-10T00:00:00.000Z","2020-08-11T00:00:00.000Z","2020-08-12T00:00:00.000Z","2020-08-13T00:00:00.000Z","2020-08-14T00:00:00.000Z","2020-08-15T00:00:00.000Z","2020-08-16T00:00:00.000Z","2020-08-17T00:00:00.000Z","2020-08-18T00:00:00.000Z","2020-08-19T00:00:00.000Z","2020-08-20T00:00:00.000Z","2020-08-21T00:00:00.000Z","2020-08-22T00:00:00.000Z","2020-08-23T00:00:00.000Z","2020-08-24T00:00:00.000Z","2020-08-25T00:00:00.000Z","2020-08-26T00:00:00.000Z","2020-08-27T00:00:00.000Z","2020-08-28T00:00:00.000Z","2020-08-29T00:00:00.000Z","2020-08-30T00:00:00.000Z","2020-08-31T00:00:00.000Z","2020-09-01T00:00:00.000Z","2020-09-02T00:00:00.000Z","2020-09-03T00:00:00.000Z","2020-09-04T00:00:00.000Z","2020-09-05T00:00:00.000Z","2020-09-06T00:00:00.000Z","2020-09-07T00:00:00.000Z","2020-09-08T00:00:00.000Z","2020-09-09T00:00:00.000Z","2020-09-10T00:00:00.000Z","2020-09-11T00:00:00.000Z","2020-09-12T00:00:00.000Z","2020-09-13T00:00:00.000Z","2020-09-14T00:00:00.000Z","2020-09-15T00:00:00.000Z","2020-09-16T00:00:00.000Z","2020-09-17T00:00:00.000Z","2020-09-18T00:00:00.000Z","2020-09-19T00:00:00.000Z","2020-09-20T00:00:00.000Z","2020-09-21T00:00:00.000Z","2020-09-22T00:00:00.000Z","2020-09-23T00:00:00.000Z","2020-09-24T00:00:00.000Z","2020-09-25T00:00:00.000Z","2020-09-26T00:00:00.000Z","2020-09-27T00:00:00.000Z","2020-09-28T00:00:00.000Z","2020-09-29T00:00:00.000Z","2020-09-30T00:00:00.000Z"],[" 10"," 11"," 21"," 14"," 16"," 15"," 13"," 12","  8","  5"," 16","  7","  9"," 19"," 13","  5","  6","  7","  5","  5"," 10","  9","  2","  2","  5","  8"," 10","  6","  8","  8","  4","  9","  7","  8","  3","  1","  4","  2","  4","  7","  5","  8"," 10"," 12","  9"," 20"," 18"," 12"," 25"," 17"," 13"," 17"," 18"," 33"," 28"," 40"," 47"," 69"," 61"," 76"," 73"," 62","100"," 68"," 98","168","122","149","143","290","256","167","248","218","295","380","211","337","262","341","436","374","289","333","406","492","359","276","623","548","369","598","354","403","686","444","421","455","374","310","321","400","256","360","301","267","266","217","208","231","170","173","202","109","146","142","110","111"," 90","108"," 71"," 63"," 87","110"," 75"," 71"," 62"," 38"," 48"," 70"," 47"," 40"," 35"," 41"," 30"," 39"," 41"," 25"," 45"," 20"," 13"," 11"," 28"," 14"," 11"," 13"," 12"," 16","  5","  9"," 10"," 14"],["2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27","2020-07-28","2020-07-29","2020-07-30","2020-07-31","2020-08-01","2020-08-02","2020-08-03","2020-08-04","2020-08-05","2020-08-06","2020-08-07","2020-08-08","2020-08-09","2020-08-10","2020-08-11","2020-08-12","2020-08-13","2020-08-14","2020-08-15","2020-08-16","2020-08-17","2020-08-18","2020-08-19","2020-08-20","2020-08-21","2020-08-22","2020-08-23","2020-08-24","2020-08-25","2020-08-26","2020-08-27","2020-08-28","2020-08-29","2020-08-30","2020-08-31","2020-09-01","2020-09-02","2020-09-03","2020-09-04","2020-09-05","2020-09-06","2020-09-07","2020-09-08","2020-09-09","2020-09-10","2020-09-11","2020-09-12","2020-09-13","2020-09-14","2020-09-15","2020-09-16","2020-09-17","2020-09-18","2020-09-19","2020-09-20","2020-09-21","2020-09-22","2020-09-23","2020-09-24","2020-09-25","2020-09-26","2020-09-27","2020-09-28","2020-09-29","2020-09-30"]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
 
 
 ---
@@ -74,19 +100,62 @@ class: center, middle
 ### Variants
 
 .pull-left[
-&lt;img src="figuresunnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
 
-&lt;img src="figuresunnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+]
+---
+class: center, middle
+
+
+
+.scrollable[
+<h4>Comparing COVID Cases in each Month</h4>
+<div id="htmlwidget-ea59b090680208d60f71" style="width:100%;height:40%;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ea59b090680208d60f71">{"x":{"links":{"source":[0,0,0,1,1,1,2,2,2,3,3,3,4,4,4],"target":[5,6,7,5,6,7,5,6,7,5,6,7,5,6,7],"value":[63,155,71,180,306,97,1937,6542,14,1358,7009,null,98,982,null]},"nodes":{"name":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"],"group":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":14,"fontFamily":null,"nodeWidth":20,"nodePadding":15,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+
 ]
 ---
 class: center
+&lt;img src="figures/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
-<h4>Comparing COVID Cases in each Month</h4>
-<div id="htmlwidget-2833c8d7728f8a0c4945" style="width:80%;height:50%;" class="sankeyNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2833c8d7728f8a0c4945">{"x":{"links":{"source":[0,0,0,1,1,1,2,2,2,3,3,3,4,4,4],"target":[5,6,7,5,6,7,5,6,7,5,6,7,5,6,7],"value":[63,155,71,180,306,97,1937,6542,14,1358,7009,null,98,982,null]},"nodes":{"name":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"],"group":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":14,"fontFamily":null,"nodeWidth":20,"nodePadding":15,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+<div id="htmlwidget-e9fc9afc3fbf1ec7c667" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e9fc9afc3fbf1ec7c667">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; &#10;                                                text-align: center;  color:black; font-size:120% ;\">COVID-19 Cases<\/caption>","data":[["1","2","3","4","5"],["May","Jun","Jul","Aug","Sep"],[289,583,8493,8367,1080],["<span id=\"htmlwidget-89dde04f4ba8ead1d645\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-89dde04f4ba8ead1d645\">{\"x\":{\"values\":[10,11,21,14,16,15,13,12,8,5,16,7,9,19,13,5,6,7,5,5,10,9,2,2,5,8,10,6,8,8,4],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-af4f8580508af53726b9\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-af4f8580508af53726b9\">{\"x\":{\"values\":[9,7,8,3,1,4,2,4,7,5,8,10,12,9,20,18,12,25,17,13,17,18,33,28,40,47,69,61,76],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-911e3cb56cbe2ae90966\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-911e3cb56cbe2ae90966\">{\"x\":{\"values\":[73,62,100,68,98,168,122,149,143,290,256,167,248,218,295,380,211,337,262,341,436,374,289,333,406,492,359,276,623,548,369],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-37ee40cdaf17f341aff5\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-37ee40cdaf17f341aff5\">{\"x\":{\"values\":[598,354,403,686,444,421,455,374,310,321,400,256,360,301,267,266,217,208,231,170,173,202,109,146,142,110,111,90,108,71,63],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-a2d8d36019dd01cb7011\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-a2d8d36019dd01cb7011\">{\"x\":{\"values\":[87,110,75,71,62,38,48,70,47,40,35,41,30,39,41,25,45,20,13,11,28,14,11,13,12,16,5,9,10,14],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"],["<span id=\"htmlwidget-e5c1195ed9dea9b3e42a\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-e5c1195ed9dea9b3e42a\">{\"x\":{\"values\":[10,11,21,14,16,15,13,12,8,5,16,7,9,19,13,5,6,7,5,5,10,9,2,2,5,8,10,6,8,8,4],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-1e0af49155e8188251bd\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-1e0af49155e8188251bd\">{\"x\":{\"values\":[9,7,8,3,1,4,2,4,7,5,8,10,12,9,20,18,12,25,17,13,17,18,33,28,40,47,69,61,76],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-d2db7250b8370aa47e6e\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-d2db7250b8370aa47e6e\">{\"x\":{\"values\":[73,62,100,68,98,168,122,149,143,290,256,167,248,218,295,380,211,337,262,341,436,374,289,333,406,492,359,276,623,548,369],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-48eeab71a324861a0f65\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-48eeab71a324861a0f65\">{\"x\":{\"values\":[598,354,403,686,444,421,455,374,310,321,400,256,360,301,267,266,217,208,231,170,173,202,109,146,142,110,111,90,108,71,63],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-6fe470d405c5b23480a8\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-6fe470d405c5b23480a8\">{\"x\":{\"values\":[87,110,75,71,62,38,48,70,47,40,35,41,30,39,41,25,45,20,13,11,28,14,11,13,12,16,5,9,10,14],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Month<\/th>\n      <th>Total Cases<\/th>\n      <th>Cases in a month<\/th>\n      <th>Distribution in a month<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100],"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[2]; $(row).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= 0 ? \"black\" : value <= 1000000 ? \"white\" : value <= \"Inf\" ? \"green\" : \"red\"});\n}"}},"evals":["options.columnDefs.0.render","options.rowCallback"],"jsHooks":[]}</script>
+
+---
+
+
+
+
+
+
+&lt;img src="figures/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+
+&lt;img src="figures/graph4-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# References
+
+
+.scrollable[
+- 
+NULL
+]
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
