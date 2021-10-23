@@ -325,6 +325,39 @@ top_lga1 <- covid_cases %>%
 top_lga <- top_lga1$Localgovernmentarea
 ```
 
+```{r}
+top_10_grf <- covid_cases %>% 
+  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
+  filter(Localgovernmentarea %in% top_lga) %>% 
+  group_by(Month,Localgovernmentarea) %>% 
+  summarise(n_cases = n()) %>% 
+  ungroup() %>% 
+  mutate(Month = as.numeric(Month)) %>% 
+  mutate(tooltip = glue::glue(
+           "Month: {Month}
+            Covid Cases: {n_cases}
+            LGA: {Localgovernmentarea}
+           "
+         )) %>% 
+  ggplot(aes(Month,
+             n_cases,
+             color = Localgovernmentarea)) +
+  geom_point() +
+  geom_line() +
+  geom_point(aes(text = tooltip)) +
+  scale_x_continuous() +
+  labs(x = "Month",
+       y = "No. of Cases",
+       title = "Trend of Top 10 LGA with maximum Covid Cases",
+       color = "") +
+  theme_bw()
+ggplotly(top_10_grf,
+         tooltip = "text") %>% 
+    config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
+  
+```
 
 ```{r graph-clean,include=FALSE}
 library(ggraph)
