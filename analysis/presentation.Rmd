@@ -5,16 +5,15 @@ institute: "Master of Business Analytics, <br> Monash University<br><br>"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
+    css: [default, style.css,"MonashBS.css"]
     lib_dir: libs
-    css: [default,"MonashBS.css"]
     nature:
       highlightStyle: magula
-      highlightLanguage: r 
       highlightLines: true
       highlightSpans: false 
       countIncrementalSlides: false
       slideNumberFormat: '%current%/%total%'
-      navigation:
+      \navigation:
         scroll: false 
         touch: true
         click: false
@@ -27,12 +26,12 @@ library(xaringanthemer)
 library(showtext)
 style_mono_accent(
   base_color = "#1c5253",
+  
   header_font_google = google_font("Josefin Sans"),
-  text_font_google   = google_font("Montserrat", "150", "150i"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
 )
 xaringanExtra::use_panelset()
-
 ```
 
 
@@ -40,7 +39,11 @@ xaringanExtra::use_panelset()
 knitr::opts_chunk$set(echo = FALSE, 
                       message = FALSE, 
                       cache = TRUE,
-                     warning = FALSE, fig.path = "figures/", fig.align ="center")
+                     warning = FALSE, 
+                     fig.path = "figures/",
+                     fig.align ="center",
+                     dev.args = list(bg = 'transparent'),
+                    fig.retina = 3)
 
 library(tidyverse) 
 library(lubridate)
@@ -82,11 +85,8 @@ library(networkD3)
 library(xaringanthemer)
 library(emo)
 
-options(htmltools.dir.version = FALSE)
 
 ```
-
-
 
 ```{r data, include=FALSE}
 
@@ -137,7 +137,7 @@ class: center, middle, inverse
 
 ## How are the COVID-19 cases spreading in the Victorian community? 
 
---
+---
 
 ### from 1st May to 30th September of 2020
 
@@ -382,12 +382,24 @@ date_case %>%
 ```
 
 ---
-
+### Trend of Top 10 LGA with maximum Covid Cases
 
 .panelset[
 .panel[.panel-name[plot]
-```{r,include=FALSE}
-top_lga1 <- covid_cases %>% 
+
+```{r linelga,warning=FALSE,message=FALSE,echo=FALSE,fig.width=6, fig.height=2,out.width="100%"}
+library(tourr)
+
+karandata0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
+karandata1 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
+
+karandata <-  cbind(karandata0,karandata1 %>% select(agegroup)) %>% 
+  filter(diagnosis_date>="2020-05-01") %>% 
+  filter(diagnosis_date<="2020-09-30")
+
+
+
+top_lga1 <- karandata %>% 
   group_by(Localgovernmentarea) %>% 
   summarise(n_cases  = n()) %>% 
   ungroup() %>% 
@@ -396,42 +408,56 @@ top_lga1 <- covid_cases %>%
          Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
   select(Localgovernmentarea)
 top_lga <- top_lga1$Localgovernmentarea
-```
-```{r linelga,warning=FALSE,message=FALSE,echo=FALSE,fig.width=6, fig.height=2,out.width="100%"}
-graphlga <- covid_cases %>% 
-  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
+
+
+graphlga0 <- karandata %>%
+  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>%
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
-         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
-  filter(Localgovernmentarea %in% top_lga) %>% 
-  group_by(Month,Localgovernmentarea) %>% 
-  summarise(n_cases = n()) %>% 
-  ungroup() %>% 
-  mutate(Month = as.numeric(Month)) %>% 
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>%
+  filter(Localgovernmentarea %in% top_lga) %>%
+  group_by(Month,Localgovernmentarea) %>%
+  summarise(n_cases = n()) %>%
+  ungroup() %>%
+  mutate(Month = as.numeric(Month)) %>%
   mutate(tooltip = glue::glue(
            "Month: {Month}
             Covid Cases: {n_cases}
             LGA: {Localgovernmentarea}
            "
-         )) %>% 
-  ggplot(aes(Month,
+         ))
+
+# bases <- save_history(graphlga0, grand_tour(2), max = 3)
+# tour_path <- interpolate(bases, 0.1)
+
+
+graphlga <- ggplot(graphlga0,aes(Month,
              n_cases,
+             group = Localgovernmentarea,
              color = Localgovernmentarea)) +
   geom_line() +
   geom_point(aes(text = tooltip)) +
   scale_x_continuous() +
   labs(x = "Month",
        y = "No. of Cases",
-       title = "Trend of Top 10 LGA with maximum Covid Cases",
        color = NULL) +
   theme_bw()
-ggplotly(graphlga,
-         tooltip = "text") 
+pg <- ggplotly(graphlga,
+                width=800, height=500) %>%
+                 animation_opts(200, redraw = FALSE, 
+                 easing = "linear")
+pg
+htmltools::save_html(pg, file="graphlga0.html")
 
-  
+# %>%
+#   hide_legend()  %>%
+#   config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
+
+# p1 <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#   geom_point(aes(color=Species))
+# ggplotly(p1)  
 ```
-]
-.panel[.panel-name[learn]
 
+.panel[.panel-name[learn]
 <br> <br>
 ****Key Insights****:
 
@@ -446,12 +472,16 @@ ggplotly(graphlga,
 *  After the Wednesday afternoon of 2nd week of june in Siddeley Street, a sudden spike in wind speed is observed.
 
 ]
+
+
+]
 .panel[.panel-name[R]
+.scrollable[
 ```{r ref.label="linelga", echo=TRUE, eval=FALSE}
 ```
 ]
 ]
-
+]
 
 ---
 

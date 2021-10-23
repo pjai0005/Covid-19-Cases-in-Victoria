@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>ETC5521 Group Presentation</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Karan Garg   Mohammed Faizan   Prachi Jaiswal  " />
+    <meta name="date" content="2021-10-24" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+    <script src="libs/typedarray-0.1/typedarray.min.js"></script>
+    <script src="libs/jquery-3.5.1/jquery.min.js"></script>
+    <link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+    <link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+    <script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+    <script src="libs/dygraphs-1.1.1/shapes.js"></script>
+    <script src="libs/moment-2.8.4/moment.js"></script>
+    <script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+    <script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+    <script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+    <script src="libs/d3-4.5.0/d3.min.js"></script>
+    <script src="libs/sankey-1/sankey.js"></script>
+    <script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script>
+    <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding-0.18/datatables.js"></script>
+    <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+    <link href="libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet" />
+    <script src="libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
+    <script src="libs/sparkline-binding-2.0/sparkline.js"></script>
+    <link rel="stylesheet" href="MonashBS.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# ETC5521 Group Presentation
+### Karan Garg <br> Mohammed Faizan <br> Prachi Jaiswal<br><br>
+### Master of Business Analytics, <br> Monash University<br><br>
+### 2021-10-24
+
+---
+
+
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.gray80 {
+  color: #505050!important;
+  font-weight: 300;
+}
+.bg-gray80 {
+  background-color: #DCDCDC!important;
+}
+&lt;/style&gt;
+
+class: center, middle
+
+# Introduction
+
+
+
+![](https://media1.giphy.com/media/3bc9YL28QWi3pYzi1p/200w.webp?cid=ecf05e47k2unazdm58ss4pkeleyouynn7mrqksnp9bcw2m2k&amp;rid=200w.webp&amp;ct=g)
+
+.footnote[
+ Data Source: [Giphy](https://www.google.com/url?sa=i&amp;url=https%3A%2F%2Fgiphy.com%2Fexplore%2Fhiiiii&amp;psig=AOvVaw2Lm0h_EsjtoDP_NIV8X5pI&amp;ust=1634298879350000&amp;source=images&amp;cd=vfe&amp;ved=0CAsQjRxqFwoTCNjAyNjsyfMCFQAAAAAdAAAAABAE)]
+ 
+ 
+---
+class: center, middle, inverse
+
+## How are the COVID-19 cases spreading in the Victorian community? 
+
+--
+
+### from 1st May to 30th September of 2020
+
+---
+
+### Trend of Top 10 LGA with maximum Covid Cases
+
+.panelset[
+.panel[.panel-name[plot]
+
+
+.pull-left[
+<div id="htmlwidget-818a2543bb6d95aaeb22" style="width:100%;height:432px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-818a2543bb6d95aaeb22">{"x":{"data":[{"x":[5,6,7,8,9],"y":[37,59,925,831,125],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"Brimbank","legendgroup":"Brimbank","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[16,39,340,479,111],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(216,144,0,1)","dash":"solid"},"hoveron":"points","name":"Casey","legendgroup":"Casey","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[6,17,209,366,16],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(163,165,0,1)","dash":"solid"},"hoveron":"points","name":"Darebin","legendgroup":"Darebin","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[26,121,761,610,57],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(57,182,0,1)","dash":"solid"},"hoveron":"points","name":"Hume","legendgroup":"Hume","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[8,17,539,277,29],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,191,125,1)","dash":"solid"},"hoveron":"points","name":"Melbourne","legendgroup":"Melbourne","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[29,28,448,555,60],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"Melton","legendgroup":"Melton","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[2,36,464,199,60],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,176,246,1)","dash":"solid"},"hoveron":"points","name":"Moonee Valley","legendgroup":"Moonee Valley","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[15,44,493,395,44],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(149,144,255,1)","dash":"solid"},"hoveron":"points","name":"Moreland","legendgroup":"Moreland","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[14,30,574,516,23],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(231,107,243,1)","dash":"solid"},"hoveron":"points","name":"Whittlesea","legendgroup":"Whittlesea","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[22,26,1050,966,129],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,98,188,1)","dash":"solid"},"hoveron":"points","name":"Wyndham","legendgroup":"Wyndham","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[37,59,925,831,125],"text":["Month: 5<br /> Covid Cases: 37<br /> LGA: Brimbank","Month: 6<br /> Covid Cases: 59<br /> LGA: Brimbank","Month: 7<br /> Covid Cases: 925<br /> LGA: Brimbank","Month: 8<br /> Covid Cases: 831<br /> LGA: Brimbank","Month: 9<br /> Covid Cases: 125<br /> LGA: Brimbank"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Brimbank","legendgroup":"Brimbank","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[16,39,340,479,111],"text":["Month: 5<br /> Covid Cases: 16<br /> LGA: Casey","Month: 6<br /> Covid Cases: 39<br /> LGA: Casey","Month: 7<br /> Covid Cases: 340<br /> LGA: Casey","Month: 8<br /> Covid Cases: 479<br /> LGA: Casey","Month: 9<br /> Covid Cases: 111<br /> LGA: Casey"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(216,144,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(216,144,0,1)"}},"hoveron":"points","name":"Casey","legendgroup":"Casey","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[6,17,209,366,16],"text":["Month: 5<br /> Covid Cases: 6<br /> LGA: Darebin","Month: 6<br /> Covid Cases: 17<br /> LGA: Darebin","Month: 7<br /> Covid Cases: 209<br /> LGA: Darebin","Month: 8<br /> Covid Cases: 366<br /> LGA: Darebin","Month: 9<br /> Covid Cases: 16<br /> LGA: Darebin"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(163,165,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(163,165,0,1)"}},"hoveron":"points","name":"Darebin","legendgroup":"Darebin","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[26,121,761,610,57],"text":["Month: 5<br /> Covid Cases: 26<br /> LGA: Hume","Month: 6<br /> Covid Cases: 121<br /> LGA: Hume","Month: 7<br /> Covid Cases: 761<br /> LGA: Hume","Month: 8<br /> Covid Cases: 610<br /> LGA: Hume","Month: 9<br /> Covid Cases: 57<br /> LGA: Hume"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(57,182,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(57,182,0,1)"}},"hoveron":"points","name":"Hume","legendgroup":"Hume","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[8,17,539,277,29],"text":["Month: 5<br /> Covid Cases: 8<br /> LGA: Melbourne","Month: 6<br /> Covid Cases: 17<br /> LGA: Melbourne","Month: 7<br /> Covid Cases: 539<br /> LGA: Melbourne","Month: 8<br /> Covid Cases: 277<br /> LGA: Melbourne","Month: 9<br /> Covid Cases: 29<br /> LGA: Melbourne"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,125,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,125,1)"}},"hoveron":"points","name":"Melbourne","legendgroup":"Melbourne","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[29,28,448,555,60],"text":["Month: 5<br /> Covid Cases: 29<br /> LGA: Melton","Month: 6<br /> Covid Cases: 28<br /> LGA: Melton","Month: 7<br /> Covid Cases: 448<br /> LGA: Melton","Month: 8<br /> Covid Cases: 555<br /> LGA: Melton","Month: 9<br /> Covid Cases: 60<br /> LGA: Melton"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"Melton","legendgroup":"Melton","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[2,36,464,199,60],"text":["Month: 5<br /> Covid Cases: 2<br /> LGA: Moonee Valley","Month: 6<br /> Covid Cases: 36<br /> LGA: Moonee Valley","Month: 7<br /> Covid Cases: 464<br /> LGA: Moonee Valley","Month: 8<br /> Covid Cases: 199<br /> LGA: Moonee Valley","Month: 9<br /> Covid Cases: 60<br /> LGA: Moonee Valley"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,176,246,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,176,246,1)"}},"hoveron":"points","name":"Moonee Valley","legendgroup":"Moonee Valley","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[15,44,493,395,44],"text":["Month: 5<br /> Covid Cases: 15<br /> LGA: Moreland","Month: 6<br /> Covid Cases: 44<br /> LGA: Moreland","Month: 7<br /> Covid Cases: 493<br /> LGA: Moreland","Month: 8<br /> Covid Cases: 395<br /> LGA: Moreland","Month: 9<br /> Covid Cases: 44<br /> LGA: Moreland"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(149,144,255,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(149,144,255,1)"}},"hoveron":"points","name":"Moreland","legendgroup":"Moreland","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[14,30,574,516,23],"text":["Month: 5<br /> Covid Cases: 14<br /> LGA: Whittlesea","Month: 6<br /> Covid Cases: 30<br /> LGA: Whittlesea","Month: 7<br /> Covid Cases: 574<br /> LGA: Whittlesea","Month: 8<br /> Covid Cases: 516<br /> LGA: Whittlesea","Month: 9<br /> Covid Cases: 23<br /> LGA: Whittlesea"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(231,107,243,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(231,107,243,1)"}},"hoveron":"points","name":"Whittlesea","legendgroup":"Whittlesea","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5,6,7,8,9],"y":[22,26,1050,966,129],"text":["Month: 5<br /> Covid Cases: 22<br /> LGA: Wyndham","Month: 6<br /> Covid Cases: 26<br /> LGA: Wyndham","Month: 7<br /> Covid Cases: 1050<br /> LGA: Wyndham","Month: 8<br /> Covid Cases: 966<br /> LGA: Wyndham","Month: 9<br /> Covid Cases: 129<br /> LGA: Wyndham"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,98,188,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(255,98,188,1)"}},"hoveron":"points","name":"Wyndham","legendgroup":"Wyndham","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":25.7412480974125,"r":7.30593607305936,"b":39.6955859969559,"l":48.9497716894977},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.8,9.2],"tickmode":"array","ticktext":["5","6","7","8","9"],"tickvals":[5,6,7,8,9],"categoryorder":"array","categoryarray":["5","6","7","8","9"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Month","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-50.4,1102.4],"tickmode":"array","ticktext":["0","250","500","750","1000"],"tickvals":[0,250,500,750,1000],"categoryorder":"array","categoryarray":["0","250","500","750","1000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"No. of Cases","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"ae1710ec386c":{"x":{},"y":{},"colour":{},"type":"scatter"},"ae1746c4322":{"x":{},"y":{},"colour":{},"text":{}}},"cur_data":"ae1710ec386c","visdat":{"ae1710ec386c":["function (y) ","x"],"ae1746c4322":["function (y) ","x"]},".hideLegend":true,"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+
+****Key Insights****:
+
+*  Only **Siddeley Street** recorded data for all the months and windspeed was increasing till September, then a drop is observed
+*  **Flinders Street, Little Collins Street, Lonsdale Street, Spring Street, William Street** recorded only for 2 months, with only Spring Street showcasing an increase in Avg. windspeed
+
+]
+]
+.panel[.panel-name[R]
+
+```r
+graphlga0 &lt;- karandata %&gt;%
+  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %&gt;%
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %&gt;%
+  filter(Localgovernmentarea %in% top_lga) %&gt;%
+  group_by(Month,Localgovernmentarea) %&gt;%
+  summarise(n_cases = n()) %&gt;%
+  ungroup() %&gt;%
+  mutate(Month = as.numeric(Month)) %&gt;%
+  mutate(tooltip = glue::glue(
+           "Month: {Month}
+            Covid Cases: {n_cases}
+            LGA: {Localgovernmentarea}
+           "
+         ))
+
+
+graphlga &lt;- ggplot(graphlga0,aes(Month,
+             n_cases,
+             group = Localgovernmentarea,
+             color = Localgovernmentarea)) +
+  geom_line() +
+  geom_point(aes(text = tooltip)) +
+  scale_x_continuous() +
+  labs(x = "Month",
+       y = "No. of Cases",
+       color = NULL) +
+  theme_bw()
+pg &lt;- ggplotly(graphlga,
+               tooltip = "text") %&gt;% 
+  hide_legend()
+pg
+```
+]
+]
+
+
+
+---
+
+
+
+
+&lt;img src="index_files/figure-html/graph4-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" width="504" style="display: block; margin: auto;" /&gt;
+---
+class: center, middle
+
+### Overview of covid cases in Victoria
+
+<div id="htmlwidget-d0fd41e822677f0304e2" style="width:100%;height:504px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d0fd41e822677f0304e2">{"x":{"attrs":{"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"title":"Covid Cases across Months","labels":["day","n_cases","diagnosis_date"],"retainDateWindow":false,"legend":"always","labelsDivWidth":250,"labelsShowZeroValues":true,"labelsSeparateLines":false,"hideOverlayOnMouseOut":false,"ylabel":"Temperature in Degree Celcius","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":1.5,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":false,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false,"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2020-05-01T00:00:00.000Z","2020-05-02T00:00:00.000Z","2020-05-03T00:00:00.000Z","2020-05-04T00:00:00.000Z","2020-05-05T00:00:00.000Z","2020-05-06T00:00:00.000Z","2020-05-07T00:00:00.000Z","2020-05-08T00:00:00.000Z","2020-05-09T00:00:00.000Z","2020-05-10T00:00:00.000Z","2020-05-11T00:00:00.000Z","2020-05-12T00:00:00.000Z","2020-05-13T00:00:00.000Z","2020-05-14T00:00:00.000Z","2020-05-15T00:00:00.000Z","2020-05-16T00:00:00.000Z","2020-05-17T00:00:00.000Z","2020-05-18T00:00:00.000Z","2020-05-19T00:00:00.000Z","2020-05-20T00:00:00.000Z","2020-05-21T00:00:00.000Z","2020-05-22T00:00:00.000Z","2020-05-23T00:00:00.000Z","2020-05-24T00:00:00.000Z","2020-05-25T00:00:00.000Z","2020-05-26T00:00:00.000Z","2020-05-27T00:00:00.000Z","2020-05-28T00:00:00.000Z","2020-05-29T00:00:00.000Z","2020-05-30T00:00:00.000Z","2020-05-31T00:00:00.000Z","2020-06-01T00:00:00.000Z","2020-06-02T00:00:00.000Z","2020-06-03T00:00:00.000Z","2020-06-04T00:00:00.000Z","2020-06-05T00:00:00.000Z","2020-06-06T00:00:00.000Z","2020-06-07T00:00:00.000Z","2020-06-09T00:00:00.000Z","2020-06-10T00:00:00.000Z","2020-06-11T00:00:00.000Z","2020-06-12T00:00:00.000Z","2020-06-13T00:00:00.000Z","2020-06-14T00:00:00.000Z","2020-06-15T00:00:00.000Z","2020-06-16T00:00:00.000Z","2020-06-17T00:00:00.000Z","2020-06-18T00:00:00.000Z","2020-06-19T00:00:00.000Z","2020-06-20T00:00:00.000Z","2020-06-21T00:00:00.000Z","2020-06-22T00:00:00.000Z","2020-06-23T00:00:00.000Z","2020-06-24T00:00:00.000Z","2020-06-25T00:00:00.000Z","2020-06-26T00:00:00.000Z","2020-06-27T00:00:00.000Z","2020-06-28T00:00:00.000Z","2020-06-29T00:00:00.000Z","2020-06-30T00:00:00.000Z","2020-07-01T00:00:00.000Z","2020-07-02T00:00:00.000Z","2020-07-03T00:00:00.000Z","2020-07-04T00:00:00.000Z","2020-07-05T00:00:00.000Z","2020-07-06T00:00:00.000Z","2020-07-07T00:00:00.000Z","2020-07-08T00:00:00.000Z","2020-07-09T00:00:00.000Z","2020-07-10T00:00:00.000Z","2020-07-11T00:00:00.000Z","2020-07-12T00:00:00.000Z","2020-07-13T00:00:00.000Z","2020-07-14T00:00:00.000Z","2020-07-15T00:00:00.000Z","2020-07-16T00:00:00.000Z","2020-07-17T00:00:00.000Z","2020-07-18T00:00:00.000Z","2020-07-19T00:00:00.000Z","2020-07-20T00:00:00.000Z","2020-07-21T00:00:00.000Z","2020-07-22T00:00:00.000Z","2020-07-23T00:00:00.000Z","2020-07-24T00:00:00.000Z","2020-07-25T00:00:00.000Z","2020-07-26T00:00:00.000Z","2020-07-27T00:00:00.000Z","2020-07-28T00:00:00.000Z","2020-07-29T00:00:00.000Z","2020-07-30T00:00:00.000Z","2020-07-31T00:00:00.000Z","2020-08-01T00:00:00.000Z","2020-08-02T00:00:00.000Z","2020-08-03T00:00:00.000Z","2020-08-04T00:00:00.000Z","2020-08-05T00:00:00.000Z","2020-08-06T00:00:00.000Z","2020-08-07T00:00:00.000Z","2020-08-08T00:00:00.000Z","2020-08-09T00:00:00.000Z","2020-08-10T00:00:00.000Z","2020-08-11T00:00:00.000Z","2020-08-12T00:00:00.000Z","2020-08-13T00:00:00.000Z","2020-08-14T00:00:00.000Z","2020-08-15T00:00:00.000Z","2020-08-16T00:00:00.000Z","2020-08-17T00:00:00.000Z","2020-08-18T00:00:00.000Z","2020-08-19T00:00:00.000Z","2020-08-20T00:00:00.000Z","2020-08-21T00:00:00.000Z","2020-08-22T00:00:00.000Z","2020-08-23T00:00:00.000Z","2020-08-24T00:00:00.000Z","2020-08-25T00:00:00.000Z","2020-08-26T00:00:00.000Z","2020-08-27T00:00:00.000Z","2020-08-28T00:00:00.000Z","2020-08-29T00:00:00.000Z","2020-08-30T00:00:00.000Z","2020-08-31T00:00:00.000Z","2020-09-01T00:00:00.000Z","2020-09-02T00:00:00.000Z","2020-09-03T00:00:00.000Z","2020-09-04T00:00:00.000Z","2020-09-05T00:00:00.000Z","2020-09-06T00:00:00.000Z","2020-09-07T00:00:00.000Z","2020-09-08T00:00:00.000Z","2020-09-09T00:00:00.000Z","2020-09-10T00:00:00.000Z","2020-09-11T00:00:00.000Z","2020-09-12T00:00:00.000Z","2020-09-13T00:00:00.000Z","2020-09-14T00:00:00.000Z","2020-09-15T00:00:00.000Z","2020-09-16T00:00:00.000Z","2020-09-17T00:00:00.000Z","2020-09-18T00:00:00.000Z","2020-09-19T00:00:00.000Z","2020-09-20T00:00:00.000Z","2020-09-21T00:00:00.000Z","2020-09-22T00:00:00.000Z","2020-09-23T00:00:00.000Z","2020-09-24T00:00:00.000Z","2020-09-25T00:00:00.000Z","2020-09-26T00:00:00.000Z","2020-09-27T00:00:00.000Z","2020-09-28T00:00:00.000Z","2020-09-29T00:00:00.000Z","2020-09-30T00:00:00.000Z"],[" 10"," 11"," 21"," 14"," 16"," 15"," 13"," 12","  8","  5"," 16","  7","  9"," 19"," 13","  5","  6","  7","  5","  5"," 10","  9","  2","  2","  5","  8"," 10","  6","  8","  8","  4","  9","  7","  8","  3","  1","  4","  2","  4","  7","  5","  8"," 10"," 12","  9"," 20"," 18"," 12"," 25"," 17"," 13"," 17"," 18"," 33"," 28"," 40"," 47"," 69"," 61"," 76"," 73"," 62","100"," 68"," 98","168","122","149","143","290","256","167","248","218","295","380","211","337","262","341","436","374","289","333","406","492","359","276","623","548","369","598","354","403","686","444","421","455","374","310","321","400","256","360","301","267","266","217","208","231","170","173","202","109","146","142","110","111"," 90","108"," 71"," 63"," 87","110"," 75"," 71"," 62"," 38"," 48"," 70"," 47"," 40"," 35"," 41"," 30"," 39"," 41"," 25"," 45"," 20"," 13"," 11"," 28"," 14"," 11"," 13"," 12"," 16","  5","  9"," 10"," 14"],["2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27","2020-07-28","2020-07-29","2020-07-30","2020-07-31","2020-08-01","2020-08-02","2020-08-03","2020-08-04","2020-08-05","2020-08-06","2020-08-07","2020-08-08","2020-08-09","2020-08-10","2020-08-11","2020-08-12","2020-08-13","2020-08-14","2020-08-15","2020-08-16","2020-08-17","2020-08-18","2020-08-19","2020-08-20","2020-08-21","2020-08-22","2020-08-23","2020-08-24","2020-08-25","2020-08-26","2020-08-27","2020-08-28","2020-08-29","2020-08-30","2020-08-31","2020-09-01","2020-09-02","2020-09-03","2020-09-04","2020-09-05","2020-09-06","2020-09-07","2020-09-08","2020-09-09","2020-09-10","2020-09-11","2020-09-12","2020-09-13","2020-09-14","2020-09-15","2020-09-16","2020-09-17","2020-09-18","2020-09-19","2020-09-20","2020-09-21","2020-09-22","2020-09-23","2020-09-24","2020-09-25","2020-09-26","2020-09-27","2020-09-28","2020-09-29","2020-09-30"]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+
+---
+
+### Variants
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+---
+class: center, middle
+
+
+
+
+<h4>Comparing COVID Cases in each Month</h4>
+<div id="htmlwidget-818a2543bb6d95aaeb22" style="width:20%;height:10%;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-818a2543bb6d95aaeb22">{"x":{"links":{"source":[0,0,0,1,1,1,2,2,2,3,3,3,4,4,4],"target":[5,6,7,5,6,7,5,6,7,5,6,7,5,6,7],"value":[63,155,71,180,306,97,1937,6542,14,1358,7009,null,98,982,null]},"nodes":{"name":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"],"group":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":14,"fontFamily":null,"nodeWidth":20,"nodePadding":15,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+
+<div id="htmlwidget-e9bf74901ee98af24646" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e9bf74901ee98af24646">{"x":{"filter":"none","caption":"<caption style=\"caption-side: top; &#10;                                                text-align: center;  color:black; font-size:120% ;\">COVID-19 Cases<\/caption>","data":[["1","2","3","4","5"],["May","Jun","Jul","Aug","Sep"],[289,583,8493,8367,1080],["<span id=\"htmlwidget-d0fd41e822677f0304e2\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-d0fd41e822677f0304e2\">{\"x\":{\"values\":[10,11,21,14,16,15,13,12,8,5,16,7,9,19,13,5,6,7,5,5,10,9,2,2,5,8,10,6,8,8,4],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-4fdbeb9c33e2c3fbbd19\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-4fdbeb9c33e2c3fbbd19\">{\"x\":{\"values\":[9,7,8,3,1,4,2,4,7,5,8,10,12,9,20,18,12,25,17,13,17,18,33,28,40,47,69,61,76],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-db8639011a3dfa5efc5e\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-db8639011a3dfa5efc5e\">{\"x\":{\"values\":[73,62,100,68,98,168,122,149,143,290,256,167,248,218,295,380,211,337,262,341,436,374,289,333,406,492,359,276,623,548,369],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-24b2c29e9cd87cc9d167\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-24b2c29e9cd87cc9d167\">{\"x\":{\"values\":[598,354,403,686,444,421,455,374,310,321,400,256,360,301,267,266,217,208,231,170,173,202,109,146,142,110,111,90,108,71,63],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-b28a95aee73fb97bdfd9\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-b28a95aee73fb97bdfd9\">{\"x\":{\"values\":[87,110,75,71,62,38,48,70,47,40,35,41,30,39,41,25,45,20,13,11,28,14,11,13,12,16,5,9,10,14],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"],["<span id=\"htmlwidget-7da799c83e06dd2a3b9f\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-7da799c83e06dd2a3b9f\">{\"x\":{\"values\":[10,11,21,14,16,15,13,12,8,5,16,7,9,19,13,5,6,7,5,5,10,9,2,2,5,8,10,6,8,8,4],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-7633ee9797cdea005001\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-7633ee9797cdea005001\">{\"x\":{\"values\":[9,7,8,3,1,4,2,4,7,5,8,10,12,9,20,18,12,25,17,13,17,18,33,28,40,47,69,61,76],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-7f2840084333a8adb043\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-7f2840084333a8adb043\">{\"x\":{\"values\":[73,62,100,68,98,168,122,149,143,290,256,167,248,218,295,380,211,337,262,341,436,374,289,333,406,492,359,276,623,548,369],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-55f1944eaa93a807f15f\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-55f1944eaa93a807f15f\">{\"x\":{\"values\":[598,354,403,686,444,421,455,374,310,321,400,256,360,301,267,266,217,208,231,170,173,202,109,146,142,110,111,90,108,71,63],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-c6f7e4518afaf594efec\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-c6f7e4518afaf594efec\">{\"x\":{\"values\":[87,110,75,71,62,38,48,70,47,40,35,41,30,39,41,25,45,20,13,11,28,14,11,13,12,16,5,9,10,14],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Month<\/th>\n      <th>Total Cases<\/th>\n      <th>Cases in a month<\/th>\n      <th>Distribution in a month<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100],"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[2]; $(row).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= 0 ? \"black\" : value <= 1000000 ? \"white\" : value <= \"Inf\" ? \"green\" : \"red\"});\n}"}},"evals":["options.columnDefs.0.render","options.rowCallback"],"jsHooks":[]}</script>
+
+---
+# References
+
+
+.scrollable[
+- 
+NULL
+]
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "magula",
+"highlightLanguage": "r",
+"highlightLines": true,
+"highlightSpans": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%",
+"navigation": {
+"scroll": false,
+"touch": true,
+"click": false,
+"ratio": "16:9"
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
