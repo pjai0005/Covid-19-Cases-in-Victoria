@@ -55,7 +55,7 @@ library(RefManageR)
 library(sf)
 library(glue)
 library(unglue)
-
+library(xts)
 ```
 
 ```{r}
@@ -98,5 +98,18 @@ lga <- as_tibble(lga_boundaries)%>% select(-geometry)
   geom_sf_text(aes(geometry= geometry,label=POSTCODE, colour="white"), 
                check_overlap=TRUE)+
   theme_void() 
+
+```
+```{r}
+date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n())
+
+age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())
+
+acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())
+
+pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())
+
+pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())
+
 ```
 
