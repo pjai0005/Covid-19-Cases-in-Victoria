@@ -212,6 +212,28 @@ Thus in all, I would say that the vaccination rate causes the infection rate to 
 
 # 2
 
+```{r }
+date_case %>% 
+  as_tibble() %>% 
+  mutate(month=month(diagnosis_date,abbr = TRUE,label = TRUE)) %>% 
+  group_by(month) %>%
+  summarise("Total Cases" = round(sum(n_cases, na.rm = TRUE)),
+            "Cases in a month" = spk_chr(n_cases, type ="line")) %>%
+   arrange(month) %>% 
+  rename(Month = month)%>%  
+  datatable(rownames =TRUE, escape = FALSE, 
+            caption = htmltools::tags$caption( style = 'caption-side: top; 
+                                                text-align: center;  color:black; font-size:120% ;','COVID-19 Cases'),
+            options=list(pageLength = 5)) %>%
+  spk_add_deps() %>%
+ formatStyle(
+  "Total Cases",
+  target = 'row',
+  backgroundColor = styleInterval(c(0,1000000,Inf), c('black','white','green','red'))
+) %>% 
+  formatRound("Total Cases", digits = 0)
+```
+
 # 3
 
 
