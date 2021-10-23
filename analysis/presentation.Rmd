@@ -77,6 +77,35 @@ options(htmltools.dir.version = FALSE)
 
 ```
 
+```{r data, include=FALSE}
+
+# lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
+# 
+# postcode_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz Postcode data - postcode.csv"))
+# 
+# cases_source <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Source_20211023.csv"))
+# 
+# lga_cases <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_20211023.csv"))
+
+covid_cases0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
+covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
+
+covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
+  filter(diagnosis_date>="2020-05-01") %>% 
+  filter(diagnosis_date<="2020-09-30")
+
+date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
+
+age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
+
+acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())%>% ungroup()
+
+pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())%>% ungroup()
+
+pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
+
+```
+
 
 class: center, middle
 
@@ -98,3 +127,19 @@ class: center, middle, inverse
 
 ### from 1st May to 30th September of 2020
 
+---
+class: center, middle
+
+### Overview of covid cases in Victoria
+
+```{r out.width="100%"}
+date_case %>% 
+  select(n_cases) %>% 
+  xts(order.by=date_case$diagnosis_date) %>% 
+  dygraph( main = "Covid Cases across Months", xlab = NULL, ylab = NULL, periodicity = NULL,
+  group = NULL, elementId = NULL, width = NULL, height = NULL)%>% 
+  dyLegend(show = "always", hideOnMouseOut = FALSE)%>%
+  dyAxis("y", label = "Temperature in Degree Celcius") %>%
+  dyOptions(axisLineWidth = 1.5, fillGraph = FALSE, drawGrid = FALSE) %>% 
+  dyRangeSelector()
+```
