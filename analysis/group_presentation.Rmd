@@ -215,22 +215,32 @@ Thus in all, I would say that the vaccination rate causes the infection rate to 
 # 3
 
 ```{r}
+covid_cases %>% 
+  group_by(Localgovernmentarea) %>% 
+  summarise(n_cases = n()) %>% 
+  slice_max(n_cases,n = 10)
+```
+
+
+```{r}
 library(ggraph)
 library(tidygraph)
 
 clean_selected <- covid_cases %>% 
-  group_by(acquired,Localgovernmentarea) %>% 
+  separate(diagnosis_date,into = c("Year","Month","Date"),sep = "-") %>% 
+  group_by(Month,acquired,Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
-  ungroup() %>% 
+  ungroup() %>%
+  select(acquired,Localgovernmentarea,n_cases) %>% 
   mutate(acquired = as.factor(acquired),
          Localgovernmentarea = as.factor(Localgovernmentarea),
-         aclg = paste0(Localgovernmentarea,acquired)) 
+         aclg = paste0(acquired,Localgovernmentarea)) 
 
 graph_dt <- clean_selected %>% 
   group_by(aclg) %>% 
   summarise(total_cases = sum(n_cases)) %>% 
   left_join(clean_selected, by = "aclg") %>% 
-  rename(from = Localgovernmentarea, to = acquired) %>% 
+  rename(from = acquired, to = Localgovernmentarea) %>% 
   as_tbl_graph()
 
 acquired1 <- covid_cases %>% select(acquired) %>% unique()  
