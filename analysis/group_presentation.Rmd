@@ -318,18 +318,22 @@ top_lga1 <- covid_cases %>%
   group_by(Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
   slice_max(n_cases,n = 10) %>% 
-  select(Localgovernmentarea)
+  select(Localgovernmentarea) %>% 
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea))
 
 top_lga <- top_lga1$Localgovernmentarea
 ```
 
 
-```{r}
+```{r graph-clean,include=FALSE}
 library(ggraph)
 library(tidygraph)
 
 clean_selected <- covid_cases %>% 
   separate(diagnosis_date,into = c("Year","Month","Date"),sep = "-") %>% 
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
   filter(Localgovernmentarea %in% top_lga) %>% 
   group_by(Month,acquired,Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
@@ -346,11 +350,8 @@ graph_dt <- clean_selected %>%
   rename(from = acquired, to = Localgovernmentarea) %>% 
   as_tbl_graph()
 
-acquired1 <- covid_cases %>% select(acquired) %>% unique()  
+acquired1 <- clean_selected %>% select(acquired) %>% unique()  
 acquired <- acquired1$acquired 
-
-lga1 <- covid_cases %>% select(Localgovernmentarea) %>% unique()  
-lga <- lga1$Localgovernmentarea 
 
 structure <- c(acquired,top_lga)
 
@@ -358,7 +359,7 @@ structure <- c(acquired,top_lga)
 
 
 
-```{r}
+```{r graph4,echo=FALSE}
 set.seed(1234)
 ggraph(graph_dt, "lgl") +
   geom_edge_link2(color = "grey90") +
