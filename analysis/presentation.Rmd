@@ -205,5 +205,44 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) +
   theme_bw()
 ```
 ]
+---
+class: center
 
+```{r, warning=FALSE, message=FALSE, fig.align='center', out.height="50%", out.width="80%"}
+sank <- covid_cases %>% 
+  mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
+         day = day(diagnosis_date),
+         month = month(diagnosis_date, label = TRUE), 
+         year = year(diagnosis_date),
+         month = as.factor(month)) %>%
+  select(month, acquired) %>%
+  group_by(month, acquired) %>%
+  summarise(value = n()) %>%
+  pivot_wider(names_from = acquired,
+              values_from = value) %>%
+  rename("Unknown"="Acquired in Australia, unknown source",
+         "Contact"="Contact with a confirmed case",
+         "Travel"="Travel overseas") %>%
+  pivot_longer(cols = -month,
+               names_to = "target",
+               values_to = "value")
+
+node <- data.frame(name=c(as.character(sank$month), 
+        as.character(sank$target)) %>% unique())
+
+my_color <- 'd3.scaleOrdinal() .domain(["Sep", "Oct", "Nov", "Covid", "War"]) .range([ "#5f0f40", "#fb8b24","#0f4c5c", "#9a031e", "#e36414"])'
+
+sank$IDmonth <- match(sank$month, node$name)-1 
+sank$IDtarget <- match(sank$target, node$name)-1
+ 
+p <- sankeyNetwork(Links = sank, Nodes = node, Source = "IDmonth", 
+               Target = "IDtarget", Value = "value", NodeID = "name", fontSize = 14, 
+               nodeWidth = 20, nodePadding = 15, sinksRight = FALSE)
+
+sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing COVID Cases in each Month"))
+
+#sankey <- htmlwidgets::appendContent(sankey, htmltools::tags$p("Comparing Death Toll"))
+
+sankey
+```
 
