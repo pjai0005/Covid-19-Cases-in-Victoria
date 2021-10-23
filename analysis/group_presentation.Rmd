@@ -1,20 +1,39 @@
 ---
 title: "ETC5521 Group Presentation"
-subtitle: "How are the COVID-19 cases spreading in the Victorian community during 1st May to 30th September 2020?"
-team: Beta
-author:
-  - Mohammed Faizan 
-  - Prachi Jaiswal
-  - Karan Garg
+subtitle: "How are the COVID-19 cases spreading in the Victorian community during 1st May to 30th September 2020?"  
+author: "Mohammed Faizan, Prachi Jaiswal, Karan Garg"
 date: "`r Sys.Date()`"
-output: 
-  html_document:
-    includes:
-      before_body: header.html
-bibliography: 
-- packages.bib
-biblio-style: authoryear-comp
----
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default,"MonashBS.css"]
+    nature:
+      highlightStyle: magula
+      highlightLanguage: r 
+      highlightLines: true
+      highlightSpans: false 
+      countIncrementalSlides: false
+      slideNumberFormat: '%current%/%total%'
+      navigation:
+        scroll: false 
+        touch: true
+        click: false
+        ratio: 16:9
+---     
+
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+xaringanExtra::use_panelset()
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
@@ -61,7 +80,18 @@ library(gghighlight)
 library(networkD3)
 ```
 
-```{r}
+```{css, echo = FALSE}
+.gray80 {
+  color: #505050!important;
+  font-weight: 300;
+}
+.bg-gray80 {
+  background-color: #DCDCDC!important;
+}
+```
+
+
+```{r, include=FALSE}
 
 # lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
 # 
@@ -81,7 +111,7 @@ covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>%
 ```
 
 
-```{r}
+```{r, include=FALSE}
 data_path <- here::here("data/shape/boundaries/esrishape/whole_of_dataset/victoria/VMADMIN/")
 
 postcode_boundaries <- read_sf(here::here(glue(data_path, "POSTCODE_POLYGON.shp"))) 
@@ -90,14 +120,14 @@ lga_boundaries <- read_sf(here::here(glue(data_path, "AD_LGA_AREA_POLYGON.shp"))
   distinct(NAME,.keep_all = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 postcodes <- as_tibble(postcode_boundaries) %>% select(-geometry)
 lga <- as_tibble(lga_boundaries)%>% select(-geometry)
 ```
 
 
 
-```{r}
+```{r,include=FALSE}
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
 
 age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
@@ -109,7 +139,22 @@ pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>%
 pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
 
 ```
-```{r}
+
+<br><br><br><br><br><br>
+## Research Questions❓
+
+#### Are different parts of the city windier than others? 
+
+
+#### How are the wind speeds different or similar in different parts of the city?
+
+
+#### What is the effect of temperature on wind speed?
+
+---
+
+
+```{r,echo=FALSE}
 date_case %>% 
   select(n_cases) %>% 
   xts(order.by=date_case$diagnosis_date) %>% 
@@ -121,7 +166,7 @@ date_case %>%
   dyRangeSelector()
 ```
 
-```{r}
+```{r,eval=FALSE}
 age %>% group_by(agegroup) %>% summarise(total=sum(n_cases)) %>% arrange(desc(total))
 
 age <- age %>%  mutate(high=case_when(agegroup %in% c("20-29","30-39") ~ "high",
@@ -144,14 +189,18 @@ age %>%
 
 
 
-```{r}
+```{r, include=FALSE}
 variant_country <- readr::read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/variants/covid-variants.csv') %>% filter(location=="Australia")
 ```
 
+---
+
 Now, we analyze the corona virus variants in Turkey. The first and basic visualisation to check the distribution of the variants is a bar plot. The variants are plotted on a bar chart and we find that the delta variant is the most common infection in Turkey. "The Delta variant is a variant of concern that WHO is tracking and monitoring around the world. It's a variant of concern because we know it has increased transmissibility. This has been demonstrated by several countries. And we know that where the Delta variant is identified, it really rapidly takes off and spreads between people more efficiently than even the Alpha variant that was first detected around December, January 2021. As of today, the Delta variant has been reported in 96 countries and we expect that the Delta variant will continue to spread." ~ Dr Maria Van Kerkhove
 
+---
 
-```{r}
+
+```{r,echo=FALSE}
 variant_country <- variant_country %>% mutate(
   num_sequences=ifelse(is.na(num_sequences),0,num_sequences),
   perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>% 
@@ -178,11 +227,13 @@ variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,var
   
 ```
 
+---
 
 Now, the first occurrence of the delta strain is identified and its relation with the increase in the number of cases will be discussed. The spread of the delta variant is super fast and it is proved by data in the plot below. The first occurence the delta variant in Turkey was in May 2021. The spread of it is so fast that, in August almost all of the cases are attributed to the delta variant. 
 
+---
 
-```{r}
+```{r,echo=FALSE}
 variant_country_delta <- variant_country %>% filter(variant=="Delta") %>%
   mutate(month= month(date,label=TRUE,abbr = TRUE)) %>% 
   pivot_longer(cols=c(num_sequences,num_sequences_total),
@@ -201,12 +252,15 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + geom_col
         legend.position = "bottom")
 ```
 
+---
+
 Thus in all, I would say that the vaccination rate causes the infection rate to slow down. However, the neglected attitude of people and the hesitancy to take the vaccine has caused this pandemic to disturb normal life for longer times. The restrictions and other regulations have most definitely allowed us this time to face this pandemic in a stringer manner to avoid more deaths. Therefore, please get vaccinated and stay safe.
 
+---
 
 # 1
 
-```{r}
+```{r,echo=FALSE}
 sank <- covid_cases %>% 
   mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
          day = day(diagnosis_date),
@@ -244,10 +298,11 @@ sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing Causes of
 sankey
 ```
 
+---
 
 # 2
 
-```{r }
+```{r,echo=FALSE}
 date_case %>% 
   as_tibble() %>% 
   mutate(month=month(diagnosis_date,abbr = TRUE,label = TRUE)) %>% 
@@ -269,7 +324,7 @@ date_case %>%
   formatRound("Total Cases", digits = 0)
 ```
 
-```{r}
+```{r,include=FALSE}
 #only for filtered data
 postcodes1 <- covid_cases %>% select(Postcode) %>% 
   mutate(Postcode=as.character(Postcode)) %>% distinct() %>% 
@@ -279,7 +334,7 @@ postcodes1 <- covid_cases %>% select(Postcode) %>%
   left_join(postcode_boundaries)
 ```
 
-```{r}
+```{r,include=FALSE}
 
 covid_cases <- covid_cases %>% 
   mutate(
@@ -303,7 +358,7 @@ lga1 <- covid_cases %>% select(Localgovernmentarea1) %>%
   left_join(lga_boundaries)
 ```
 
-```{r}
+```{r,include=FALSE}
 top10_lga <- covid_cases %>% 
   group_by(Localgovernmentarea1) %>% 
   summarise(n_cases = n()) %>% 
@@ -333,16 +388,16 @@ ggplot(data=lga1 %>% filter(NAME1 %in% top10_lga)) +
 ```
 
 
-```{r }
+```{r,include=FALSE}
 data_path <- here::here("data/australian_census_data_2016/")
 ```
 
 
-```{r datapath}
+```{r datapat,include=FALSE}
 census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
                          number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
 ```
-```{r geopath}
+```{r geopath,include=FALSE}
 data_path <- here::here("data/australian_census_data_2016/")
 geopath <- glue::glue(data_path, "/2016_SA4_shape/SA4_2016_AUST.shp")
 sa4_codes<- read_csv(census_paths[2]) %>% 
@@ -354,7 +409,7 @@ sa4_geomap <- read_sf(geopath) %>%
 
 
 
-```{r g51read}
+```{r g51read,include=FALSE}
 g51 <- map_dfr(census_paths[6:8], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%
@@ -369,7 +424,9 @@ g51 <- map_dfr(census_paths[6:8], ~{
                 remove = FALSE)
 })
 ```
-```{r g51rename}
+
+
+```{r g51rename,include=FALSE}
 g51 <- g51 %>% 
   mutate(industry =case_when(
                             str_detect(industry, "Ag_For_Fshg") ~ "Agriculture_forestry_and_fishing",
@@ -396,8 +453,9 @@ g51 <- g51 %>%
   select(-category) %>%
   rename(count_industry = count)
 ```
-```{r}
-<<<<<<< HEAD
+
+```{r,include=FALSE}
+
 top_lga1 <- covid_cases %>% 
   group_by(Localgovernmentarea) %>% 
   summarise(n_cases = n()) %>% 
@@ -405,7 +463,7 @@ top_lga1 <- covid_cases %>%
   select(Localgovernmentarea) %>% 
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
          Localgovernmentarea = trimws(Localgovernmentarea))
-=======
+
 vicpopulation <- g51 %>%
   group_by(SA4_CODE_2016) %>%
   summarise(population = sum(count_industry)) %>%
@@ -422,7 +480,10 @@ vicpopulation <- g51 %>%
          femalepopulation = `F`) %>%
   full_join(vicpopulation)
 ```
-```{r}
+
+---
+
+```{r,echo=FALSE}
 vicpopulation %>% 
   full_join(sa4_geomap, 
             by = c("SA4_CODE_2016"="SA4_CODE")) %>%
@@ -432,15 +493,24 @@ vicpopulation %>%
                check_overlap=TRUE)+
   theme_void() 
 ```
+
+---
+
 # 3
 
-
->>>>>>> e646de1f6cc80e0aee2721cbcd26ba2bb763bb05
-
+```{r,include=FALSE}
+top_lga1 <- covid_cases %>% 
+  group_by(Localgovernmentarea) %>% 
+  summarise(n_cases  = n()) %>% 
+  ungroup() %>% 
+  slice_max(n_cases,n=10) %>% 
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
+  select(Localgovernmentarea)
 top_lga <- top_lga1$Localgovernmentarea
 ```
 
-```{r}
+```{r,include=FALSE}
 top_10_grf <- covid_cases %>% 
   separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
@@ -468,11 +538,18 @@ top_10_grf <- covid_cases %>%
        title = "Trend of Top 10 LGA with maximum Covid Cases",
        color = "") +
   theme_bw()
+
+  
+```
+
+```{r,echo=FALSE}
 ggplotly(top_10_grf,
          tooltip = "text") %>% 
     config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
-  
 ```
+
+
+---
 
 ```{r graph-clean,include=FALSE}
 library(ggraph)
@@ -504,7 +581,6 @@ acquired <- acquired1$acquired
 structure <- c(acquired,top_lga)
 
 ```
-
 
 
 ```{r graph4,echo=FALSE}
