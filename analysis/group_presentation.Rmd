@@ -234,6 +234,43 @@ date_case %>%
   formatRound("Total Cases", digits = 0)
 ```
 
+```{r}
+#only for filtered data
+postcodes1 <- covid_cases %>% select(Postcode) %>% 
+  mutate(Postcode=as.character(Postcode)) %>% distinct() %>% 
+  left_join(postcodes,
+            by=c("Postcode"="POSTCODE")) %>% 
+  rename("POSTCODE"="Postcode") %>% 
+  left_join(postcode_boundaries)
+```
+
+```{r}
+
+covid_cases <- covid_cases %>% 
+  mutate(
+    Localgovernmentarea1=str_to_lower(
+      str_trim(
+        str_remove_all(Localgovernmentarea,"\\(.+\\)"))))
+
+lga <- lga %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+
+lga_boundaries <- lga_boundaries %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+
+lga1 <- covid_cases %>% select(Localgovernmentarea1) %>% 
+  distinct()  %>% 
+  left_join(lga,
+            by=c("Localgovernmentarea1"="NAME1")) %>% 
+  rename("NAME1"="Localgovernmentarea1") %>% 
+  left_join(lga_boundaries)
+```
+
+
+
+
 # 3
 
 
