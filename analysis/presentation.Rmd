@@ -1,8 +1,7 @@
 ---
 title: "ETC5521 Group Presentation"
-subtitle: "How are the COVID-19 cases spreading in the Victorian community during 1st May to 30th September 2020?"
-author: "Karan Garg, Mohammed Faizan, Prachi Jaiswal"
-institute: "Master of Business Analytics, Monash University"
+author: "Karan Garg <br>  Mohammed Faiza <br> Prachi Jaiswal"
+institute: "Master of Business Analytics, <br> Monash University"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -18,6 +17,19 @@ output:
         click: false
         ratio: 16:9
 ---
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(showtext)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "150", "150i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
@@ -56,25 +68,181 @@ library(naniar)
 library(tidyr)
 library(RefManageR)
 library(xts)
+library(gghighlight)
+library(networkD3)
+library(xaringanthemer)
+library(emo)
 
 options(htmltools.dir.version = FALSE)
 
 ```
 
-```{r writing_packages_bibliographies}
-knitr::write_bib(c(.packages()), "packages.bib")
+```{r data, include=FALSE}
+
+# lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
+# 
+# postcode_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz Postcode data - postcode.csv"))
+# 
+# cases_source <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Source_20211023.csv"))
+# 
+# lga_cases <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_20211023.csv"))
+
+covid_cases0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
+covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
+
+covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
+  filter(diagnosis_date>="2020-05-01") %>% 
+  filter(diagnosis_date<="2020-09-30")
+
+date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
+
+age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
+
+acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())%>% ungroup()
+
+pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())%>% ungroup()
+
+pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
+
 ```
 
-```{r}
-BibOptions(
-  check.entries = FALSE, 
-  bib.style = "authoryear", 
-  cite.style = "authoryear", 
-  style = "markdown",
-  hyperlink = FALSE, 
-  dashed = FALSE)
-myBib = ReadBib(here::here("reference.bib"))
+
+class: center, middle
+
+# Introduction
+
+```{r, echo=FALSE}
+#knitr::include_graphics("hi.gif")
+```
+.footnote[
+ Data Source: [Giphy](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgiphy.com%2Fexplore%2Fhiiiii&psig=AOvVaw2Lm0h_EsjtoDP_NIV8X5pI&ust=1634298879350000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNjAyNjsyfMCFQAAAAAdAAAAABAE)]
+ 
+ 
+---
+class: center, middle, inverse
+
+## How are the COVID-19 cases spreading in the Victorian community? 
+
+--
+
+### from 1st May to 30th September of 2020
+
+---
+class: center, middle
+
+### Overview of covid cases in Victoria
+
+```{r out.width="100%"}
+date_case %>% 
+  select(n_cases) %>% 
+  xts(order.by=date_case$diagnosis_date) %>% 
+  dygraph( main = "Covid Cases across Months", xlab = NULL, ylab = NULL, periodicity = NULL,
+  group = NULL, elementId = NULL, width = NULL, height = NULL)%>% 
+  dyLegend(show = "always", hideOnMouseOut = FALSE)%>%
+  dyAxis("y", label = "Temperature in Degree Celcius") %>%
+  dyOptions(axisLineWidth = 1.5, fillGraph = FALSE, drawGrid = FALSE) %>% 
+  dyRangeSelector()
 ```
 
 
+---
+
+### Variants
+
+.pull-left[
+```{r, warning=FALSE, message=FALSE}
+variant_country <- readr::read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/variants/covid-variants.csv') %>% filter(location=="Australia")
+
+variant_country <- variant_country %>% mutate(
+  num_sequences=ifelse(is.na(num_sequences),0,num_sequences),
+  perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>% 
+  mutate(year=year(date),
+         month=month(date),
+         day=day(date)) 
+
+variant_summary <- variant_country %>% group_by(variant) %>% 
+  summarise(variant_sum=sum(num_sequences))
+
+variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) + 
+  geom_col(fill= "darkred") +
+  coord_flip() +
+  theme_bw() +
+  labs(y="Sum of Variants",title = "Variant Distribution",
+         caption = "")  + 
+        theme_classic()+
+        labs(y = "Number of Cases",
+         x = "Month" ) +
+  theme(axis.title.y = element_blank(),
+        axis.text.y = element_text(size = 11), 
+        legend.position = "bottom") +
+  gghighlight(max(variant_sum) > 15000)+
+  theme_minimal()
+```
+]
+
+.pull-right[
+
+```{r, warning=FALSE, message=FALSE}
+variant_country_delta <- variant_country %>% 
+  filter(variant=="Delta") %>%
+  mutate(month= month(date,label=TRUE,abbr = TRUE)) %>% 
+  pivot_longer(cols=c(num_sequences,num_sequences_total),
+               names_to = "sequence",
+               values_to = "number") %>% 
+  mutate(sequence=ifelse(sequence=="num_sequences","delta","total"))
+
+variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + 
+  geom_col(position="dodge")+
+        theme_classic()+
+        labs(y = "Number of Cases",
+         x = "Month",
+         title = "Delta Variant Cases",
+         caption = "Delta Variant Cases") +
+  theme(axis.title.y = element_text(size = 11),
+        axis.text.y = element_text(size = 11), 
+        legend.position = "bottom")+
+  scale_fill_brewer(palette = "Set1")+
+  theme_bw()
+```
+]
+---
+class: center
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', out.height="50%", out.width="80%"}
+sank <- covid_cases %>% 
+  mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
+         day = day(diagnosis_date),
+         month = month(diagnosis_date, label = TRUE), 
+         year = year(diagnosis_date),
+         month = as.factor(month)) %>%
+  select(month, acquired) %>%
+  group_by(month, acquired) %>%
+  summarise(value = n()) %>%
+  pivot_wider(names_from = acquired,
+              values_from = value) %>%
+  rename("Unknown"="Acquired in Australia, unknown source",
+         "Contact"="Contact with a confirmed case",
+         "Travel"="Travel overseas") %>%
+  pivot_longer(cols = -month,
+               names_to = "target",
+               values_to = "value")
+
+node <- data.frame(name=c(as.character(sank$month), 
+        as.character(sank$target)) %>% unique())
+
+my_color <- 'd3.scaleOrdinal() .domain(["Sep", "Oct", "Nov", "Covid", "War"]) .range([ "#5f0f40", "#fb8b24","#0f4c5c", "#9a031e", "#e36414"])'
+
+sank$IDmonth <- match(sank$month, node$name)-1 
+sank$IDtarget <- match(sank$target, node$name)-1
+ 
+p <- sankeyNetwork(Links = sank, Nodes = node, Source = "IDmonth", 
+               Target = "IDtarget", Value = "value", NodeID = "name", fontSize = 14, 
+               nodeWidth = 20, nodePadding = 15, sinksRight = FALSE)
+
+sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing COVID Cases in each Month"))
+
+#sankey <- htmlwidgets::appendContent(sankey, htmltools::tags$p("Comparing Death Toll"))
+
+sankey
+```
 
