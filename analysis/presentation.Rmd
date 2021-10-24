@@ -28,7 +28,7 @@ style_mono_accent(
   text_font_google   = google_font("Montserrat", "150", "150i"),
   code_font_google   = google_font("Fira Mono")
 )
-
+#devtools::install_github("gadenbuie/xaringanExtra")
 xaringanExtra::use_panelset()
 ```
 
@@ -170,7 +170,7 @@ class: center, middle, inverse
 ### from 1st May to 30th September of 2020
 
 ---
-# Population in Victoria
+### Population in Victoria `r emo::ji("graph")`
 ```{r , include=FALSE}
 data_path <- here::here("data/australian_census_data_2016/")
 ```
@@ -264,7 +264,7 @@ vicpopulation %>%
 ---
 class: center, middle
 
-### Overview of covid cases in Victoria
+### Overview of covid cases in Victoria 
 
 ```{r out.width="100%"}
 date_case %>% 
@@ -281,7 +281,7 @@ date_case %>%
 ---
 class: center, inverse
 
-# Red Zone
+### Red Zone `r emo::ji("red_circle")`
 ```{r }
 
 invthm <- theme_map() + 
@@ -372,20 +372,24 @@ ggplot(acq, aes(x= day, y= value, color = target))+
 The main reason: **Contact**
 ---
 
-### Variants
+### Variants `r emo::ji("mosquito")`
 
 .pull-left[
 ```{r, warning=FALSE, message=FALSE}
 variant_country <- readr::read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/variants/covid-variants.csv') %>% filter(location=="Australia")
-variant_country <- variant_country %>% mutate(
-  num_sequences=ifelse(is.na(num_sequences),0,num_sequences),
-  perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>% 
+variant_country <- variant_country  %>%
+  mutate(num_sequences=ifelse(is.na(num_sequences),0,num_sequences),
+         perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>% 
   mutate(year=year(date),
          month=month(date),
-         day=day(date)) 
+         day=day(date))%>% 
+  filter(year == 2020,
+         between(month, 5, 9)) 
 variant_summary <- variant_country %>% group_by(variant) %>% 
   summarise(variant_sum=sum(num_sequences))
-variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) + 
+variant_summary %>% filter(variant_sum>100) %>% 
+  
+  ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) + 
   geom_col(fill= "darkred") +
   coord_flip() +
   theme_bw() +
@@ -397,7 +401,7 @@ variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,var
   theme(axis.title.y = element_blank(),
         axis.text.y = element_text(size = 11), 
         legend.position = "bottom") +
-  gghighlight(max(variant_sum) > 15000)+
+  #gghighlight(max(variant_sum) > 15000)+
   theme_minimal()
 ```
 ]
@@ -412,7 +416,9 @@ variant_country_delta <- variant_country %>%
                names_to = "sequence",
                values_to = "number") %>% 
   mutate(sequence=ifelse(sequence=="num_sequences","delta","total"))
-variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + 
+variant_country_delta %>% 
+  
+  ggplot(aes(x=month,y=number,fill=sequence)) + 
   geom_col(position="dodge")+
         theme_classic()+
         labs(y = "Number of Cases",
@@ -427,15 +433,24 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) +
 ```
 ]
 ---
-### Learn
 
-- We know that where the Delta variant is identified, it really rapidly takes off and spreads between people.
+### Learn `r emo::ji("pencil")`
 
-- Due to the Delta variant infections, there was a surge in cases across Victoria.
+- Rapid infection spreads between people.
 
-- Travel restriction were imposed and contact tracing became significant for detecting the spread of the virus. 
+--
 
-class: center, middle
+- Surge in cases across Victoria.
+
+--
+
+- Travel restriction were imposed.
+
+--
+
+- Contact-tracing became significant for detecting the spread of the virus. 
+
+--
 
 ```{r, warning=FALSE, message=FALSE, fig.align='center', out.height="50%", out.width="80%"}
 sank <- covid_cases %>% 
@@ -477,7 +492,7 @@ sankey
 
 
 ---
-
+### Most Affected `r emo::ji("calendar")`
 ```{r eval=FALSE}
 monthly_table <- date_case %>% 
   as_tibble() %>% 
@@ -503,12 +518,11 @@ monthly_table <- date_case %>%
 htmltools::save_html(monthly_table, file="plotly/monthly_table.html")    
 ```
 
-<iframe src="plotly/monthly_table.html" width="600" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
+<iframe src="plotly/monthly_table.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
 
 ---
-class: center, top
 
-## Spread of the Virus
+### Spread of the Virus `r emo::ji("virus")`
 
 
 ```{r}
@@ -578,7 +592,8 @@ vic_lga_covid <- vic_lga %>% left_join(l_month_cases1,
   geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"),
   check_overlap=TRUE)+
-  theme_minimal() 
+  theme_minimal()+
+  
  
 
 ```
@@ -827,14 +842,19 @@ ggraph(graph_dt, "lgl") +
 
 ---
 
-# Conclusion
+# Conclusion `r emo::ji("pen")`
 
+`r emo::ji("target")` point 1
 
+`r emo::ji("target")` point 2
 
+`r emo::ji("target")` point 3
+
+`r emo::ji("target")` point 4
 
 
 ---
-# References
+# References `r emo::ji("link")`
 
 ```{r, load_refs, echo=FALSE}
 library(RefManageR)
@@ -850,3 +870,10 @@ print(bib,
                bib.style = "authoryear"))
 ```
 ]
+
+class: center, middle, inverse
+
+![](https://clubrunner.blob.core.windows.net/00000000385/Images/thanks.gif)
+
+.footnote[
+ Data Source: [Giphy](https://clubrunner.blob.core.windows.net/00000000385/Images/thanks.gif)]
