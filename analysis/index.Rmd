@@ -281,7 +281,7 @@ structure <- c(acquired,top_lga)
 ```{r graph4,echo=FALSE}
 set.seed(1234)
 ggraph(graph_dt, "lgl") +
-  geom_edge_link2(color = "grey90") +
+  geom_edge_link2(color = "black") +
   geom_node_point(data = ~.x %>% filter(name %in% structure)) + 
   geom_node_label(data = ~.x %>% filter(name %in% structure),
                   aes(label = name), repel = TRUE, 
