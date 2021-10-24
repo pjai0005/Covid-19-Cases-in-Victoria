@@ -732,7 +732,7 @@ htmltools::save_html(pg, file="plotly/pg.html")
 
 .pull-right[
 
-****Key Insights****:
+**Key Insights**:
 
 *  Every LGA spiked in the no of covid cases after June,2020
 *  The spike was almost 20%
