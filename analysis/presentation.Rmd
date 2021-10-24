@@ -315,24 +315,24 @@ l_month_cases %>%
             by = c("Localgovernmentarea1"="NAME1")) %>%
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=SIR)) +
-  geom_sf_text(aes(geometry= geometry,label=Localgovernmentarea1, colour="white"), 
+  geom_sf_text(aes(geometry= geometry,label=Localgovernmentarea1), colour="red", 
                check_overlap=TRUE)+
   scale_fill_brewer(labels=colors)+
   theme_void() +
   facet_wrap(~month)+
-          theme(text = element_text(size = 10, color = "white"),
-                rect = element_rect(fill = "black"),
+          theme(text = element_text(size = 10, color = "black"),
+                #rect = element_rect(fill = "black"),
                 axis.title.y = element_text(size=10),
                 axis.text.x = element_text(angle = 45),
                 panel.background = element_rect(fill = "black"),
                 panel.grid.major.y = element_blank(),
                 panel.grid.minor = element_blank(),
-                legend.key = element_rect(fill = "black"),
-                axis.text = element_text(color = "white"),
+                legend.key = element_rect(fill = "white"),
+                axis.text = element_text(color = "black"),
                 plot.title.position = "plot",
                 plot.margin = margin(10, 10, 10, 10))
 ```
-
+--
 Brimbank was the frist COVID-19 Hotspot from where the virus started spreading.
 ---
 class: center
@@ -425,6 +425,7 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) +
 ```
 ]
 ---
+### Learn
 
 - We know that where the Delta variant is identified, it really rapidly takes off and spreads between people.
 
@@ -560,7 +561,8 @@ vic_lga_covid <- vic_lga %>% left_join(l_month_cases1,
 
 #map include for new cases 
  vic_lga_covid %>% 
-   filter(!is.na(month)) %>% 
+   filter(!is.na(month), 
+          month == 5) %>% 
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
@@ -577,12 +579,13 @@ class: center
 
 #map include for new cases 
  vic_lga_covid %>% 
-   filter(!is.na(month)) %>% 
+   filter(!is.na(month), 
+          month == 6) %>% 
   ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=lnew_cases)) +
+  geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
                check_overlap=TRUE)+
-  #scale_fill_brewer(labels=colors)+
+     #scale_fill_brewer(labels=colors)+
   theme_minimal() +
   facet_wrap(~month)
  
@@ -594,20 +597,55 @@ class: center
 
 #map include for new cases 
  vic_lga_covid %>% 
-   filter(!is.na(month)) %>% 
+   filter(!is.na(month), 
+          month == 7) %>% 
   ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=n_cases)) +
+  geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
                check_overlap=TRUE)+
-   # transition_time(month) +
-  #scale_fill_brewer(labels=colors)+
+     #scale_fill_brewer(labels=colors)+
+  theme_minimal() +
+  facet_wrap(~month)
+ 
+```
+---
+class: center
+```{r, out.width="100%"}
+
+#map include for new cases 
+ vic_lga_covid %>% 
+   filter(!is.na(month), 
+          month == 8) %>% 
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
+  geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
+               check_overlap=TRUE)+
+     #scale_fill_brewer(labels=colors)+
   theme_minimal() +
   facet_wrap(~month)
  
 ```
 
 ---
+class: center
+```{r, out.width="100%"}
 
+#map include for new cases 
+ vic_lga_covid %>% 
+   filter(!is.na(month), 
+          month == 9) %>% 
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
+  geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
+               check_overlap=TRUE)+
+     #scale_fill_brewer(labels=colors)+
+  theme_minimal() +
+  facet_wrap(~month)
+ 
+```
+
+
+---
 
 ```{r,include=FALSE}
 top_lga1 <- covid_cases %>% 
