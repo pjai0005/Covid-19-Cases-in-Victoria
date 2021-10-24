@@ -739,12 +739,6 @@ htmltools::save_html(pg, file="plotly/pg.html")
 *  Similar kind of pattern across the some LGA
 ]
 ]
-.scrollable[
-.panel[.panel-name[R]
-```{r ref.label="p4", echo=TRUE, eval=FALSE}
-```
-]
-]
 ]
 
 ```{r data-karan, include=FALSE}
@@ -832,10 +826,7 @@ ggraph(graph_dt, "lgl") +
 
 **keyInsights**:
 
-]
-.panel[.panel-name[R]
-```{r ref.label="graph4", echo=TRUE, eval=FALSE}
-```
+*  **Darebin** and **Casey** were the only 2 plcases to not acquire covid from overseas travel
 ]
 ]
 
