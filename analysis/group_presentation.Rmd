@@ -20,7 +20,10 @@ biblio-style: authoryear-comp
 knitr::opts_chunk$set(echo = FALSE, 
                       messages = FALSE, 
                       cache = TRUE,
-                     warning = FALSE, fig.path = "figures", fig.align ="center")
+                     fig.path = "figures", 
+                     fig.align ="center"
+  )
+
 library(tidyverse) 
 library(lubridate)
 library(plotly)
@@ -58,9 +61,21 @@ library(unglue)
 library(xts)
 library(gghighlight)
 library(networkD3)
+library(ggplot2)
 ```
 
-```{r}
+```{css, echo = FALSE}
+.gray80 {
+  color: #505050!important;
+  font-weight: 300;
+}
+.bg-gray80 {
+  background-color: #DCDCDC!important;
+}
+```
+
+
+```{r, include=FALSE}
 # lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
 # 
 # postcode_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz Postcode data - postcode.csv"))
@@ -458,12 +473,53 @@ vicpopulation %>%
                check_overlap=TRUE)+
   theme_void() 
 ```
+
 # 3
+```{r,include=FALSE}
+top_lga1 <- covid_cases %>% 
+  group_by(Localgovernmentarea) %>% 
+  summarise(n_cases  = n()) %>% 
+  ungroup() %>% 
+  slice_max(n_cases,n=10) %>% 
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
+  select(Localgovernmentarea)
+top_lga <- top_lga1$Localgovernmentarea
+```
+```{r linelga,warning=FALSE,message=FALSE,echo=FALSE,fig.width=6, fig.height=2,out.width="100%"}
+graphlga <- covid_cases %>% 
+  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
+  filter(Localgovernmentarea %in% top_lga) %>% 
+  group_by(Month,Localgovernmentarea) %>% 
+  summarise(n_cases = n()) %>% 
+  ungroup() %>% 
+  mutate(Month = as.numeric(Month)) %>% 
+  mutate(tooltip = glue::glue(
+           "Month: {Month}
+            Covid Cases: {n_cases}
+            LGA: {Localgovernmentarea}
+           "
+         )) %>% 
+  ggplot(aes(Month,
+             n_cases,
+             color = Localgovernmentarea)) +
+  geom_line() +
+  geom_point(aes(text = tooltip)) +
+  scale_x_continuous() +
+  labs(x = "Month",
+       y = "No. of Cases",
+       title = "Trend of Top 10 LGA with maximum Covid Cases",
+       color = NULL) +
+  theme_bw()
+ggplotly(graphlga,
+         tooltip = "text") 
 
+  
+```
 
-
-
-```{r}
+```{r,include=FALSE}
 library(ggraph)
 library(tidygraph)
 clean_selected <- covid_cases %>% 
