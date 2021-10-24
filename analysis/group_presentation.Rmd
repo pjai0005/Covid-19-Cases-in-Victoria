@@ -374,6 +374,7 @@ vic_lga <- abs_lga %>%
   mutate(NAME = ifelse(NAME == "Colac-Otway", "colac otway", NAME)) %>% 
   mutate(NAME1=str_to_lower(NAME)) %>% 
   distinct(NAME1,.keep_all = TRUE)
+
 vic_lga <- st_transform(vic_lga, 3395)  %>% right_join(lga %>% select(NAME1)) %>% left_join(pop,by=c("NAME1"="NAME"))
 vic_lga_carto <- st_cast(vic_lga, "MULTIPOLYGON")
 
@@ -668,3 +669,173 @@ ggraph(graph_dt, "lgl") +
   scale_edge_color_brewer(palette = "Dark2") + 
   theme_void()
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+# Incorporate population data to make cartogram
+# Population from https://www.planning.vic.gov.au/land-use-and-population-research/victoria-in-future/tab-pages/victoria-in-future-data-tables
+# Data can be downloaded from https://github.com/numbats/eda/blob/master/data/VIF2019_Population_Service_Ages_LGA_2036.xlsx
+pop <- read_xlsx(here::here("data/VIF2019_Population_Service_Ages_LGA_2036.xlsx"), sheet=3, skip=13, col_names = FALSE) %>%
+  rename(NAME = `...4`, pop=`...22`) %>%
+  filter(NAME != "Unincorporated Vic") %>% 
+  mutate(NAME = str_replace(NAME, " \\(.+\\)", "")) %>%
+  mutate(NAME = ifelse(NAME == "Colac-Otway", "colac otway", NAME)) %>%
+  select(NAME, pop) %>% 
+  mutate(NAME=str_to_lower(NAME))
+
+data("abs_lga")
+vic_lga <- abs_lga %>%
+  mutate(NAME = ifelse(NAME == "Latrobe (M) (Tas.)", "Latrobe", NAME)) %>%
+  mutate(NAME = ifelse(NAME == "Kingston (DC) (SA)", "Kingston", NAME)) %>%
+  mutate(NAME = ifelse(NAME == "Bayside (A)", "Bayside", NAME)) %>% 
+  mutate(NAME = str_replace(NAME, " \\(.+\\)", "")) %>%
+  mutate(NAME = ifelse(NAME == "Colac-Otway", "colac otway", NAME)) %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+
+vic_lga <- st_transform(vic_lga, 3395) 
+# %>% right_join(lga %>% select(NAME1)) %>% left_join(pop,by=c("NAME1"="NAME"))
+
+vic_lga_covid <- vic_lga %>%
+  left_join(l_month_cases, by=c("NAME1"="Localgovernmentarea1")) %>%
+  filter(!is.na(n_cases))
+
+ggplot(vic_lga_covid) + 
+  geom_sf(aes(fill = n_cases, label=NAME), colour="white") + 
+  scale_fill_distiller("Cases", palette = "YlOrRd",
+                       direction=1) + 
+  facet_wrap(~month) +
+  theme_map() +
+  theme(legend.position="bottom")
+
+
+
+l_month_cases1 <- l_month_cases %>%
+  mutate(Localgovernmentarea1 = ifelse(Localgovernmentarea1 == "colac-otway", "colac otway", Localgovernmentarea1)) %>% 
+  full_join(pop, by=c("Localgovernmentarea1"="NAME"))
+
+vic_lga_covid <- vic_lga %>%
+  left_join(l_month_cases1, by=c("NAME1"="Localgovernmentarea1")) %>%
+  filter(!is.na(n_cases))
+
+vic_lga_covid <- vic_lga_covid %>%
+  left_join(pop, by=c("NAME1"="NAME")) 
+
+
+  
+
+ 
+# Make a contiguous cartogram just with one and use with all
+vic_lga_covid_carto <- cartogram_cont(vic_lga_covid %>% filter(month==8), "pop")
+# This st_cast() is necessary to get plotly to work
+vic_lga_covid_carto <- st_cast(vic_lga_covid_carto, "MULTIPOLYGON") 
+
+ ggplot(vic_lga_covid_carto) + 
+  geom_sf(aes(fill=cum_cases), colour="white") + 
+  scale_fill_distiller("Cases", palette = "YlOrRd",
+                       direction=1) + 
+  theme_map() +
+  theme(legend.position="bottom") +
+  facet_wrap(~month)
+
+
+ 
+ ggplotly()
+ 
+```
+
+
+```{r}
+covid_week <- covid_cases %>% 
+  mutate(week = week(diagnosis_date)) %>%
+  group_by(Localgovernmentarea1, week) %>%
+  summarise(wk_cases = n())%>%
+  ungroup() %>%
+  left_join(pop, , by=c("Localgovernmentarea1"="NAME")) %>% 
+  group_by(Localgovernmentarea1, week) %>%
+  mutate(wk_cases_per10k = max(wk_cases/pop*10000, 0)) %>%
+  ungroup()
+
+vic_lga_covid_week <- vic_lga %>%
+  left_join(covid_week,by=c("NAME1"="Localgovernmentarea1")) %>%
+  filter(!is.na(wk_cases))
+
+
+# Draw the faceted map
+ggplot(vic_lga_covid_week) + 
+  geom_sf(aes(fill = wk_cases), colour="white") + 
+  scale_fill_distiller("Cases", palette = "YlOrRd",
+                       direction=1) + 
+  facet_wrap(~week, ncol=5) +
+  theme_map() +
+  theme(legend.position="bottom")
+
+# Join to the cartogram
+vic_lga_covid_week_carto <-
+  vic_lga_covid_carto %>%
+  left_join(covid_week,by=c("NAME1"="Localgovernmentarea1","pop"="pop")) 
+
+# Make the facetted cartogram
+ggplot(vic_lga_covid_week_carto) + 
+  geom_sf(aes(fill = wk_cases_per10k), colour="white") + 
+  scale_fill_distiller("Cases", palette = "YlOrRd",
+                       direction=1) + 
+  facet_wrap(~week, ncol=4) +
+  theme_map() +
+  theme(legend.position="bottom")
+```
+
+```{r}
+vic_lga_covid1 <- vic_lga_covid %>% as_tibble() %>% distinct(NAME1) %>% 
+  left_join(vic_lga) %>% st_as_sf()
+
+# Spatial coordinates need to be in long/lat
+vlc_latlong <- st_transform(vic_lga_covid1, crs = "+proj=longlat +datum=WGS84")
+
+# Placement of hexmaps depends on position relative to
+# Melbourne central
+data(capital_cities)
+vic_lga_hexmap <- create_hexmap(
+  shp = vlc_latlong,
+  sf_id = "NAME1",
+  focal_points = capital_cities, verbose = TRUE)
+# This shows the centroids of the hexagons
+ggplot(vic_lga_hexmap, aes(x=hex_long, y=hex_lat)) +
+  geom_point()
+
+
+
+# Hexagons are made with the `fortify_hexagon` function
+vic_lga_covid_week_hexmap <- vic_lga_hexmap %>%
+  fortify_hexagon(sf_id = "NAME1", hex_size = 0.1869) %>%
+  left_join(covid_week, by=c("NAME1"="Localgovernmentarea1"))
+ggplot() +
+  geom_sf(data=vlc_latlong, 
+          fill = "grey90", colour = "white", size=0.1) +
+  geom_polygon(data=vic_lga_covid_week_hexmap, 
+               aes(x=long, y=lat, group=hex_id, 
+                   fill = wk_cases_per10k, 
+                   colour = wk_cases_per10k), size=0.2) +
+  scale_fill_distiller("Cases", palette = "YlOrRd",
+                       direction=1) +
+  scale_colour_distiller("Cases", palette = "YlOrRd",
+                       direction=1) +
+  facet_wrap(~week, ncol=4) +
+  theme_map() +
+  theme(legend.position="bottom")
+
+```
+
