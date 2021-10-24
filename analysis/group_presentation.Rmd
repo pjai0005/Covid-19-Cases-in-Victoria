@@ -73,6 +73,13 @@ covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_2
 covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
   filter(diagnosis_date>="2020-05-01") %>% 
   filter(diagnosis_date<="2020-09-30")
+
+
+covid_cases <- covid_cases %>% 
+  mutate(
+    Localgovernmentarea1=str_to_lower(
+      str_trim(
+        str_remove_all(Localgovernmentarea,"\\(.+\\)"))))
 ```
 
 
@@ -81,11 +88,18 @@ data_path <- here::here("data/shape/boundaries/esrishape/whole_of_dataset/victor
 postcode_boundaries <- read_sf(here::here(glue(data_path, "POSTCODE_POLYGON.shp"))) 
 lga_boundaries <- read_sf(here::here(glue(data_path, "AD_LGA_AREA_POLYGON.shp")))%>% filter(STATE=="VIC") %>% 
   distinct(NAME,.keep_all = TRUE)
+
+lga_boundaries <- lga_boundaries %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
 ```
 
 ```{r}
 postcodes <- as_tibble(postcode_boundaries) %>% select(-geometry)
 lga <- as_tibble(lga_boundaries)%>% select(-geometry)
+lga <- lga %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
 ```
 
 
@@ -94,8 +108,14 @@ lga <- as_tibble(lga_boundaries)%>% select(-geometry)
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
 age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
 acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())%>% ungroup()
-pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())%>% ungroup()
-pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
+pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea1) %>% summarise(n_cases = n())%>% ungroup()
+
+l_cases <- covid_cases %>% group_by(diagnosis_date, Localgovernmentarea1) %>% summarise(n_cases = n())%>% ungroup()
+
+l_month_cases <- covid_cases %>% mutate(month=month(diagnosis_date)) %>% 
+  group_by(month, Localgovernmentarea1) %>% summarise(n_cases = n())%>% ungroup()
+
+pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea1, agegroup) %>% summarise(n_cases = n())%>% ungroup()
 ```
 ```{r}
 date_case %>% 
@@ -285,17 +305,19 @@ postcodes1 <- covid_cases %>% select(Postcode) %>%
 ```
 
 ```{r}
-covid_cases <- covid_cases %>% 
-  mutate(
-    Localgovernmentarea1=str_to_lower(
-      str_trim(
-        str_remove_all(Localgovernmentarea,"\\(.+\\)"))))
-lga <- lga %>% 
-  mutate(NAME1=str_to_lower(NAME)) %>% 
-  distinct(NAME1,.keep_all = TRUE)
-lga_boundaries <- lga_boundaries %>% 
-  mutate(NAME1=str_to_lower(NAME)) %>% 
-  distinct(NAME1,.keep_all = TRUE)
+
+# lga <- lga %>% 
+#   mutate(NAME1=str_to_lower(NAME)) %>% 
+#   distinct(NAME1,.keep_all = TRUE)
+# lga_boundaries <- lga_boundaries %>% 
+#   mutate(NAME1=str_to_lower(NAME)) %>% 
+#   distinct(NAME1,.keep_all = TRUE)
+
+matchlganames <- tibble(l_cases=unique(l_cases$Localgovernmentarea1)) %>% 
+  left_join(lga %>% select(NAME1),
+                           by=c("l_cases"="NAME1"))
+
+
 lga1 <- covid_cases %>% select(Localgovernmentarea1) %>% 
   distinct()  %>% 
   left_join(lga,
@@ -308,7 +330,7 @@ lga1 <- covid_cases %>% select(Localgovernmentarea1) %>%
 top10_lga <- covid_cases %>% 
   group_by(Localgovernmentarea1) %>% 
   summarise(n_cases = n()) %>% 
-  slice_max(n_cases,n = 10) %>% 
+  slice_max(n_cases,n = 5) %>% 
   pull(Localgovernmentarea1)
 top10_postcode <- covid_cases %>% 
   group_by(Postcode) %>% 
@@ -324,6 +346,20 @@ top10_postcode <- covid_cases %>%
   geom_sf_text(aes(geometry= geometry,label=POSTCODE), 
                check_overlap=TRUE)+
   theme_void() 
+
+
+l_month_cases %>% 
+  filter(Localgovernmentarea1 %in% top10_lga) %>% 
+  left_join(lga_boundaries, 
+            by = c("Localgovernmentarea1"="NAME1")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=n_cases)) +
+  geom_sf_text(aes(geometry= geometry,label=Localgovernmentarea1, colour="white"), 
+               check_overlap=TRUE)+
+  theme_void() +
+  facet_wrap(~month)
+
+
 ggplot(data=lga1 %>% filter(NAME1 %in% top10_lga)) +
   geom_sf(mapping = aes(geometry= geometry)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1), 
