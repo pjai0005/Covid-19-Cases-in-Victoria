@@ -563,12 +563,3 @@ print(bib,
                bib.style = "authoryear"))
 ```
 ]
-
-
-
-
-
-
-
-
-
