@@ -50,3 +50,5 @@ emo
 readxl
 cartogram
 ozmaps
+ggraph
+tidygraph

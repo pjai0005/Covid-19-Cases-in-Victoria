@@ -592,7 +592,7 @@ vic_lga_covid <- vic_lga %>% left_join(l_month_cases1,
   geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
   geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"),
   check_overlap=TRUE)+
-  theme_minimal()+
+  theme_minimal()
   
  
 
