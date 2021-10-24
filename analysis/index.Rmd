@@ -244,7 +244,7 @@ pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea,
 
 ---
 
-### Network graph showcasing the source of covid in each LGA
+#### Network graph showcasing the source of covid in each LGA
 
 .panelset[
 .panel[.panel-name[plot]
@@ -287,8 +287,8 @@ ggraph(graph_dt, "lgl") +
                   aes(label = name), repel = TRUE, 
                   label.size = NA,  fill = "orange") +
   geom_node_label(data = ~.x %>% filter(!name %in% structure),
-                  aes(label = name), size = 2, 
-                  label.size = 0.1,  fill = "lightblue2") +
+                  aes(label = name), size = 4, 
+                  label.size = 0.5,  fill = "lightblue2") +
   scale_edge_color_brewer(palette = "Dark2") + 
   theme_void()
 
