@@ -731,8 +731,7 @@ vic_lga_covid <- vic_lga %>%
   left_join(l_month_cases1, by=c("NAME1"="Localgovernmentarea1")) %>%
   filter(!is.na(n_cases))
 
-vic_lga_covid <- vic_lga_covid %>%
-  left_join(pop, by=c("NAME1"="NAME")) 
+
 
 
   
@@ -743,17 +742,13 @@ vic_lga_covid_carto <- cartogram_cont(vic_lga_covid %>% filter(month==8), "pop")
 # This st_cast() is necessary to get plotly to work
 vic_lga_covid_carto <- st_cast(vic_lga_covid_carto, "MULTIPOLYGON") 
 
- ggplot(vic_lga_covid_carto) + 
-  geom_sf(aes(fill=cum_cases), colour="white") + 
-  scale_fill_distiller("Cases", palette = "YlOrRd",
-                       direction=1) + 
-  theme_map() +
-  theme(legend.position="bottom") +
-  facet_wrap(~month)
-
-
- 
- ggplotly()
+ # ggplot(vic_lga_covid_carto) + 
+ #  geom_sf(aes(fill=cum_cases), colour="white") + 
+ #  scale_fill_distiller("Cases", palette = "YlOrRd",
+ #                       direction=1) + 
+ #  theme_map() +
+ #  theme(legend.position="bottom") +
+ #  facet_wrap(~month)
  
 ```
 
@@ -775,13 +770,13 @@ vic_lga_covid_week <- vic_lga %>%
 
 
 # Draw the faceted map
-ggplot(vic_lga_covid_week) + 
-  geom_sf(aes(fill = wk_cases), colour="white") + 
-  scale_fill_distiller("Cases", palette = "YlOrRd",
-                       direction=1) + 
-  facet_wrap(~week, ncol=5) +
-  theme_map() +
-  theme(legend.position="bottom")
+# ggplot(vic_lga_covid_week) + 
+#   geom_sf(aes(fill = wk_cases), colour="white") + 
+#   scale_fill_distiller("Cases", palette = "YlOrRd",
+#                        direction=1) + 
+#   facet_wrap(~week, ncol=5) +
+#   theme_map() +
+#   theme(legend.position="bottom")
 
 # Join to the cartogram
 vic_lga_covid_week_carto <-
@@ -789,13 +784,13 @@ vic_lga_covid_week_carto <-
   left_join(covid_week,by=c("NAME1"="Localgovernmentarea1","pop"="pop")) 
 
 # Make the facetted cartogram
-ggplot(vic_lga_covid_week_carto) + 
-  geom_sf(aes(fill = wk_cases_per10k), colour="white") + 
-  scale_fill_distiller("Cases", palette = "YlOrRd",
-                       direction=1) + 
-  facet_wrap(~week, ncol=4) +
-  theme_map() +
-  theme(legend.position="bottom")
+# ggplot(vic_lga_covid_week_carto) + 
+#   geom_sf(aes(fill = wk_cases_per10k), colour="white") + 
+#   scale_fill_distiller("Cases", palette = "YlOrRd",
+#                        direction=1) + 
+#   facet_wrap(~week, ncol=4) +
+#   theme_map() +
+#   theme(legend.position="bottom")
 ```
 
 ```{r}
@@ -815,24 +810,46 @@ vic_lga_hexmap <- create_hexmap(
 # This shows the centroids of the hexagons
 ggplot(vic_lga_hexmap, aes(x=hex_long, y=hex_lat)) +
   geom_point()
+```
 
+```{r}
 
 
 # Hexagons are made with the `fortify_hexagon` function
 vic_lga_covid_week_hexmap <- vic_lga_hexmap %>%
   fortify_hexagon(sf_id = "NAME1", hex_size = 0.1869) %>%
   left_join(covid_week, by=c("NAME1"="Localgovernmentarea1"))
-ggplot() +
+
+vic_lga_covid_week_hexmap <- vic_lga_covid_week_hexmap %>% 
+  mutate(tooltip=glue::glue_data(vic_lga_covid_week_hexmap,
+                                 "LGA: {NAME1}",
+                                 "\nwk_cases_per10k: {round(wk_cases_per10k)}"))
+map1 <- ggplot() +
   geom_sf(data=vlc_latlong, 
           fill = "grey90", colour = "white", size=0.1) +
-  geom_polygon(data=vic_lga_covid_week_hexmap, 
-               aes(x=long, y=lat, group=hex_id, 
+  geom_polygon(data=vic_lga_covid_week_hexmap %>% filter(week %in% c(27:32)), 
+               aes(x=long, y=lat, group=hex_id, text=tooltip,
                    fill = wk_cases_per10k, 
                    colour = wk_cases_per10k), size=0.2) +
   scale_fill_distiller("Cases", palette = "YlOrRd",
                        direction=1) +
   scale_colour_distiller("Cases", palette = "YlOrRd",
                        direction=1) +
+  facet_wrap(~week, ncol=3) +
+  theme_map() +
+  theme(legend.position="bottom")
+
+map1 <- ggplotly(
+      map1,
+      tooltip = "text"
+    )
+map1
+
+
+ggplot(vic_lga_covid_week_carto) + 
+  geom_sf(aes(fill = wk_cases_per10k), colour="white") + 
+  scale_fill_distiller("Cases", palette = "YlOrRd",
+                       direction=1) + 
   facet_wrap(~week, ncol=4) +
   theme_map() +
   theme(legend.position="bottom")
