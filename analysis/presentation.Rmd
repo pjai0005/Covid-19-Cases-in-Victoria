@@ -75,6 +75,9 @@ library(gghighlight)
 library(networkD3)
 library(xaringanthemer)
 library(emo)
+library(readxl)
+library(cartogram)
+library(ozmaps)
 options(htmltools.dir.version = FALSE)
 ```
 
@@ -91,11 +94,57 @@ covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_2
 covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
   filter(diagnosis_date>="2020-05-01") %>% 
   filter(diagnosis_date<="2020-09-30")
+
+covid_cases <- covid_cases %>% 
+  mutate(
+    Localgovernmentarea1=str_to_lower(
+      str_trim(
+        str_remove_all(Localgovernmentarea,"\\(.+\\)"))))
+```
+
+```{r}
+data_path <- here::here("data/shape/boundaries/esrishape/whole_of_dataset/victoria/VMADMIN/")
+
+postcode_boundaries <- read_sf(here::here(glue(data_path, "/POSTCODE_POLYGON.shp"))) 
+lga_boundaries <- read_sf(here::here(glue(data_path, "/AD_LGA_AREA_POLYGON.shp")))%>% filter(STATE=="VIC") %>% 
+  distinct(NAME,.keep_all = TRUE)
+
+lga_boundaries <- lga_boundaries %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+```
+
+```{r}
+postcodes <- as_tibble(postcode_boundaries) %>% select(-geometry)
+lga <- as_tibble(lga_boundaries)%>% select(-geometry)
+lga <- lga %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+```
+```{r}
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
 age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
 acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())%>% ungroup()
 pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())%>% ungroup()
 pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
+
+
+l_month_cases <- covid_cases %>% mutate(month=month(diagnosis_date)) %>% 
+  group_by(month, Localgovernmentarea1) %>% summarise(n_cases = n())%>% ungroup()%>% 
+  arrange(Localgovernmentarea1,month) %>% 
+  mutate(cum_cases = cumsum(n_cases))
+```
+```{r}
+top10_lga <- covid_cases %>% 
+  group_by(Localgovernmentarea1) %>% 
+  summarise(n_cases = n()) %>% 
+  slice_max(n_cases,n = 5) %>% 
+  pull(Localgovernmentarea1)
+top10_postcode <- covid_cases %>% 
+  group_by(Postcode) %>% 
+  summarise(n_cases = n()) %>% 
+  slice_max(n_cases,n = 10) %>% 
+  pull(Postcode)
 ```
 
 
@@ -119,13 +168,13 @@ class: center, middle, inverse
 ### from 1st May to 30th September of 2020
 
 ---
-
-```{r }
+# Population in Victoria
+```{r , include=FALSE}
 data_path <- here::here("data/australian_census_data_2016/")
 ```
 
 
-```{r datapath}
+```{r datapath, include=FALSE}
 census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
                          number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
 ```
@@ -141,7 +190,7 @@ sa4_geomap <- read_sf(geopath) %>%
 
 
 
-```{r g51read}
+```{r g51read, include=FALSE}
 g51 <- map_dfr(census_paths[6:8], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%
@@ -156,7 +205,7 @@ g51 <- map_dfr(census_paths[6:8], ~{
                 remove = FALSE)
 })
 ```
-```{r g51rename}
+```{r g51rename, include=FALSE}
 g51 <- g51 %>% 
   mutate(industry =case_when(
                             str_detect(industry, "Ag_For_Fshg") ~ "Agriculture_forestry_and_fishing",
@@ -183,7 +232,7 @@ g51 <- g51 %>%
   select(-category) %>%
   rename(count_industry = count)
 ```
-```{r}
+```{r, include=FALSE}
 vicpopulation <- g51 %>%
   group_by(SA4_CODE_2016) %>%
   summarise(population = sum(count_industry)) %>%
@@ -227,7 +276,98 @@ date_case %>%
   dyRangeSelector()
 ```
 
+---
+class: center, inverse
 
+# Red Zone
+```{r }
+
+invthm <- theme_map() + 
+  theme(
+    panel.background = element_rect(fill = "black", colour = NA), 
+    plot.background = element_rect(fill = "black", colour = NA),
+    legend.background = element_rect(fill = "transparent", colour = NA),
+    legend.key = element_rect(fill = "transparent", colour = NA),
+    text = element_text(colour = "white"),
+    axis.text = element_blank()
+  )
+# function to allocate colours to regions
+aus_colours <- function(sir_p50){
+  value <- case_when(
+    sir_p50 <  1000 ~ "#33809d",
+    sir_p50 >= 1000 & sir_p50 < 3000 ~ "#FFFECC",
+    sir_p50 >= 3000 & sir_p50 < 8000 ~ "#FFEDA0",
+    sir_p50 >= 8000 & sir_p50 < 12000 ~ "#FED976",
+    sir_p50 >= 12000 & sir_p50 < 16400 ~ "#FC4E2A",
+    sir_p50 >= 16400 ~ "#800F26",
+    TRUE ~ "#FFFFFF")
+  return(value)
+}
+
+colors <- c("<1000","1000-3000","3000-8000","8000-12000","12000-16000",">16000")
+l_month_cases <- l_month_cases %>% mutate(SIR = map_chr(cum_cases, aus_colours))
+
+
+#cases suddenly rise in brimbank
+l_month_cases %>% 
+  filter(Localgovernmentarea1 %in% top10_lga) %>% 
+  left_join(lga_boundaries, 
+            by = c("Localgovernmentarea1"="NAME1")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=SIR)) +
+  geom_sf_text(aes(geometry= geometry,label=Localgovernmentarea1, colour="white"), 
+               check_overlap=TRUE)+
+  scale_fill_brewer(labels=colors)+
+  theme_void() +
+  facet_wrap(~month)+
+          theme(text = element_text(size = 10, color = "white"),
+                rect = element_rect(fill = "black"),
+                axis.title.y = element_text(size=10),
+                axis.text.x = element_text(angle = 45),
+                panel.background = element_rect(fill = "black"),
+                panel.grid.major.y = element_blank(),
+                panel.grid.minor = element_blank(),
+                legend.key = element_rect(fill = "black"),
+                axis.text = element_text(color = "white"),
+                plot.title.position = "plot",
+                plot.margin = margin(10, 10, 10, 10))
+```
+
+Brimbank was the frist COVID-19 Hotspot from where the virus started spreading.
+---
+class: center
+### How did it spread? 
+```{r}
+acq<- covid_cases %>% 
+  mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
+         day = day(diagnosis_date),
+         month = month(diagnosis_date, label = TRUE), 
+         year = year(diagnosis_date),
+         month = as.factor(month)) %>%
+  select(diagnosis_date, month, day, acquired) %>%
+  group_by(diagnosis_date, month, day, acquired) %>%
+  summarise(value = n()) %>%
+  pivot_wider(names_from = acquired,
+              values_from = value) %>%
+  rename("Unknown"="Acquired in Australia, unknown source",
+         "Contact"="Contact with a confirmed case",
+         "Travel"="Travel overseas") %>%
+  pivot_longer(cols = -c(diagnosis_date, day, month),
+               names_to = "target",
+               values_to = "value")
+ggplot(acq, aes(x= day, y= value, color = target))+
+  geom_line(size = 1.2)+
+  theme_light()+
+  facet_grid(~ month, scales='free_x')+
+  scale_y_continuous(breaks = seq(0, 600, by = 100))+
+  scale_color_brewer(name = "", palette = "Dark2")+
+  labs(x= "Days",
+       y= " Cases",
+       title = "Cause of Increase in COVID-19 Infections",
+       subtitle = "from May'20 to September'20 in Victoria, Melbourne")
+```
+--
+The main reason: **Contact**
 ---
 
 ### Variants
@@ -285,6 +425,13 @@ variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) +
 ```
 ]
 ---
+
+- We know that where the Delta variant is identified, it really rapidly takes off and spreads between people.
+
+- Due to the Delta variant infections, there was a surge in cases across Victoria.
+
+- Travel restriction were imposed and contact tracing became significant for detecting the spread of the virus. 
+
 class: center, middle
 
 ```{r, warning=FALSE, message=FALSE, fig.align='center', out.height="50%", out.width="80%"}
@@ -324,37 +471,6 @@ sankey
 ```
 
 ]
----
-class: center
-```{r}
-acq<- covid_cases %>% 
-  mutate(diagnosis_date = as.Date(diagnosis_date, format = "%d %b %Y"),
-         day = day(diagnosis_date),
-         month = month(diagnosis_date, label = TRUE), 
-         year = year(diagnosis_date),
-         month = as.factor(month)) %>%
-  select(diagnosis_date, month, day, acquired) %>%
-  group_by(diagnosis_date, month, day, acquired) %>%
-  summarise(value = n()) %>%
-  pivot_wider(names_from = acquired,
-              values_from = value) %>%
-  rename("Unknown"="Acquired in Australia, unknown source",
-         "Contact"="Contact with a confirmed case",
-         "Travel"="Travel overseas") %>%
-  pivot_longer(cols = -c(diagnosis_date, day, month),
-               names_to = "target",
-               values_to = "value")
-ggplot(acq, aes(x= day, y= value, color = target))+
-  geom_line(size = 1.2)+
-  theme_light()+
-  facet_grid(~ month, scales='free_x')+
-  scale_y_continuous(breaks = seq(0, 600, by = 100))+
-  scale_color_brewer(name = "", palette = "Dark2")+
-  labs(x= "Days",
-       y= " Cases",
-       title = "Cause of Increase in COVID-19 Infections",
-       subtitle = "from May'20 to September'20 in Victoria, Melbourne")
-```
 
 
 ---
@@ -380,6 +496,114 @@ date_case %>%
   backgroundColor = styleInterval(c(0,1000000,Inf), c('black','white','green','red'))
 ) %>% 
   formatRound("Total Cases", digits = 0)
+```
+
+---
+class: center
+
+```{r}
+# Incorporate population data to make cartogram
+# Population from https://www.planning.vic.gov.au/land-use-and-population-research/victoria-in-future/tab-pages/victoria-in-future-data-tables
+# Data can be downloaded from https://github.com/numbats/eda/blob/master/data/VIF2019_Population_Service_Ages_LGA_2036.xlsx
+pop <- read_xlsx(here::here("data/VIF2019_Population_Service_Ages_LGA_2036.xlsx"), sheet=3, skip=13, col_names = FALSE) %>%
+  rename(NAME = `...4`, pop=`...22`) %>%
+  filter(NAME != "Unincorporated Vic") %>% 
+  mutate(NAME = str_replace(NAME, " \\(.+\\)", "")) %>%
+  mutate(NAME = ifelse(NAME == "Colac-Otway", "colac otway", NAME)) %>%
+  select(NAME, pop) %>% 
+  mutate(NAME=str_to_lower(NAME))
+
+l_month_cases1 <- l_month_cases %>%
+  mutate(Localgovernmentarea1 = ifelse(Localgovernmentarea1 == "colac-otway", "colac otway", Localgovernmentarea1)) %>% 
+  full_join(pop, by=c("Localgovernmentarea1"="NAME"))
+
+# Compute additional statistics
+l_month_cases1 <- l_month_cases1 %>%
+  group_by(Localgovernmentarea1) %>%
+  mutate(n_cases=ifelse(is.na(n_cases),0,n_cases),
+         cum_cases=ifelse(is.na(cum_cases),0,cum_cases)) %>% 
+  mutate(cases_per10k = max(n_cases/pop*10000, 0),
+         lnew_cases = log10(n_cases - min(n_cases) + 1)) %>%
+  ungroup()
+  
+
+data("abs_lga")
+vic_lga <- abs_lga %>%
+  mutate(NAME = ifelse(NAME == "Latrobe (M) (Tas.)", "Latrobe", NAME)) %>%
+  mutate(NAME = ifelse(NAME == "Kingston (DC) (SA)", "Kingston", NAME)) %>%
+  mutate(NAME = ifelse(NAME == "Bayside (A)", "Bayside", NAME)) %>% 
+  mutate(NAME = str_replace(NAME, " \\(.+\\)", "")) %>%
+  mutate(NAME = ifelse(NAME == "Colac-Otway", "colac otway", NAME)) %>% 
+  mutate(NAME1=str_to_lower(NAME)) %>% 
+  distinct(NAME1,.keep_all = TRUE)
+vic_lga <- st_transform(vic_lga, 3395)  %>% right_join(lga %>% select(NAME1)) %>% left_join(pop,by=c("NAME1"="NAME"))
+vic_lga_carto <- st_cast(vic_lga, "MULTIPOLYGON")
+
+
+
+vic_lga_covid <- vic_lga %>% left_join(l_month_cases1,
+                                               by=c("NAME1"="Localgovernmentarea1",
+                                                    "pop"="pop")) %>% 
+  filter(!NAME1 %in% c("interstate","unknown")) %>% 
+  filter(!is.na(pop)) %>% 
+  mutate(n_cases=ifelse(is.na(n_cases),0,n_cases),
+         cum_cases=ifelse(is.na(cum_cases),0,cum_cases))
+
+# Make a contiguous cartogram
+# vic_lga_covid_carto <- cartogram_cont(vic_lga_covid, "pop")
+# This st_cast() is necessary to get plotly to work
+# vic_lga_covid_carto <- st_cast(vic_lga_covid_carto, "MULTIPOLYGON") 
+
+```
+
+```{r, out.width="100%"}
+
+#map include for new cases 
+ vic_lga_covid %>% 
+   filter(!is.na(month)) %>% 
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
+  geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
+               check_overlap=TRUE)+
+     #scale_fill_brewer(labels=colors)+
+  theme_minimal() +
+  facet_wrap(~month)
+ 
+```
+
+---
+class: center
+```{r, out.width="100%"}
+
+#map include for new cases 
+ vic_lga_covid %>% 
+   filter(!is.na(month)) %>% 
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=lnew_cases)) +
+  geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
+               check_overlap=TRUE)+
+  #scale_fill_brewer(labels=colors)+
+  theme_minimal() +
+  facet_wrap(~month)
+ 
+```
+
+---
+class: center
+```{r, out.width="100%"}
+
+#map include for new cases 
+ vic_lga_covid %>% 
+   filter(!is.na(month)) %>% 
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=n_cases)) +
+  geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
+               check_overlap=TRUE)+
+   # transition_time(month) +
+  #scale_fill_brewer(labels=colors)+
+  theme_minimal() +
+  facet_wrap(~month)
+ 
 ```
 
 ---

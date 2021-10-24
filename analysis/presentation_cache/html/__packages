@@ -49,4 +49,6 @@ networkD3
 emo
 ggraph
 tidygraph
-tourr
+readxl
+cartogram
+ozmaps
