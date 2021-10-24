@@ -826,7 +826,12 @@ ggraph(graph_dt, "lgl") +
 
 **keyInsights**:
 
-*  **Darebin** and **Casey** were the only 2 plcases to not acquire covid from overseas travel
+- **Darebin** and **Casey** were the only 2 plcases to not acquire covid from overseas travel
+
+--
+
+- Gives the confirmation once again that overseas travel was the least source of contact as theu would mostly land up in hotels for a strict 14-day quarantine.
+
 ]
 ]
 
@@ -835,13 +840,13 @@ ggraph(graph_dt, "lgl") +
 
 # Conclusion `r emo::ji("pen")`
 
-`r emo::ji("target")` point 1
+`r emo::ji("target")` Spike in cass is observed in the beginning of **July** to the end of **August**
 
-`r emo::ji("target")` point 2
+`r emo::ji("target")` **Brimbank** shocased max increase from almost zero cases to transiting into **Red Zone**
 
-`r emo::ji("target")` point 3
+`r emo::ji("target")` **Delta variant** spreaded more rapidly among the people
 
-`r emo::ji("target")` point 4
+`r emo::ji("target")` Most affected cases were because of **Contact with confirmed cases**, refer Sankey Dirgram in slide 9
 
 
 ---
