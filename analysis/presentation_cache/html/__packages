@@ -47,8 +47,8 @@ RefManageR
 gghighlight
 networkD3
 emo
-ggraph
-tidygraph
 readxl
 cartogram
 ozmaps
+ggraph
+tidygraph

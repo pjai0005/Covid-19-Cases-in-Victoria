@@ -6,8 +6,10 @@
     <meta name="author" content="Karan Garg   Mohammed Faizan   Prachi Jaiswal  " />
     <meta name="date" content="2021-10-24" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
     <link href="libs/dygraphs/dygraph.css" rel="stylesheet" />
     <script src="libs/dygraphs/dygraph-combined.js"></script>
     <script src="libs/dygraphs/shapes.js"></script>
@@ -18,16 +20,6 @@
     <script src="libs/d3/d3.min.js"></script>
     <script src="libs/sankey/sankey.js"></script>
     <script src="libs/sankeyNetwork-binding/sankeyNetwork.js"></script>
-    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
-    <script src="libs/datatables-binding/datatables.js"></script>
-    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
-    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
-    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
-    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
-    <link href="libs/jquery-sparkline/jquery.sparkline.css" rel="stylesheet" />
-    <script src="libs/jquery-sparkline/jquery.sparkline.js"></script>
-    <script src="libs/sparkline-binding/sparkline.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="style.css" type="text/css" />
     <link rel="stylesheet" href="MonashBS.css" type="text/css" />
@@ -97,8 +89,8 @@ class: center, middle
 
 ### Overview of covid cases in Victoria
 
-<div id="htmlwidget-049ad89a0d8f02d5ac81" style="width:100%;height:504px;" class="dygraphs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-049ad89a0d8f02d5ac81">{"x":{"attrs":{"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"title":"Covid Cases across Months","labels":["day","n_cases","diagnosis_date"],"retainDateWindow":false,"legend":"always","labelsDivWidth":250,"labelsShowZeroValues":true,"labelsSeparateLines":false,"hideOverlayOnMouseOut":false,"ylabel":"Temperature in Degree Celcius","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":1.5,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":false,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false,"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2020-05-01T00:00:00.000Z","2020-05-02T00:00:00.000Z","2020-05-03T00:00:00.000Z","2020-05-04T00:00:00.000Z","2020-05-05T00:00:00.000Z","2020-05-06T00:00:00.000Z","2020-05-07T00:00:00.000Z","2020-05-08T00:00:00.000Z","2020-05-09T00:00:00.000Z","2020-05-10T00:00:00.000Z","2020-05-11T00:00:00.000Z","2020-05-12T00:00:00.000Z","2020-05-13T00:00:00.000Z","2020-05-14T00:00:00.000Z","2020-05-15T00:00:00.000Z","2020-05-16T00:00:00.000Z","2020-05-17T00:00:00.000Z","2020-05-18T00:00:00.000Z","2020-05-19T00:00:00.000Z","2020-05-20T00:00:00.000Z","2020-05-21T00:00:00.000Z","2020-05-22T00:00:00.000Z","2020-05-23T00:00:00.000Z","2020-05-24T00:00:00.000Z","2020-05-25T00:00:00.000Z","2020-05-26T00:00:00.000Z","2020-05-27T00:00:00.000Z","2020-05-28T00:00:00.000Z","2020-05-29T00:00:00.000Z","2020-05-30T00:00:00.000Z","2020-05-31T00:00:00.000Z","2020-06-01T00:00:00.000Z","2020-06-02T00:00:00.000Z","2020-06-03T00:00:00.000Z","2020-06-04T00:00:00.000Z","2020-06-05T00:00:00.000Z","2020-06-06T00:00:00.000Z","2020-06-07T00:00:00.000Z","2020-06-09T00:00:00.000Z","2020-06-10T00:00:00.000Z","2020-06-11T00:00:00.000Z","2020-06-12T00:00:00.000Z","2020-06-13T00:00:00.000Z","2020-06-14T00:00:00.000Z","2020-06-15T00:00:00.000Z","2020-06-16T00:00:00.000Z","2020-06-17T00:00:00.000Z","2020-06-18T00:00:00.000Z","2020-06-19T00:00:00.000Z","2020-06-20T00:00:00.000Z","2020-06-21T00:00:00.000Z","2020-06-22T00:00:00.000Z","2020-06-23T00:00:00.000Z","2020-06-24T00:00:00.000Z","2020-06-25T00:00:00.000Z","2020-06-26T00:00:00.000Z","2020-06-27T00:00:00.000Z","2020-06-28T00:00:00.000Z","2020-06-29T00:00:00.000Z","2020-06-30T00:00:00.000Z","2020-07-01T00:00:00.000Z","2020-07-02T00:00:00.000Z","2020-07-03T00:00:00.000Z","2020-07-04T00:00:00.000Z","2020-07-05T00:00:00.000Z","2020-07-06T00:00:00.000Z","2020-07-07T00:00:00.000Z","2020-07-08T00:00:00.000Z","2020-07-09T00:00:00.000Z","2020-07-10T00:00:00.000Z","2020-07-11T00:00:00.000Z","2020-07-12T00:00:00.000Z","2020-07-13T00:00:00.000Z","2020-07-14T00:00:00.000Z","2020-07-15T00:00:00.000Z","2020-07-16T00:00:00.000Z","2020-07-17T00:00:00.000Z","2020-07-18T00:00:00.000Z","2020-07-19T00:00:00.000Z","2020-07-20T00:00:00.000Z","2020-07-21T00:00:00.000Z","2020-07-22T00:00:00.000Z","2020-07-23T00:00:00.000Z","2020-07-24T00:00:00.000Z","2020-07-25T00:00:00.000Z","2020-07-26T00:00:00.000Z","2020-07-27T00:00:00.000Z","2020-07-28T00:00:00.000Z","2020-07-29T00:00:00.000Z","2020-07-30T00:00:00.000Z","2020-07-31T00:00:00.000Z","2020-08-01T00:00:00.000Z","2020-08-02T00:00:00.000Z","2020-08-03T00:00:00.000Z","2020-08-04T00:00:00.000Z","2020-08-05T00:00:00.000Z","2020-08-06T00:00:00.000Z","2020-08-07T00:00:00.000Z","2020-08-08T00:00:00.000Z","2020-08-09T00:00:00.000Z","2020-08-10T00:00:00.000Z","2020-08-11T00:00:00.000Z","2020-08-12T00:00:00.000Z","2020-08-13T00:00:00.000Z","2020-08-14T00:00:00.000Z","2020-08-15T00:00:00.000Z","2020-08-16T00:00:00.000Z","2020-08-17T00:00:00.000Z","2020-08-18T00:00:00.000Z","2020-08-19T00:00:00.000Z","2020-08-20T00:00:00.000Z","2020-08-21T00:00:00.000Z","2020-08-22T00:00:00.000Z","2020-08-23T00:00:00.000Z","2020-08-24T00:00:00.000Z","2020-08-25T00:00:00.000Z","2020-08-26T00:00:00.000Z","2020-08-27T00:00:00.000Z","2020-08-28T00:00:00.000Z","2020-08-29T00:00:00.000Z","2020-08-30T00:00:00.000Z","2020-08-31T00:00:00.000Z","2020-09-01T00:00:00.000Z","2020-09-02T00:00:00.000Z","2020-09-03T00:00:00.000Z","2020-09-04T00:00:00.000Z","2020-09-05T00:00:00.000Z","2020-09-06T00:00:00.000Z","2020-09-07T00:00:00.000Z","2020-09-08T00:00:00.000Z","2020-09-09T00:00:00.000Z","2020-09-10T00:00:00.000Z","2020-09-11T00:00:00.000Z","2020-09-12T00:00:00.000Z","2020-09-13T00:00:00.000Z","2020-09-14T00:00:00.000Z","2020-09-15T00:00:00.000Z","2020-09-16T00:00:00.000Z","2020-09-17T00:00:00.000Z","2020-09-18T00:00:00.000Z","2020-09-19T00:00:00.000Z","2020-09-20T00:00:00.000Z","2020-09-21T00:00:00.000Z","2020-09-22T00:00:00.000Z","2020-09-23T00:00:00.000Z","2020-09-24T00:00:00.000Z","2020-09-25T00:00:00.000Z","2020-09-26T00:00:00.000Z","2020-09-27T00:00:00.000Z","2020-09-28T00:00:00.000Z","2020-09-29T00:00:00.000Z","2020-09-30T00:00:00.000Z"],[" 10"," 11"," 21"," 14"," 16"," 15"," 13"," 12","  8","  5"," 16","  7","  9"," 19"," 13","  5","  6","  7","  5","  5"," 10","  9","  2","  2","  5","  8"," 10","  6","  8","  8","  4","  9","  7","  8","  3","  1","  4","  2","  4","  7","  5","  8"," 10"," 12","  9"," 20"," 18"," 12"," 25"," 17"," 13"," 17"," 18"," 33"," 28"," 40"," 47"," 69"," 61"," 76"," 73"," 62","100"," 68"," 98","168","122","149","143","290","256","167","248","218","295","380","211","337","262","341","436","374","289","333","406","492","359","276","623","548","369","598","354","403","686","444","421","455","374","310","321","400","256","360","301","267","266","217","208","231","170","173","202","109","146","142","110","111"," 90","108"," 71"," 63"," 87","110"," 75"," 71"," 62"," 38"," 48"," 70"," 47"," 40"," 35"," 41"," 30"," 39"," 41"," 25"," 45"," 20"," 13"," 11"," 28"," 14"," 11"," 13"," 12"," 16","  5","  9"," 10"," 14"],["2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27","2020-07-28","2020-07-29","2020-07-30","2020-07-31","2020-08-01","2020-08-02","2020-08-03","2020-08-04","2020-08-05","2020-08-06","2020-08-07","2020-08-08","2020-08-09","2020-08-10","2020-08-11","2020-08-12","2020-08-13","2020-08-14","2020-08-15","2020-08-16","2020-08-17","2020-08-18","2020-08-19","2020-08-20","2020-08-21","2020-08-22","2020-08-23","2020-08-24","2020-08-25","2020-08-26","2020-08-27","2020-08-28","2020-08-29","2020-08-30","2020-08-31","2020-09-01","2020-09-02","2020-09-03","2020-09-04","2020-09-05","2020-09-06","2020-09-07","2020-09-08","2020-09-09","2020-09-10","2020-09-11","2020-09-12","2020-09-13","2020-09-14","2020-09-15","2020-09-16","2020-09-17","2020-09-18","2020-09-19","2020-09-20","2020-09-21","2020-09-22","2020-09-23","2020-09-24","2020-09-25","2020-09-26","2020-09-27","2020-09-28","2020-09-29","2020-09-30"]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<div id="htmlwidget-741efee0685a888fcf70" style="width:100%;height:504px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-741efee0685a888fcf70">{"x":{"attrs":{"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"title":"Covid Cases across Months","labels":["day","n_cases","diagnosis_date"],"retainDateWindow":false,"legend":"always","labelsDivWidth":250,"labelsShowZeroValues":true,"labelsSeparateLines":false,"hideOverlayOnMouseOut":false,"ylabel":"Temperature in Degree Celcius","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":1.5,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":false,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false,"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2020-05-01T00:00:00.000Z","2020-05-02T00:00:00.000Z","2020-05-03T00:00:00.000Z","2020-05-04T00:00:00.000Z","2020-05-05T00:00:00.000Z","2020-05-06T00:00:00.000Z","2020-05-07T00:00:00.000Z","2020-05-08T00:00:00.000Z","2020-05-09T00:00:00.000Z","2020-05-10T00:00:00.000Z","2020-05-11T00:00:00.000Z","2020-05-12T00:00:00.000Z","2020-05-13T00:00:00.000Z","2020-05-14T00:00:00.000Z","2020-05-15T00:00:00.000Z","2020-05-16T00:00:00.000Z","2020-05-17T00:00:00.000Z","2020-05-18T00:00:00.000Z","2020-05-19T00:00:00.000Z","2020-05-20T00:00:00.000Z","2020-05-21T00:00:00.000Z","2020-05-22T00:00:00.000Z","2020-05-23T00:00:00.000Z","2020-05-24T00:00:00.000Z","2020-05-25T00:00:00.000Z","2020-05-26T00:00:00.000Z","2020-05-27T00:00:00.000Z","2020-05-28T00:00:00.000Z","2020-05-29T00:00:00.000Z","2020-05-30T00:00:00.000Z","2020-05-31T00:00:00.000Z","2020-06-01T00:00:00.000Z","2020-06-02T00:00:00.000Z","2020-06-03T00:00:00.000Z","2020-06-04T00:00:00.000Z","2020-06-05T00:00:00.000Z","2020-06-06T00:00:00.000Z","2020-06-07T00:00:00.000Z","2020-06-09T00:00:00.000Z","2020-06-10T00:00:00.000Z","2020-06-11T00:00:00.000Z","2020-06-12T00:00:00.000Z","2020-06-13T00:00:00.000Z","2020-06-14T00:00:00.000Z","2020-06-15T00:00:00.000Z","2020-06-16T00:00:00.000Z","2020-06-17T00:00:00.000Z","2020-06-18T00:00:00.000Z","2020-06-19T00:00:00.000Z","2020-06-20T00:00:00.000Z","2020-06-21T00:00:00.000Z","2020-06-22T00:00:00.000Z","2020-06-23T00:00:00.000Z","2020-06-24T00:00:00.000Z","2020-06-25T00:00:00.000Z","2020-06-26T00:00:00.000Z","2020-06-27T00:00:00.000Z","2020-06-28T00:00:00.000Z","2020-06-29T00:00:00.000Z","2020-06-30T00:00:00.000Z","2020-07-01T00:00:00.000Z","2020-07-02T00:00:00.000Z","2020-07-03T00:00:00.000Z","2020-07-04T00:00:00.000Z","2020-07-05T00:00:00.000Z","2020-07-06T00:00:00.000Z","2020-07-07T00:00:00.000Z","2020-07-08T00:00:00.000Z","2020-07-09T00:00:00.000Z","2020-07-10T00:00:00.000Z","2020-07-11T00:00:00.000Z","2020-07-12T00:00:00.000Z","2020-07-13T00:00:00.000Z","2020-07-14T00:00:00.000Z","2020-07-15T00:00:00.000Z","2020-07-16T00:00:00.000Z","2020-07-17T00:00:00.000Z","2020-07-18T00:00:00.000Z","2020-07-19T00:00:00.000Z","2020-07-20T00:00:00.000Z","2020-07-21T00:00:00.000Z","2020-07-22T00:00:00.000Z","2020-07-23T00:00:00.000Z","2020-07-24T00:00:00.000Z","2020-07-25T00:00:00.000Z","2020-07-26T00:00:00.000Z","2020-07-27T00:00:00.000Z","2020-07-28T00:00:00.000Z","2020-07-29T00:00:00.000Z","2020-07-30T00:00:00.000Z","2020-07-31T00:00:00.000Z","2020-08-01T00:00:00.000Z","2020-08-02T00:00:00.000Z","2020-08-03T00:00:00.000Z","2020-08-04T00:00:00.000Z","2020-08-05T00:00:00.000Z","2020-08-06T00:00:00.000Z","2020-08-07T00:00:00.000Z","2020-08-08T00:00:00.000Z","2020-08-09T00:00:00.000Z","2020-08-10T00:00:00.000Z","2020-08-11T00:00:00.000Z","2020-08-12T00:00:00.000Z","2020-08-13T00:00:00.000Z","2020-08-14T00:00:00.000Z","2020-08-15T00:00:00.000Z","2020-08-16T00:00:00.000Z","2020-08-17T00:00:00.000Z","2020-08-18T00:00:00.000Z","2020-08-19T00:00:00.000Z","2020-08-20T00:00:00.000Z","2020-08-21T00:00:00.000Z","2020-08-22T00:00:00.000Z","2020-08-23T00:00:00.000Z","2020-08-24T00:00:00.000Z","2020-08-25T00:00:00.000Z","2020-08-26T00:00:00.000Z","2020-08-27T00:00:00.000Z","2020-08-28T00:00:00.000Z","2020-08-29T00:00:00.000Z","2020-08-30T00:00:00.000Z","2020-08-31T00:00:00.000Z","2020-09-01T00:00:00.000Z","2020-09-02T00:00:00.000Z","2020-09-03T00:00:00.000Z","2020-09-04T00:00:00.000Z","2020-09-05T00:00:00.000Z","2020-09-06T00:00:00.000Z","2020-09-07T00:00:00.000Z","2020-09-08T00:00:00.000Z","2020-09-09T00:00:00.000Z","2020-09-10T00:00:00.000Z","2020-09-11T00:00:00.000Z","2020-09-12T00:00:00.000Z","2020-09-13T00:00:00.000Z","2020-09-14T00:00:00.000Z","2020-09-15T00:00:00.000Z","2020-09-16T00:00:00.000Z","2020-09-17T00:00:00.000Z","2020-09-18T00:00:00.000Z","2020-09-19T00:00:00.000Z","2020-09-20T00:00:00.000Z","2020-09-21T00:00:00.000Z","2020-09-22T00:00:00.000Z","2020-09-23T00:00:00.000Z","2020-09-24T00:00:00.000Z","2020-09-25T00:00:00.000Z","2020-09-26T00:00:00.000Z","2020-09-27T00:00:00.000Z","2020-09-28T00:00:00.000Z","2020-09-29T00:00:00.000Z","2020-09-30T00:00:00.000Z"],[" 10"," 11"," 21"," 14"," 16"," 15"," 13"," 12","  8","  5"," 16","  7","  9"," 19"," 13","  5","  6","  7","  5","  5"," 10","  9","  2","  2","  5","  8"," 10","  6","  8","  8","  4","  9","  7","  8","  3","  1","  4","  2","  4","  7","  5","  8"," 10"," 12","  9"," 20"," 18"," 12"," 25"," 17"," 13"," 17"," 18"," 33"," 28"," 40"," 47"," 69"," 61"," 76"," 73"," 62","100"," 68"," 98","168","122","149","143","290","256","167","248","218","295","380","211","337","262","341","436","374","289","333","406","492","359","276","623","548","369","598","354","403","686","444","421","455","374","310","321","400","256","360","301","267","266","217","208","231","170","173","202","109","146","142","110","111"," 90","108"," 71"," 63"," 87","110"," 75"," 71"," 62"," 38"," 48"," 70"," 47"," 40"," 35"," 41"," 30"," 39"," 41"," 25"," 45"," 20"," 13"," 11"," 28"," 14"," 11"," 13"," 12"," 16","  5","  9"," 10"," 14"],["2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27","2020-07-28","2020-07-29","2020-07-30","2020-07-31","2020-08-01","2020-08-02","2020-08-03","2020-08-04","2020-08-05","2020-08-06","2020-08-07","2020-08-08","2020-08-09","2020-08-10","2020-08-11","2020-08-12","2020-08-13","2020-08-14","2020-08-15","2020-08-16","2020-08-17","2020-08-18","2020-08-19","2020-08-20","2020-08-21","2020-08-22","2020-08-23","2020-08-24","2020-08-25","2020-08-26","2020-08-27","2020-08-28","2020-08-29","2020-08-30","2020-08-31","2020-09-01","2020-09-02","2020-09-03","2020-09-04","2020-09-05","2020-09-06","2020-09-07","2020-09-08","2020-09-09","2020-09-10","2020-09-11","2020-09-12","2020-09-13","2020-09-14","2020-09-15","2020-09-16","2020-09-17","2020-09-18","2020-09-19","2020-09-20","2020-09-21","2020-09-22","2020-09-23","2020-09-24","2020-09-25","2020-09-26","2020-09-27","2020-09-28","2020-09-29","2020-09-30"]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
 
 ---
 class: center, inverse
@@ -140,55 +132,150 @@ class: center, middle
 
 .scrollable[
 <h4>Comparing COVID Cases in each Month</h4>
-<div id="htmlwidget-50edbfe03b808dac2b2e" style="width:100%;height:40%;" class="sankeyNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-50edbfe03b808dac2b2e">{"x":{"links":{"source":[0,0,0,1,1,1,2,2,2,3,3,3,4,4,4],"target":[5,6,7,5,6,7,5,6,7,5,6,7,5,6,7],"value":[63,155,71,180,306,97,1937,6542,14,1358,7009,null,98,982,null]},"nodes":{"name":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"],"group":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":14,"fontFamily":null,"nodeWidth":20,"nodePadding":15,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-55568a973402320ae4e0" style="width:100%;height:40%;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-55568a973402320ae4e0">{"x":{"links":{"source":[0,0,0,1,1,1,2,2,2,3,3,3,4,4,4],"target":[5,6,7,5,6,7,5,6,7,5,6,7,5,6,7],"value":[63,155,71,180,306,97,1937,6542,14,1358,7009,null,98,982,null]},"nodes":{"name":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"],"group":["May","Jun","Jul","Aug","Sep","Unknown","Contact","Travel"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":14,"fontFamily":null,"nodeWidth":20,"nodePadding":15,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
 
 ]
 
 
 ---
 
-<div id="htmlwidget-9bedbad03b13205f0985" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9bedbad03b13205f0985">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; &#10;                                                text-align: center;  color:black; font-size:120% ;\">COVID-19 Cases<\/caption>","data":[["1","2","3","4","5"],["May","Jun","Jul","Aug","Sep"],[289,583,8493,8367,1080],["<span id=\"htmlwidget-2ea11596b39f7ba112e4\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-2ea11596b39f7ba112e4\">{\"x\":{\"values\":[10,11,21,14,16,15,13,12,8,5,16,7,9,19,13,5,6,7,5,5,10,9,2,2,5,8,10,6,8,8,4],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-c1778a1ec40e90427962\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-c1778a1ec40e90427962\">{\"x\":{\"values\":[9,7,8,3,1,4,2,4,7,5,8,10,12,9,20,18,12,25,17,13,17,18,33,28,40,47,69,61,76],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-06a5763dd4802c126489\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-06a5763dd4802c126489\">{\"x\":{\"values\":[73,62,100,68,98,168,122,149,143,290,256,167,248,218,295,380,211,337,262,341,436,374,289,333,406,492,359,276,623,548,369],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-9c366ceb8df7dbe19154\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-9c366ceb8df7dbe19154\">{\"x\":{\"values\":[598,354,403,686,444,421,455,374,310,321,400,256,360,301,267,266,217,208,231,170,173,202,109,146,142,110,111,90,108,71,63],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-bb8390d22bf81c9fb297\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-bb8390d22bf81c9fb297\">{\"x\":{\"values\":[87,110,75,71,62,38,48,70,47,40,35,41,30,39,41,25,45,20,13,11,28,14,11,13,12,16,5,9,10,14],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"],["<span id=\"htmlwidget-cac8eac6d33c695b389f\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-cac8eac6d33c695b389f\">{\"x\":{\"values\":[10,11,21,14,16,15,13,12,8,5,16,7,9,19,13,5,6,7,5,5,10,9,2,2,5,8,10,6,8,8,4],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-1388f19db38b4278c3c5\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-1388f19db38b4278c3c5\">{\"x\":{\"values\":[9,7,8,3,1,4,2,4,7,5,8,10,12,9,20,18,12,25,17,13,17,18,33,28,40,47,69,61,76],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-2e2541bfc8e8f064f284\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-2e2541bfc8e8f064f284\">{\"x\":{\"values\":[73,62,100,68,98,168,122,149,143,290,256,167,248,218,295,380,211,337,262,341,436,374,289,333,406,492,359,276,623,548,369],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-a58e5ed03a41a9f44343\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-a58e5ed03a41a9f44343\">{\"x\":{\"values\":[598,354,403,686,444,421,455,374,310,321,400,256,360,301,267,266,217,208,231,170,173,202,109,146,142,110,111,90,108,71,63],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-2b2f3bb0d471de24321a\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-2b2f3bb0d471de24321a\">{\"x\":{\"values\":[87,110,75,71,62,38,48,70,47,40,35,41,30,39,41,25,45,20,13,11,28,14,11,13,12,16,5,9,10,14],\"options\":{\"type\":\"box\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Month<\/th>\n      <th>Total Cases<\/th>\n      <th>Cases in a month<\/th>\n      <th>Distribution in a month<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 0, 3, \",\", \".\");\n  }"},{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100],"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[2]; $(row).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= 0 ? \"black\" : value <= 1000000 ? \"white\" : value <= \"Inf\" ? \"green\" : \"red\"});\n}"}},"evals":["options.columnDefs.0.render","options.rowCallback"],"jsHooks":[]}</script>
+
+
+&lt;iframe src="plotly/monthly_table.html" width="600" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
 
 ---
-class: center
+class: center, top
 
-
-
-&lt;img src="figures/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-class: center
-&lt;img src="figures/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-class: center
-&lt;img src="figures/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
----
-class: center
-&lt;img src="figures/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-class: center
-&lt;img src="figures/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
----
+## Spread of the Virus
 
 
 
 
 
-&lt;img src="figures/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
-
+.panelset[
+.panel[.panel-name[MAY]
+&lt;img src="figures/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[JUNE]
+&lt;img src="figures/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[JULY]
+&lt;img src="figures/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[AUGUST]
+&lt;img src="figures/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[SEPTEMBER]
+&lt;img src="figures/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+]]
 
 ---
 
+### Trend of Top 10 LGA with maximum Covid Cases
+
+.panelset[
+.panel[.panel-name[plot]
 
 
+.pull-left[
+
+
+&lt;iframe src="plotly/pg.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+]
+
+.pull-right[
+
+****Key Insights****:
+
+*  Every LGA spiked in the no of covid cases after June,2020
+*  The spike was almost 20%
+*  Similar kind of pattern across the some LGA
+]
+]
+.scrollable[
+.panel[.panel-name[R]
+
+```r
+graphlga0 &lt;- karandata %&gt;%
+  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %&gt;%
+  mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
+         Localgovernmentarea = trimws(Localgovernmentarea)) %&gt;%
+  filter(Localgovernmentarea %in% top_lga) %&gt;%
+  group_by(Month,Localgovernmentarea) %&gt;%
+  summarise(n_cases = n()) %&gt;%
+  ungroup() %&gt;%
+  mutate(Month = as.numeric(Month)) %&gt;%
+  mutate(tooltip = glue::glue(
+           "Month: {Month}
+            Covid Cases: {n_cases}
+            LGA: {Localgovernmentarea}
+           "
+         ))
+
+
+graphlga &lt;- ggplot(graphlga0,aes(Month,
+             n_cases,
+             group = Localgovernmentarea,
+             color = Localgovernmentarea)) +
+  geom_line() +
+  geom_point(aes(text = tooltip)) +
+  scale_x_continuous() +
+  labs(x = "Month",
+       y = "No. of Cases",
+       color = NULL) +
+  theme_bw()
+pg &lt;- ggplotly(graphlga,
+               tooltip = "text") %&gt;% 
+  hide_legend()
+
+
+htmltools::save_html(pg, file="plotly/pg.html")    
+```
+]
+]
+]
+
+
+
+---
+
+#### Network graph showcasing the source of covid in each LGA
+
+.panelset[
+.panel[.panel-name[plot]
 
 &lt;img src="figures/graph4-1.png" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[Learn]
+
+**keyInsights**:
+
+]
+.panel[.panel-name[R]
+
+```r
+set.seed(1234)
+ggraph(graph_dt, "lgl") +
+  geom_edge_link2(color = "black") +
+  geom_node_point(data = ~.x %&gt;% filter(name %in% structure)) + 
+  geom_node_label(data = ~.x %&gt;% filter(name %in% structure),
+                  aes(label = name), repel = TRUE, 
+                  label.size = NA,  fill = "orange") +
+  geom_node_label(data = ~.x %&gt;% filter(!name %in% structure),
+                  aes(label = name), size = 4, 
+                  label.size = 0.5,  fill = "lightblue2") +
+  scale_edge_color_brewer(palette = "Dark2") + 
+  theme_void()
+```
+]
+]
+
+
+---
+
+# Conclusion
+
 
 
 
@@ -199,7 +286,369 @@ class: center
 
 .scrollable[
 - 
-NULL
+&lt;p&gt;&lt;cite&gt;Aden-Buie, G.
+(2021).
+&lt;em&gt;xaringanthemer: Custom xaringan CSS Themes&lt;/em&gt;.
+R package version 0.4.0.
+URL: &lt;a href="https://CRAN.R-project.org/package=xaringanthemer"&gt;https://CRAN.R-project.org/package=xaringanthemer&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Arnold, J. B.
+(2021).
+&lt;em&gt;ggthemes: Extra Themes, Scales and Geoms for ggplot2&lt;/em&gt;.
+R package version 4.2.4.
+URL: &lt;a href="https://github.com/jrnold/ggthemes"&gt;https://github.com/jrnold/ggthemes&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Cheng, J., B. Karambelkar, and Y. Xie
+(2021).
+&lt;em&gt;leaflet: Create Interactive Web Maps with the JavaScript Leaflet
+Library&lt;/em&gt;.
+R package version 2.0.4.1.
+URL: &lt;a href="https://rstudio.github.io/leaflet/"&gt;https://rstudio.github.io/leaflet/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Clarke, E. and S. Sherrill-Mix
+(2017).
+&lt;em&gt;ggbeeswarm: Categorical Scatter (Violin Point) Plots&lt;/em&gt;.
+R package version 0.6.0.
+URL: &lt;a href="https://github.com/eclarke/ggbeeswarm"&gt;https://github.com/eclarke/ggbeeswarm&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Dietrich, J. P.
+(2020).
+&lt;em&gt;citation: Software Citation Tools&lt;/em&gt;.
+R package version 0.4.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=citation"&gt;https://CRAN.R-project.org/package=citation&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Grolemund, G. and H. Wickham
+(2011).
+&amp;ldquo;Dates and Times Made Easy with lubridate&amp;rdquo;.
+In: &lt;em&gt;Journal of Statistical Software&lt;/em&gt; 40.3, pp. 1&amp;ndash;25.
+URL: &lt;a href="https://www.jstatsoft.org/v40/i03/"&gt;https://www.jstatsoft.org/v40/i03/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Henry, L. and H. Wickham
+(2020).
+&lt;em&gt;purrr: Functional Programming Tools&lt;/em&gt;.
+R package version 0.3.4.
+URL: &lt;a href="https://CRAN.R-project.org/package=purrr"&gt;https://CRAN.R-project.org/package=purrr&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Iannone, R., J. Cheng, and B. Schloerke
+(2021).
+&lt;em&gt;gt: Easily Create Presentation-Ready Display Tables&lt;/em&gt;.
+R package version 0.3.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=gt"&gt;https://CRAN.R-project.org/package=gt&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Kobakian, S. and D. Cook
+(2019).
+&lt;em&gt;sugarbag: Create Hexagon Tile Maps&lt;/em&gt;.
+URL: &lt;a href="https://srkobakian.github.io/sugarbag/"&gt;https://srkobakian.github.io/sugarbag/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2020).
+&lt;em&gt;sugarbag: Create Tessellated Hexagon Maps&lt;/em&gt;.
+R package version 0.1.3.
+URL: &lt;a href="https://CRAN.R-project.org/package=sugarbag"&gt;https://CRAN.R-project.org/package=sugarbag&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;McLean, M. W.
+(2014).
+&lt;em&gt;Straightforward Bibliography Management in R Using the RefManager Package&lt;/em&gt;.
+arXiv: 1403.2036 [cs.DL].
+URL: &lt;a href="https://arxiv.org/abs/1403.2036"&gt;https://arxiv.org/abs/1403.2036&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2017).
+&amp;ldquo;RefManageR: Import and Manage BibTeX and BibLaTeX References in R&amp;rdquo;.
+In: &lt;em&gt;The Journal of Open Source Software&lt;/em&gt;.
+DOI: &lt;a href="https://doi.org/10.21105/joss.00338"&gt;10.21105/joss.00338&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2020).
+&lt;em&gt;RefManageR: Straightforward BibTeX and BibLaTeX Bibliography Management&lt;/em&gt;.
+R package version 1.3.0.
+URL: &lt;a href="https://github.com/ropensci/RefManageR/"&gt;https://github.com/ropensci/RefManageR/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Müller, K. and H. Wickham
+(2021).
+&lt;em&gt;tibble: Simple Data Frames&lt;/em&gt;.
+R package version 3.1.4.
+URL: &lt;a href="https://CRAN.R-project.org/package=tibble"&gt;https://CRAN.R-project.org/package=tibble&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Neuwirth, E.
+(2014).
+&lt;em&gt;RColorBrewer: ColorBrewer Palettes&lt;/em&gt;.
+R package version 1.1-2.
+URL: &lt;a href="https://CRAN.R-project.org/package=RColorBrewer"&gt;https://CRAN.R-project.org/package=RColorBrewer&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Pedersen, T. L.
+(2020).
+&lt;em&gt;patchwork: The Composer of Plots&lt;/em&gt;.
+R package version 1.1.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=patchwork"&gt;https://CRAN.R-project.org/package=patchwork&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Qiu, Y. and a. of the included
+fonts. See
+(2020).
+&lt;em&gt;showtextdb: Font Files for the showtext Package&lt;/em&gt;.
+R package version 3.0.
+URL: &lt;a href="https://CRAN.R-project.org/package=showtextdb"&gt;https://CRAN.R-project.org/package=showtextdb&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2021).
+&lt;em&gt;sysfonts: Loading Fonts into R&lt;/em&gt;.
+R package version 0.8.5.
+URL: &lt;a href="https://github.com/yixuan/sysfonts"&gt;https://github.com/yixuan/sysfonts&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Qiu, Y. and a. of the included
+software. See
+(2021).
+&lt;em&gt;showtext: Using Fonts More Easily in R Graphs&lt;/em&gt;.
+R package version 0.9-4.
+URL: &lt;a href="https://github.com/yixuan/showtext"&gt;https://github.com/yixuan/showtext&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;R Core Team
+(2021).
+&lt;em&gt;R: A Language and Environment for Statistical Computing&lt;/em&gt;.
+R Foundation for Statistical Computing.
+Vienna, Austria.
+URL: &lt;a href="https://www.R-project.org/"&gt;https://www.R-project.org/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Ren, K. and K. Russell
+(2021).
+&lt;em&gt;formattable: Create Formattable Data Structures&lt;/em&gt;.
+R package version 0.2.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=formattable"&gt;https://CRAN.R-project.org/package=formattable&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Robinson, D. and J. Silge
+(2021).
+&lt;em&gt;tidytext: Text Mining using dplyr, ggplot2, and Other Tidy Tools&lt;/em&gt;.
+R package version 0.3.1.
+URL: &lt;a href="https://github.com/juliasilge/tidytext"&gt;https://github.com/juliasilge/tidytext&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Ryan, J. A. and J. M. Ulrich
+(2020a).
+&lt;em&gt;quantmod: Quantitative Financial Modelling Framework&lt;/em&gt;.
+R package version 0.4.18.
+URL: &lt;a href="https://CRAN.R-project.org/package=quantmod"&gt;https://CRAN.R-project.org/package=quantmod&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2020b).
+&lt;em&gt;xts: eXtensible Time Series&lt;/em&gt;.
+R package version 0.12.1.
+URL: &lt;a href="https://github.com/joshuaulrich/xts"&gt;https://github.com/joshuaulrich/xts&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Schloerke, B., D. Cook, J. Larmarange, et al.
+(2021).
+&lt;em&gt;GGally: Extension to ggplot2&lt;/em&gt;.
+R package version 2.1.2.
+URL: &lt;a href="https://CRAN.R-project.org/package=GGally"&gt;https://CRAN.R-project.org/package=GGally&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Sievert, C.
+(2020).
+&lt;em&gt;Interactive Web-Based Data Visualization with R, plotly, and shiny&lt;/em&gt;.
+Chapman and Hall/CRC.
+ISBN: 9781138331457.
+URL: &lt;a href="https://plotly-r.com"&gt;https://plotly-r.com&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Sievert, C., C. Parmer, T. Hocking, et al.
+(2021).
+&lt;em&gt;plotly: Create Interactive Web Graphics via plotly.js&lt;/em&gt;.
+R package version 4.9.4.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=plotly"&gt;https://CRAN.R-project.org/package=plotly&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Silge, J. and D. Robinson
+(2016).
+&amp;ldquo;tidytext: Text Mining and Analysis Using Tidy Data Principles in R&amp;rdquo;.
+In: &lt;em&gt;JOSS&lt;/em&gt; 1.3.
+DOI: &lt;a href="https://doi.org/10.21105/joss.00037"&gt;10.21105/joss.00037&lt;/a&gt;.
+URL: &lt;a href="http://dx.doi.org/10.21105/joss.00037"&gt;http://dx.doi.org/10.21105/joss.00037&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Slowikowski, K.
+(2021).
+&lt;em&gt;ggrepel: Automatically Position Non-Overlapping Text Labels with
+ggplot2&lt;/em&gt;.
+R package version 0.9.1.
+URL: &lt;a href="https://github.com/slowkow/ggrepel"&gt;https://github.com/slowkow/ggrepel&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Spinu, V., G. Grolemund, and H. Wickham
+(2021).
+&lt;em&gt;lubridate: Make Dealing with Dates a Little Easier&lt;/em&gt;.
+R package version 1.7.10.
+URL: &lt;a href="https://CRAN.R-project.org/package=lubridate"&gt;https://CRAN.R-project.org/package=lubridate&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Tierney, N., D. Cook, M. McBain, et al.
+(2021).
+&lt;em&gt;naniar: Data Structures, Summaries, and Visualisations for Missing Data&lt;/em&gt;.
+R package version 0.6.1.
+URL: &lt;a href="https://github.com/njtierney/naniar"&gt;https://github.com/njtierney/naniar&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Ulrich, J.
+(2020).
+&lt;em&gt;TTR: Technical Trading Rules&lt;/em&gt;.
+R package version 0.24.2.
+URL: &lt;a href="https://github.com/joshuaulrich/TTR"&gt;https://github.com/joshuaulrich/TTR&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Vaidyanathan, R., K. Russell, and G. Watts
+(2016).
+&lt;em&gt;sparkline: jQuery Sparkline htmlwidget&lt;/em&gt;.
+R package version 2.0.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Vanderkam, D., J. Allaire, J. Owen, et al.
+(2018).
+&lt;em&gt;dygraphs: Interface to Dygraphs Interactive Time Series Charting Library&lt;/em&gt;.
+R package version 1.1.1.6.
+URL: &lt;a href="https://github.com/rstudio/dygraphs"&gt;https://github.com/rstudio/dygraphs&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wang, E., D. Cook, and R. Hyndman
+(2020a).
+&lt;em&gt;sugrrants: Supporting Graphs for Analysing Time Series&lt;/em&gt;.
+R package version 0.2.8.
+URL: &lt;a href="https://pkg.earo.me/sugrrants/"&gt;https://pkg.earo.me/sugrrants/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wang, E., D. Cook, and R. J. Hyndman
+(2020b).
+&amp;ldquo;A new tidy data structure to support exploration and modeling of temporal data&amp;rdquo;.
+In: &lt;em&gt;Journal of Computational and Graphical Statistics&lt;/em&gt; 29.3, pp. 466-478.
+DOI: &lt;a href="https://doi.org/10.1080/10618600.2019.1695624"&gt;10.1080/10618600.2019.1695624&lt;/a&gt;.
+URL: &lt;a href="https://doi.org/10.1080/10618600.2019.1695624"&gt;https://doi.org/10.1080/10618600.2019.1695624&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2020c).
+&amp;ldquo;Calendar-based graphics for visualizing people's daily schedules&amp;rdquo;.
+In: &lt;em&gt;Journal of Computational and Graphical Statistics&lt;/em&gt; 29.3, pp. 490-502.
+DOI: &lt;a href="https://doi.org/10.1080/10618600.2020.1715226"&gt;10.1080/10618600.2020.1715226&lt;/a&gt;.
+URL: &lt;a href="https://doi.org/10.1080/10618600.2020.1715226"&gt;https://doi.org/10.1080/10618600.2020.1715226&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wang, E., D. Cook, R. Hyndman, et al.
+(2021).
+&lt;em&gt;tsibble: Tidy Temporal Data Frames and Tools&lt;/em&gt;.
+R package version 1.1.0.
+URL: &lt;a href="https://tsibble.tidyverts.org"&gt;https://tsibble.tidyverts.org&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H.
+(2016).
+&lt;em&gt;ggplot2: Elegant Graphics for Data Analysis&lt;/em&gt;.
+Springer-Verlag New York.
+ISBN: 978-3-319-24277-4.
+URL: &lt;a href="https://ggplot2.tidyverse.org"&gt;https://ggplot2.tidyverse.org&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2019).
+&lt;em&gt;stringr: Simple, Consistent Wrappers for Common String Operations&lt;/em&gt;.
+R package version 1.4.0.
+URL: &lt;a href="https://CRAN.R-project.org/package=stringr"&gt;https://CRAN.R-project.org/package=stringr&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2021a).
+&lt;em&gt;forcats: Tools for Working with Categorical Variables (Factors)&lt;/em&gt;.
+R package version 0.5.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=forcats"&gt;https://CRAN.R-project.org/package=forcats&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2021b).
+&lt;em&gt;tidyr: Tidy Messy Data&lt;/em&gt;.
+R package version 1.1.3.
+URL: &lt;a href="https://CRAN.R-project.org/package=tidyr"&gt;https://CRAN.R-project.org/package=tidyr&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2021c).
+&lt;em&gt;tidyverse: Easily Install and Load the Tidyverse&lt;/em&gt;.
+R package version 1.3.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=tidyverse"&gt;https://CRAN.R-project.org/package=tidyverse&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H., M. Averick, J. Bryan, et al.
+(2019).
+&amp;ldquo;Welcome to the tidyverse&amp;rdquo;.
+In: &lt;em&gt;Journal of Open Source Software&lt;/em&gt; 4.43, p. 1686.
+DOI: &lt;a href="https://doi.org/10.21105/joss.01686"&gt;10.21105/joss.01686&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H., W. Chang, L. Henry, et al.
+(2021).
+&lt;em&gt;ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics&lt;/em&gt;.
+R package version 3.3.5.
+URL: &lt;a href="https://CRAN.R-project.org/package=ggplot2"&gt;https://CRAN.R-project.org/package=ggplot2&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H., R. François, and L. D'Agostino McGowan
+(2021).
+&lt;em&gt;emo: Easily Insert Emoji&lt;/em&gt;.
+R package version 0.0.0.9000.
+URL: &lt;a href="https://github.com/hadley/emo"&gt;https://github.com/hadley/emo&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H., R. François, L. Henry, et al.
+(2021).
+&lt;em&gt;dplyr: A Grammar of Data Manipulation&lt;/em&gt;.
+R package version 1.0.7.
+URL: &lt;a href="https://CRAN.R-project.org/package=dplyr"&gt;https://CRAN.R-project.org/package=dplyr&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H. and J. Hester
+(2021).
+&lt;em&gt;readr: Read Rectangular Text Data&lt;/em&gt;.
+R package version 2.0.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=readr"&gt;https://CRAN.R-project.org/package=readr&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H. and D. Seidel
+(2020).
+&lt;em&gt;scales: Scale Functions for Visualization&lt;/em&gt;.
+R package version 1.1.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=scales"&gt;https://CRAN.R-project.org/package=scales&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Xie, Y.
+(2014).
+&amp;ldquo;knitr: A Comprehensive Tool for Reproducible Research in R&amp;rdquo;.
+In: 
+&lt;em&gt;Implementing Reproducible Computational Research&lt;/em&gt;.
+Ed. by V. Stodden, F. Leisch and R. D. Peng.
+ISBN 978-1466561595.
+Chapman and Hall/CRC.
+URL: &lt;a href="http://www.crcpress.com/product/isbn/9781466561595"&gt;http://www.crcpress.com/product/isbn/9781466561595&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2015).
+&lt;em&gt;Dynamic Documents with R and knitr&lt;/em&gt;.
+2nd.
+ISBN 978-1498716963.
+Boca Raton, Florida: Chapman and Hall/CRC.
+URL: &lt;a href="https://yihui.org/knitr/"&gt;https://yihui.org/knitr/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2016).
+&lt;em&gt;bookdown: Authoring Books and Technical Documents with R Markdown&lt;/em&gt;.
+ISBN 978-1138700109.
+Boca Raton, Florida: Chapman and Hall/CRC.
+URL: &lt;a href="https://bookdown.org/yihui/bookdown"&gt;https://bookdown.org/yihui/bookdown&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2021a).
+&lt;em&gt;bookdown: Authoring Books and Technical Documents with R Markdown&lt;/em&gt;.
+R package version 0.24.
+URL: &lt;a href="https://CRAN.R-project.org/package=bookdown"&gt;https://CRAN.R-project.org/package=bookdown&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&amp;mdash;
+(2021b).
+&lt;em&gt;knitr: A General-Purpose Package for Dynamic Report Generation in R&lt;/em&gt;.
+R package version 1.34.
+URL: &lt;a href="https://yihui.org/knitr/"&gt;https://yihui.org/knitr/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Xie, Y., J. Cheng, and X. Tan
+(2021).
+&lt;em&gt;DT: A Wrapper of the JavaScript Library DataTables&lt;/em&gt;.
+R package version 0.19.
+URL: &lt;a href="https://github.com/rstudio/DT"&gt;https://github.com/rstudio/DT&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Zeileis, A. and G. Grothendieck
+(2005).
+&amp;ldquo;zoo: S3 Infrastructure for Regular and Irregular Time Series&amp;rdquo;.
+In: &lt;em&gt;Journal of Statistical Software&lt;/em&gt; 14.6, pp. 1&amp;ndash;27.
+DOI: &lt;a href="https://doi.org/10.18637/jss.v014.i06"&gt;10.18637/jss.v014.i06&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Zeileis, A., G. Grothendieck, and J. A. Ryan
+(2021).
+&lt;em&gt;zoo: S3 Infrastructure for Regular and Irregular Time Series (Z's
+Ordered Observations)&lt;/em&gt;.
+R package version 1.8-9.
+URL: &lt;a href="https://zoo.R-Forge.R-project.org/"&gt;https://zoo.R-Forge.R-project.org/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Zhu, H.
+(2021).
+&lt;em&gt;kableExtra: Construct Complex Table with kable and Pipe Syntax&lt;/em&gt;.
+R package version 1.3.4.
+URL: &lt;a href="https://CRAN.R-project.org/package=kableExtra"&gt;https://CRAN.R-project.org/package=kableExtra&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
