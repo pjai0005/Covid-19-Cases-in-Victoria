@@ -5,15 +5,13 @@ institute: "Master of Business Analytics, <br> Monash University<br><br>"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
-    css: [default, style.css,"MonashBS.css"]
+    css: [xaringan-themer.css, style.css,"MonashBS.css"]
     lib_dir: libs
     nature:
-      highlightStyle: magula
+      highlightStyle: github
       highlightLines: true
-      highlightSpans: false 
       countIncrementalSlides: false
-      slideNumberFormat: '%current%/%total%'
-      \navigation:
+      navigation:
         scroll: false 
         touch: true
         click: false
@@ -26,12 +24,10 @@ library(xaringanthemer)
 library(showtext)
 style_mono_accent(
   base_color = "#1c5253",
-  
   header_font_google = google_font("Josefin Sans"),
-  text_font_google   = google_font("Montserrat", "300", "300i"),
+  text_font_google   = google_font("Montserrat", "150", "150i"),
   code_font_google   = google_font("Fira Mono")
 )
-xaringanExtra::use_panelset()
 ```
 
 
@@ -39,12 +35,7 @@ xaringanExtra::use_panelset()
 knitr::opts_chunk$set(echo = FALSE, 
                       message = FALSE, 
                       cache = TRUE,
-                     warning = FALSE, 
-                     fig.path = "figures/",
-                     fig.align ="center",
-                     dev.args = list(bg = 'transparent'),
-                    fig.retina = 3)
-
+                     warning = FALSE, fig.path = "figures/", fig.align ="center")
 library(tidyverse) 
 library(lubridate)
 library(plotly)
@@ -84,12 +75,10 @@ library(gghighlight)
 library(networkD3)
 library(xaringanthemer)
 library(emo)
-
-
+options(htmltools.dir.version = FALSE)
 ```
 
 ```{r data, include=FALSE}
-
 # lga_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz LGA Data - lga.csv"))
 # 
 # postcode_covid <- read_csv(here::here("data/VIC_COVID/COVID19 Data Viz Postcode data - postcode.csv"))
@@ -97,24 +86,16 @@ library(emo)
 # cases_source <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Source_20211023.csv"))
 # 
 # lga_cases <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_20211023.csv"))
-
 covid_cases0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
 covid_age <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
-
 covid_cases <-  cbind(covid_cases0,covid_age %>% select(agegroup)) %>% 
   filter(diagnosis_date>="2020-05-01") %>% 
   filter(diagnosis_date<="2020-09-30")
-
 date_case <-covid_cases %>% group_by(diagnosis_date) %>% summarise(n_cases = n()) %>% ungroup() %>% as_tsibble()
-
 age <-covid_cases %>% group_by(diagnosis_date, agegroup) %>% summarise(n_cases = n())%>% ungroup()
-
 acquired <-covid_cases %>% group_by(diagnosis_date, acquired) %>% summarise(n_cases = n())%>% ungroup()
-
 pl <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea) %>% summarise(n_cases = n())%>% ungroup()
-
 pl_age <-covid_cases %>% group_by(diagnosis_date, Postcode, Localgovernmentarea, agegroup) %>% summarise(n_cases = n())%>% ungroup()
-
 ```
 
 
@@ -133,7 +114,7 @@ class: center, middle, inverse
 
 ## How are the COVID-19 cases spreading in the Victorian community? 
 
----
+--
 
 ### from 1st May to 30th September of 2020
 
@@ -254,17 +235,14 @@ date_case %>%
 .pull-left[
 ```{r, warning=FALSE, message=FALSE}
 variant_country <- readr::read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/variants/covid-variants.csv') %>% filter(location=="Australia")
-
 variant_country <- variant_country %>% mutate(
   num_sequences=ifelse(is.na(num_sequences),0,num_sequences),
   perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>% 
   mutate(year=year(date),
          month=month(date),
          day=day(date)) 
-
 variant_summary <- variant_country %>% group_by(variant) %>% 
   summarise(variant_sum=sum(num_sequences))
-
 variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) + 
   geom_col(fill= "darkred") +
   coord_flip() +
@@ -292,7 +270,6 @@ variant_country_delta <- variant_country %>%
                names_to = "sequence",
                values_to = "number") %>% 
   mutate(sequence=ifelse(sequence=="num_sequences","delta","total"))
-
 variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + 
   geom_col(position="dodge")+
         theme_classic()+
@@ -328,21 +305,16 @@ sank <- covid_cases %>%
   pivot_longer(cols = -month,
                names_to = "target",
                values_to = "value")
-
 node <- data.frame(name=c(as.character(sank$month), 
         as.character(sank$target)) %>% unique())
-
 my_color <- 'd3.scaleOrdinal() .domain(["Sep", "Oct", "Nov", "Covid", "War"]) .range([ "#5f0f40", "#fb8b24","#0f4c5c", "#9a031e", "#e36414"])'
-
 sank$IDmonth <- match(sank$month, node$name)-1 
 sank$IDtarget <- match(sank$target, node$name)-1
  
 p <- sankeyNetwork(Links = sank, Nodes = node, Source = "IDmonth", 
                Target = "IDtarget", Value = "value", NodeID = "name", fontSize = 14, 
                nodeWidth = 20, nodePadding = 15, sinksRight = FALSE)
-
 sankey <- htmlwidgets::prependContent(p, htmltools::tags$h4("Comparing COVID Cases in each Month"))
-
 #sankey <- htmlwidgets::appendContent(sankey, htmltools::tags$p("Comparing Death Toll"))
 ```
 
@@ -372,7 +344,6 @@ acq<- covid_cases %>%
   pivot_longer(cols = -c(diagnosis_date, day, month),
                names_to = "target",
                values_to = "value")
-
 ggplot(acq, aes(x= day, y= value, color = target))+
   geom_line(size = 1.2)+
   theme_light()+
@@ -412,24 +383,10 @@ date_case %>%
 ```
 
 ---
-### Trend of Top 10 LGA with maximum Covid Cases
-
-.panelset[
-.panel[.panel-name[plot]
-
-```{r linelga,warning=FALSE,message=FALSE,echo=FALSE,fig.width=6, fig.height=2,out.width="100%"}
-library(tourr)
-
-karandata0 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_LGA_Source_20211023.csv")) %>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date)
-karandata1 <- read_csv(here::here("data/VIC_COVID/NCOV_COVID_Cases_by_Age_Group_20211023.csv"))%>% mutate(diagnosis_date=ymd(diagnosis_date)) %>% arrange(diagnosis_date) 
-
-karandata <-  cbind(karandata0,karandata1 %>% select(agegroup)) %>% 
-  filter(diagnosis_date>="2020-05-01") %>% 
-  filter(diagnosis_date<="2020-09-30")
 
 
-
-top_lga1 <- karandata %>% 
+```{r,include=FALSE}
+top_lga1 <- covid_cases %>% 
   group_by(Localgovernmentarea) %>% 
   summarise(n_cases  = n()) %>% 
   ungroup() %>% 
@@ -438,87 +395,52 @@ top_lga1 <- karandata %>%
          Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
   select(Localgovernmentarea)
 top_lga <- top_lga1$Localgovernmentarea
+```
 
-
-graphlga0 <- karandata %>%
-  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>%
+```{r,include=FALSE}
+top_10_grf <- covid_cases %>% 
+  separate(diagnosis_date,into = c("Year","Month","Day"),sep = "-") %>% 
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
-         Localgovernmentarea = trimws(Localgovernmentarea)) %>%
-  filter(Localgovernmentarea %in% top_lga) %>%
-  group_by(Month,Localgovernmentarea) %>%
-  summarise(n_cases = n()) %>%
-  ungroup() %>%
-  mutate(Month = as.numeric(Month)) %>%
+         Localgovernmentarea = trimws(Localgovernmentarea)) %>% 
+  filter(Localgovernmentarea %in% top_lga) %>% 
+  group_by(Month,Localgovernmentarea) %>% 
+  summarise(n_cases = n()) %>% 
+  ungroup() %>% 
+  mutate(Month = as.numeric(Month)) %>% 
   mutate(tooltip = glue::glue(
            "Month: {Month}
             Covid Cases: {n_cases}
             LGA: {Localgovernmentarea}
            "
-         ))
-
-# bases <- save_history(graphlga0, grand_tour(2), max = 3)
-# tour_path <- interpolate(bases, 0.1)
-
-
-graphlga <- ggplot(graphlga0,aes(Month,
+         )) %>% 
+  ggplot(aes(Month,
              n_cases,
-             group = Localgovernmentarea,
              color = Localgovernmentarea)) +
+  geom_point() +
   geom_line() +
   geom_point(aes(text = tooltip)) +
   scale_x_continuous() +
   labs(x = "Month",
        y = "No. of Cases",
-       color = NULL) +
+       title = "Trend of Top 10 LGA with maximum Covid Cases",
+       color = "") +
   theme_bw()
-pg <- ggplotly(graphlga,
-                width=800, height=500) %>%
-                 animation_opts(200, redraw = FALSE, 
-                 easing = "linear")
-pg
-htmltools::save_html(pg, file="graphlga0.html")
-
-# %>%
-#   hide_legend()  %>%
-#   config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
-
-# p1 <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-#   geom_point(aes(color=Species))
-# ggplotly(p1)  
+  
 ```
 
-.panel[.panel-name[learn]
-<br> <br>
-****Key Insights****:
-
-*  Lot of missing data
-*  Confirmation to the previous plot of following Least recorded areas with similar kind of pattern
-   *  Flinders Street
-   *  Little Collins Street
-   *  Lonsdale Street
-   *  Spring Street
-   *  William Street
-
-*  After the Wednesday afternoon of 2nd week of june in Siddeley Street, a sudden spike in wind speed is observed.
-
-]
-
-
-]
-.panel[.panel-name[R]
-.scrollable[
-```{r ref.label="linelga", echo=TRUE, eval=FALSE}
+```{r,echo=FALSE}
+# ggplotly(top_10_grf,
+#          tooltip = "text") %>% 
+#     config(displaylogo = FALSE) %>% layout(xaxis=list(fixedrange=TRUE)) %>% layout(yaxis=list(fixedrange=TRUE))
+top_10_grf
 ```
-]
-]
-]
+
 
 ---
 
 ```{r graph-clean,include=FALSE}
 library(ggraph)
 library(tidygraph)
-
 clean_selected <- covid_cases %>% 
   separate(diagnosis_date,into = c("Year","Month","Date"),sep = "-") %>% 
   mutate(Localgovernmentarea = str_sub(Localgovernmentarea,0,str_length(Localgovernmentarea) -3),
@@ -531,19 +453,15 @@ clean_selected <- covid_cases %>%
   mutate(acquired = as.factor(acquired),
          Localgovernmentarea = as.factor(Localgovernmentarea),
          aclg = paste0(acquired,Localgovernmentarea)) 
-
 graph_dt <- clean_selected %>% 
   group_by(aclg) %>% 
   summarise(total_cases = sum(n_cases)) %>% 
   left_join(clean_selected, by = "aclg") %>% 
   rename(from = acquired, to = Localgovernmentarea) %>% 
   as_tbl_graph()
-
 acquired1 <- clean_selected %>% select(acquired) %>% unique()  
 acquired <- acquired1$acquired 
-
 structure <- c(acquired,top_lga)
-
 ```
 
 
@@ -560,7 +478,6 @@ ggraph(graph_dt, "lgl") +
                   label.size = 0.1,  fill = "lightblue2") +
   scale_edge_color_brewer(palette = "Dark2") + 
   theme_void()
-
 ```
 
 
@@ -583,4 +500,3 @@ print(bib,
                bib.style = "authoryear"))
 ```
 ]
-
