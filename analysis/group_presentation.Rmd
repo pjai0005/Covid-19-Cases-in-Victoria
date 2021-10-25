@@ -51,7 +51,6 @@ library(RColorBrewer)
 library(sugarbag)
 library(tsibble)
 library(sugrrants)
-library(GGally)
 library(naniar)
 library(tidyr)
 library(RefManageR)
@@ -62,6 +61,10 @@ library(xts)
 library(gghighlight)
 library(networkD3)
 library(ggplot2)
+```
+
+```{r writing_packages_bibliographies}
+knitr::write_bib(c(.packages()), "packages.bib")
 ```
 
 ```{css, echo = FALSE}

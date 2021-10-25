@@ -651,7 +651,7 @@ vic_lga_covid <- vic_lga %>% left_join(l_month_cases1,
           month == 9) %>% 
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=cases_per10k)) +
-  geom_sf_text(aes(geometry= geometry,label=NAME1, colour="white"), 
+  geom_sf_text(aes(geometry= geometry,label=NAME1), colour="white", 
                check_overlap=TRUE)+
      #scale_fill_brewer(labels=colors)+
   theme_minimal() 
@@ -815,9 +815,11 @@ map2 <- ggplot(vic_lga_covid_week_carto) +
 map2 <- ggplotly(
       map2,
       tooltip = "text"
-    )
+    ) 
 map2
 htmltools::save_html(map2, file="plotly/map2.html")    
+
+
 ```
 
 <iframe src="plotly/map2.html" width="800" height="1600" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
@@ -859,6 +861,11 @@ map1
 ```
 ]
 .panel[.panel-name[Learn]
+- We see that the LGAs around Melbourne CBD have a surge in Covid in July with WIndham reaching 21 cases per 10,000 people in August, 2020.
+
+- There is a EAST-WEST trend and cases were spread from the EAST to WEST Melbourne in July, 2020.
+
+- Owing to this there was LOCKDOWN in force from JULY 2020 to OCTOBER 2020. There was a decline in reported cases due the restrictions in place.
 ]
 ]
 ---
@@ -1002,6 +1009,7 @@ graph_dt <- clean_selected %>%
   summarise(total_cases = sum(n_cases)) %>% 
   left_join(clean_selected, by = "aclg") %>% 
   rename(from = acquired, to = Localgovernmentarea) %>% 
+  mutate(acqured=from) %>% 
   as_tbl_graph()
 
 acquired1 <- clean_selected %>% select(acquired) %>% unique()  
@@ -1012,8 +1020,11 @@ structure <- c(acquired,top_lga)
 ```
 ```{r graph4,echo=FALSE}
 set.seed(1234)
+
+
 ggraph(graph_dt, "lgl") +
-  geom_edge_link2(color = "black") +
+  geom_edge_link2(aes(edge_alpha=n_cases,
+                     edge_color=acqured)) +
   geom_node_point(data = ~.x %>% filter(name %in% structure)) + 
   geom_node_label(data = ~.x %>% filter(name %in% structure),
                   aes(label = name), repel = TRUE, 
@@ -1022,7 +1033,8 @@ ggraph(graph_dt, "lgl") +
                   aes(label = name), size = 4, 
                   label.size = 0.5,  fill = "lightblue2") +
   scale_edge_color_brewer(palette = "Dark2") + 
-  theme_void()
+  theme_void() +
+  theme()
 
 ```
 ]
@@ -1044,21 +1056,37 @@ ggraph(graph_dt, "lgl") +
 
 `r emo::ji("target")` Spike in cases is observed in the beginning of **July** to the end of **August**
 
+
 --
 
 `r emo::ji("target")` **Brimbank** showcased max increase from almost zero cases to transiting into **Red Zone**
 
 --
 
-`r emo::ji("target")` **Delta variant** spreaded more rapidly among the people
+`r emo::ji("target")` Most affected cases were because of **Contact with confirmed cases**, refer Sankey Diagram in slide 9.
+
+
+Unknown = 17%
+Contact 76%
+Travel = 0.7%
 
 --
 
-`r emo::ji("target")` Most affected cases were because of **Contact with confirmed cases**, refer Sankey Diagram in slide 9
-
+`r emo::ji("target")` Imposed lockdowns had a postive effect in curbing the spread of the virus.
 
 ---
 ## References `r emo::ji("link")`
+
+- Victorian COVID-19 data | Coronavirus Victoria. (2021). Retrieved 23 October 2021, from https://www.coronavirus.vic.gov.au/victorian-coronavirus-covid-19-data
+
+
+- Australian Bureau of Statistics (2016) 'Census GeoPackages', [GeoPackages](https://datapacks.censusdata.abs.gov.au/geopackages/), accessed 3 May 2021. 
+
+- Australian Bureau of Statistics (2016) 'Census DataPacks', [Census DataPacks](https://datapacks.censusdata.abs.gov.au/datapacks/), accessed 3 May 2021.
+
+
+---
+## R Packages `r emo::ji("link")`
 
 ```{r, load_refs, echo=FALSE}
 library(RefManageR)
