@@ -744,7 +744,7 @@ covid_week <- covid_cases %>%
   group_by(Localgovernmentarea1, week) %>%
   summarise(wk_cases = n())%>%
   ungroup() %>%
-  left_join(pop, , by=c("Localgovernmentarea1"="NAME")) %>% 
+  left_join(pop, by=c("Localgovernmentarea1"="NAME")) %>% 
   group_by(Localgovernmentarea1, week) %>%
   mutate(wk_cases_per10k = max(wk_cases/pop*10000, 0)) %>%
   ungroup()
@@ -934,17 +934,11 @@ htmltools::save_html(pg, file="plotly/pg.html")
 
 .pull-right[
 
-****Key Insights****:
+**Key Insights**:
 
 *  Every LGA spiked in the no of covid cases after June,2020
 *  The spike was almost 20%
 *  Similar kind of pattern across the some LGA
-]
-]
-.scrollable[
-.panel[.panel-name[R]
-```{r ref.label="p4", echo=TRUE, eval=FALSE}
-```
 ]
 ]
 ]
@@ -1034,10 +1028,10 @@ ggraph(graph_dt, "lgl") +
 
 **keyInsights**:
 
-]
-.panel[.panel-name[R]
-```{r ref.label="graph4", echo=TRUE, eval=FALSE}
-```
+*  **Darebin** and **Casey** were the only 2 plcases to not acquire covid from overseas travel
+
+*  Gives the confirmation once again that overseas travel was the least source of contact as theu would mostly land up in hotels for a strict 14-day quarantine.
+
 ]
 ]
 
@@ -1046,13 +1040,13 @@ ggraph(graph_dt, "lgl") +
 
 # Conclusion `r emo::ji("pen")`
 
-`r emo::ji("target")` point 1
+`r emo::ji("target")` Spike in cass is observed in the beginning of **July** to the end of **August**
 
-`r emo::ji("target")` point 2
+`r emo::ji("target")` **Brimbank** shocased max increase from almost zero cases to transiting into **Red Zone**
 
-`r emo::ji("target")` point 3
+`r emo::ji("target")` **Delta variant** spreaded more rapidly among the people
 
-`r emo::ji("target")` point 4
+`r emo::ji("target")` Most affected cases were because of **Contact with confirmed cases**, refer Sankey Dirgram in slide 9
 
 
 ---
