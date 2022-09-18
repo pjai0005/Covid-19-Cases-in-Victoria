@@ -372,66 +372,68 @@ ggplot(acq, aes(x= day, y= value, color = target))+
 The main reason: **Contact**
 
 
-<!-- ### Variants `r emo::ji("mosquito")` -->
+---
 
-<!-- .pull-left[ -->
-<!-- ```{r, warning=FALSE, message=FALSE} -->
-<!-- variant_country <- readr::read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/variants/covid-variants.csv') %>% filter(location=="Australia") -->
-<!-- variant_country <- variant_country  %>% -->
-<!--   mutate(num_sequences=ifelse(is.na(num_sequences),0,num_sequences), -->
-<!--          perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>%  -->
-<!--   mutate(year=year(date), -->
-<!--          month=month(date), -->
-<!--          day=day(date))%>%  -->
-<!--   filter(year == 2020, -->
-<!--          between(month, 5, 9))  -->
-<!-- variant_summary <- variant_country %>% group_by(variant) %>%  -->
-<!--   summarise(variant_sum=sum(num_sequences)) -->
-<!-- variant_summary %>% filter(variant_sum>100) %>%  -->
 
-<!--   ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) +  -->
-<!--   geom_col(fill= "darkred") + -->
-<!--   coord_flip() + -->
-<!--   theme_bw() + -->
-<!--   labs(y="Sum of Variants",title = "Variant Distribution", -->
-<!--          caption = "")  +  -->
-<!--         theme_classic()+ -->
-<!--         labs(y = "Number of Cases", -->
-<!--          x = "Month" ) + -->
-<!--   theme(axis.title.y = element_blank(), -->
-<!--         axis.text.y = element_text(size = 11),  -->
-<!--         legend.position = "bottom") + -->
-<!--   #gghighlight(max(variant_sum) > 15000)+ -->
-<!--   theme_minimal() -->
-<!-- ``` -->
-<!-- ] -->
+### Variants
 
-<!-- .pull-right[ -->
+.pull-left[
+```{r, warning=FALSE, message=FALSE}
+variant_country <- readr::read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/variants/covid-variants.csv') %>% filter(location=="Australia")
 
-<!-- ```{r, warning=FALSE, message=FALSE} -->
-<!-- variant_country_delta <- variant_country %>%  -->
-<!--   filter(variant=="Delta") %>% -->
-<!--   mutate(month= month(date,label=TRUE,abbr = TRUE)) %>%  -->
-<!--   pivot_longer(cols=c(num_sequences,num_sequences_total), -->
-<!--                names_to = "sequence", -->
-<!--                values_to = "number") %>%  -->
-<!--   mutate(sequence=ifelse(sequence=="num_sequences","delta","total")) -->
-<!-- variant_country_delta %>%  -->
+variant_country <- variant_country %>% mutate(
+  num_sequences=ifelse(is.na(num_sequences),0,num_sequences),
+  perc_sequences=ifelse(is.na(perc_sequences),0,perc_sequences))%>% 
+  mutate(year=year(date),
+         month=month(date),
+         day=day(date)) 
 
-<!--   ggplot(aes(x=month,y=number,fill=sequence)) +  -->
-<!--   geom_col(position="dodge")+ -->
-<!--         theme_classic()+ -->
-<!--         labs(y = "Number of Cases", -->
-<!--          x = "Month", -->
-<!--          title = "Delta Variant Cases", -->
-<!--          caption = "Delta Variant Cases") + -->
-<!--   theme(axis.title.y = element_text(size = 11), -->
-<!--         axis.text.y = element_text(size = 11),  -->
-<!--         legend.position = "bottom")+ -->
-<!--   scale_fill_brewer(palette = "Set1")+ -->
-<!--   theme_bw() -->
-<!-- ``` -->
-<!-- ] -->
+variant_summary <- variant_country %>% group_by(variant) %>% 
+  summarise(variant_sum=sum(num_sequences))
+
+variant_summary %>% filter(variant_sum>100) %>% ggplot(aes(x=reorder(variant,variant_sum),y=variant_sum)) + 
+  geom_col(fill= "darkred") +
+  coord_flip() +
+  theme_bw() +
+  labs(y="Sum of Variants",title = "Variant Distribution",
+         caption = "")  + 
+        theme_classic()+
+        labs(y = "Number of Cases",
+         x = "Month" ) +
+  theme(axis.title.y = element_blank(),
+        axis.text.y = element_text(size = 11), 
+        legend.position = "bottom") +
+  gghighlight(max(variant_sum) > 15000)+
+  theme_minimal()
+```
+]
+
+.pull-right[
+
+```{r, warning=FALSE, message=FALSE}
+variant_country_delta <- variant_country %>% 
+  filter(variant=="Delta") %>%
+  mutate(month= month(date,label=TRUE,abbr = TRUE)) %>% 
+  pivot_longer(cols=c(num_sequences,num_sequences_total),
+               names_to = "sequence",
+               values_to = "number") %>% 
+  mutate(sequence=ifelse(sequence=="num_sequences","delta","total"))
+
+variant_country_delta %>% ggplot(aes(x=month,y=number,fill=sequence)) + 
+  geom_col(position="dodge")+
+        theme_classic()+
+        labs(y = "Number of Cases",
+         x = "Month",
+         title = "Delta Variant Cases",
+         caption = "Delta Variant Cases") +
+  theme(axis.title.y = element_text(size = 11),
+        axis.text.y = element_text(size = 11), 
+        legend.position = "bottom")+
+  scale_fill_brewer(palette = "Set1")+
+  theme_bw()
+```
+]
+
 ---
 
 ### Learn `r emo::ji("pencil")`
